@@ -21,8 +21,6 @@ void shakerSort_count(int a[], int n, long long &countCompare);
 // Miscellaneous functions
 void createData_3(char *argv[]);
 void output_to_file(ofstream &out, int a[], int n);
-void input_from_file(ifstream &in, int a[], int n);
-void final_output(char *argv[], long long num_of_comparisons[], double time[]);
 
 // Algorithms' functions
 void bubble_sort_comparisons(int a[], int n, long long &comparisons);

@@ -75,3 +75,22 @@ void GenerateData(int a[], int n, int dataType)
 		printf("Error: unknown data type!\n");
 	}
 }
+
+void output_to_file(ofstream &out, int a[], int n)
+{
+	out << n << '\n';
+	for (int i = 0; i < n; i++)
+	{
+		out << a[i] << " ";
+	}
+}
+
+void input_from_file(ifstream &in, int a[], int n)
+{
+	char line[10];
+	in.getline(line, 10);
+	for (int i = 0; i < n; i++)
+	{
+		in >> a[i];
+	}
+}
