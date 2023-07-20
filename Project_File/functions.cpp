@@ -175,7 +175,7 @@ void flashSort_count(int a[], int n, long long &countCompare)
     }
 
     delete[] l;
-    insertionSort(a, n);
+    insertionSort_count(a, n, countCompare);
 }
 
 void shakerSort_count(int a[], int n, long long &countCompare)
@@ -394,7 +394,7 @@ int getDigit(int num, int digit)
 void sort(int a[], int n, int k)
 {
     int *b = new int[n];
-    int f[10] = { 0 };
+    int f[10] = {0};
 
     for (int i = 0; i < n; i++)
         f[getDigit(a[i], k)]++;
@@ -666,7 +666,132 @@ void command_1(int argc, char *argv[])
     string Input_Size = argv[3];
     string outputParams = argv[4];
 
-    int l = Input_Size.length();
+    cout << "ALGORITHM: " << algorithm << endl;
+    cout << "Input file: " << Input_Size << endl;
+
+    ifstream inf(Input_Size);
+
+    if (!inf)
+    {
+        cout << "Can't open input file. \n";
+        exit(1);
+    }
+
+    int count = 0;
+
+    inf >> count;
+
+    int *a = new int[count];
+
+    for (int i = 0; i < count; i++)
+    {
+        inf >> a[i];
+    }
+
+    inf.close();
+
+    // Calculate the run time and the comparisions of the algorithm
+
+    double elaspedTime = 0;
+    clock_t start, end;
+
+    if (algorithm == "bubble-sort")
+    {
+        bubble_sort_time(a, count, elaspedTime);
+        bubble_sort_comparisons(a, count, countCompare);
+    }
+    else if (algorithm == "selection-sort")
+    {
+        selection_sort_time(a, count, elaspedTime);
+        selection_sort_comparisons(a, count, countCompare);
+    }
+    else if (algorithm == "insertion-sort")
+    {
+        insertion_sort_time(a, count, elaspedTime);
+        insertion_sort_comparisons(a, count, countCompare);
+    }
+    else if (algorithm == "heap-sort")
+    {
+    }
+    else if (algorithm == "merge-sort")
+    {
+    }
+    else if (algorithm == "quick-sort")
+    {
+    }
+    else if (algorithm == "radix-sort")
+    {
+    }
+    else if (algorithm == "shaker-sort")
+    {
+        start = clock();
+        shakerSort(a, count);
+        end = clock();
+
+        elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+
+        shakerSort_count(a, count, countCompare);
+    }
+    else if (algorithm == "counting-sort")
+    {
+        start = clock();
+        countingSort(a, count);
+        end = clock();
+
+        elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+    }
+    else if (algorithm == "shell-sort")
+    {
+    }
+    else if (algorithm == "flash-sort")
+    {
+        start = clock();
+        flashSort(a, count);
+        end = clock();
+        elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+
+        flashSort_count(a, count, countCompare);
+    }
+
+    if (outputParams == "-both")
+    {
+        cout << "---------------------\n";
+        cout << "Running Time: " << elaspedTime << endl;
+        cout << "Comparisions: " << countCompare << endl;
+    }
+    else if (outputParams == "-comp")
+    {
+        cout << "---------------------\n";
+        cout << "Comparisions: " << countCompare << endl;
+    }
+    else
+    {
+        cout << "---------------------\n";
+        cout << "Running Time: " << elaspedTime << endl;
+    }
+
+    // Write the file into another file
+    ofstream out("output.txt");
+
+    if (!out)
+    {
+        cout << "Can't open des file. \n";
+        exit(1);
+    }
+
+    for (int i = 0; i < count; i++)
+    {
+        out << a[i] << endl;
+    }
+
+    out.close();
+}
+
+string checkArgv_3(char *argv[])
+{
+    string Input = argv[3];
+
+    int l = Input.length();
 
     string check;
     int cnt = 0;
@@ -678,129 +803,8 @@ void command_1(int argc, char *argv[])
         {
             break;
         }
-        check += Input_Size[i];
+        check += Input[i];
     }
 
-    cout << "ALGORITHM: " << algorithm << endl;
-    cout << "Input file: " << Input_Size << endl;
-
-    if (check != "txt")
-    {
-        return;
-    }
-    else
-    {
-        ifstream inf(Input_Size);
-
-        if (!inf)
-        {
-            cout << "Can't open input file. \n";
-            exit(1);
-        }
-
-        int count = 0;
-
-        inf >> count;
-
-        int *a = new int[count];
-
-        for (int i = 0; i < count; i++)
-        {
-            inf >> a[i];
-        }
-
-        inf.close();
-
-        // Calculate the run time and the comparisions of the algorithm
-
-        double elaspedTime = 0;
-        clock_t start, end;
-
-        if (algorithm == "bubble-sort")
-        {
-        }
-        else if (algorithm == "selection-sort")
-        {
-            /* code */
-        }
-        else if (algorithm == "insertion-sort")
-        {
-            /* code */
-        }
-        else if (algorithm == "heap-sort")
-        {
-        }
-        else if (algorithm == "merge-sort")
-        {
-        }
-        else if (algorithm == "quick-sort")
-        {
-        }
-        else if (algorithm == "radix-sort")
-        {
-        }
-        else if (algorithm == "shaker-sort")
-        {
-            start = clock();
-            shakerSort(a, count);
-            end = clock();
-
-            elaspedTime = double(end - start) / CLOCKS_PER_SEC;
-
-            shakerSort_count(a, count, countCompare);
-        }
-        else if (algorithm == "counting-sort")
-        {
-            start = clock();
-            countingSort(a, count);
-            end = clock();
-
-            elaspedTime = double(end - start) / CLOCKS_PER_SEC;
-        }
-        else if (algorithm == "shell-sort")
-        {
-        }
-        else if (algorithm == "flash-sort")
-        {
-            start = clock();
-            flashSort(a, count);
-            end = clock();
-            elaspedTime = double(end - start) / CLOCKS_PER_SEC;
-
-            flashSort_count(a, count, countCompare);
-        }
-
-        if (outputParams == "-both")
-        {
-            cout << "---------------------\n";
-            cout << "Running Time: " << elaspedTime << endl;
-            cout << "Comparisions: " << countCompare << endl;
-        }
-        else if (outputParams == "-comp")
-        {
-            cout << "---------------------\n";
-            cout << "Comparisions: " << countCompare << endl;
-        }
-        else
-        {
-            cout << "---------------------\n";
-            cout << "Running Time: " << elaspedTime << endl;
-        }
-
-        // Write the file into another file
-        ofstream out("output.txt");
-
-        if (!out)
-        {
-            cout << "Can't open des file. \n";
-            exit(1);
-        }
-
-        for (int i = 0; i < count; i++)
-        {
-            out << a[i] << endl;
-        }
-
-        out.close();
-    }
+    return check;
 }

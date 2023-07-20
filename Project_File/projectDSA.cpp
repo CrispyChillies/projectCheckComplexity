@@ -42,8 +42,14 @@ int main(int argc, char *argv[])
 
     if (option == "-a")
     {
-        command_1(argc, argv);
-        // command_3(argv);
+        if (checkArgv_3(argv) == "txt")
+        {
+            command_1(argc, argv);
+        }
+        else
+        {
+            command_3(argv);
+        }
     }
 
     delete[] a;

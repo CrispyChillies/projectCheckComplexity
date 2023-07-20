@@ -33,5 +33,8 @@ void insertion_sort_time(int a[], int n, double &time);
 void count_sort_comparisons(char *argv[], long long num_of_comparisons[]);
 void count_sort_time(char *argv[], double time[]);
 
+// check mode functions
+string checkArgv_3(char *argv[]);
+
 void command_1(int argc, char *argv[]);
 void command_3(char *argv[]);
