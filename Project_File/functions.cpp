@@ -394,13 +394,7 @@ int getDigit(int num, int digit)
 void sort(int a[], int n, int k)
 {
     int *b = new int[n];
-    int *f = new int[10];
-
-    // fix f allocation
-    for (int i = 0; i < 10; i++)
-    {
-        f[i] = 0;
-    }
+    int f[10] = { 0 };
 
     for (int i = 0; i < n; i++)
         f[getDigit(a[i], k)]++;
