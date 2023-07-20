@@ -268,6 +268,7 @@ void bubble_sort_comparisons(int a[], int n, long long &comparisons)
         }
     }
 }
+
 void bubble_sort_time(int a[], int n, double &time)
 {
     clock_t start = clock();
@@ -284,6 +285,7 @@ void bubble_sort_time(int a[], int n, double &time)
     clock_t end = clock();
     time = double(end - start) / CLOCKS_PER_SEC;
 }
+
 void selection_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
@@ -302,6 +304,7 @@ void selection_sort_comparisons(int a[], int n, long long &comparisons)
         HoanVi(a[i], a[minIndex]);
     }
 }
+
 void selection_sort_time(int a[], int n, double &time)
 {
     clock_t start = clock();
@@ -322,6 +325,7 @@ void selection_sort_time(int a[], int n, double &time)
     clock_t end = clock();
     time = double(end - start) / CLOCKS_PER_SEC;
 }
+
 void insertion_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
@@ -337,6 +341,7 @@ void insertion_sort_comparisons(int a[], int n, long long &comparisons)
         a[j + 1] = key;
     }
 }
+
 void insertion_sort_time(int a[], int n, double &time)
 {
     clock_t start = clock();
@@ -353,6 +358,70 @@ void insertion_sort_time(int a[], int n, double &time)
     }
     clock_t end = clock();
     time = double(end - start) / CLOCKS_PER_SEC;
+}
+
+//Hieu - radix sort
+int get_number_digits(int a[], int n)
+{
+    int max = a[0];
+
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+
+    int count = 0;
+
+    while (max > 0)
+    {
+        count++;
+        max /= 10;
+    }
+
+    return count;
+}
+
+int getDigit(int num, int digit) {
+    while (digit > 1) {
+        num /= 10;
+        digit--;
+    }
+    return num % 10;
+}
+
+void sort(int a[], int n, int k) {
+    int* b = new int[n];
+    int* f = new int[10](0);
+
+    for (int i = 0; i < n; i++)
+        f[getDigit(a[i], k)]++;
+
+    for (int i = 1; i < 10; i++)
+        f[i] += f[i - 1];
+
+    for (int i = n - 1; i >= 0; i--) {
+        int j = getDigit(a[i], k);
+        b[f[j] - 1] = a[i];
+        f[j]--;
+    }
+
+    for (int i = 0; i < n; i++)
+        a[i] = b[i];
+
+    delete[] b;
+}
+
+void radix_sort(int a[], int n) {
+    int d = get_number_digits(a, n);
+    for (int k = 1; k <= d; k++)
+        sort(a, n, k);
+}
+
+double get_time_radix_sort(int a[], int n)
+{
+    int start = clock();
+    radixsort(a, n);
+    int end = clock();
+    return (double)(end - start) / CLOCKS_PER_SEC;
 }
 
 void createData_3(char *argv[])
