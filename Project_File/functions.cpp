@@ -424,6 +424,8 @@ double get_time_radix_sort(int a[], int n)
     return (double)(end - start) / CLOCKS_PER_SEC;
 }
 
+/*          ---          */
+
 void createData_3(char *argv[])
 {
     int n = stoi(argv[3]);
