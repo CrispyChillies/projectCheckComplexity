@@ -1,6 +1,7 @@
 #include "functions.hpp"
 #include "DataGenerator.hpp"
 
+// Long - countingSort - flashSort - shakerSort - command_1
 void countingSort(int a[], int n)
 {
     int *u = new int[n];
@@ -360,7 +361,7 @@ void insertion_sort_time(int a[], int n, double &time)
     time = double(end - start) / CLOCKS_PER_SEC;
 }
 
-//Hieu - radix sort
+// Hieu - radix sort
 int get_number_digits(int a[], int n)
 {
     int max = a[0];
@@ -380,17 +381,26 @@ int get_number_digits(int a[], int n)
     return count;
 }
 
-int getDigit(int num, int digit) {
-    while (digit > 1) {
+int getDigit(int num, int digit)
+{
+    while (digit > 1)
+    {
         num /= 10;
         digit--;
     }
     return num % 10;
 }
 
-void sort(int a[], int n, int k) {
-    int* b = new int[n];
-    int* f = new int[10](0);
+void sort(int a[], int n, int k)
+{
+    int *b = new int[n];
+    int *f = new int[10];
+
+    // fix f allocation
+    for (int i = 0; i < 10; i++)
+    {
+        f[i] = 0;
+    }
 
     for (int i = 0; i < n; i++)
         f[getDigit(a[i], k)]++;
@@ -398,7 +408,8 @@ void sort(int a[], int n, int k) {
     for (int i = 1; i < 10; i++)
         f[i] += f[i - 1];
 
-    for (int i = n - 1; i >= 0; i--) {
+    for (int i = n - 1; i >= 0; i--)
+    {
         int j = getDigit(a[i], k);
         b[f[j] - 1] = a[i];
         f[j]--;
@@ -410,7 +421,8 @@ void sort(int a[], int n, int k) {
     delete[] b;
 }
 
-void radix_sort(int a[], int n) {
+void radix_sort(int a[], int n)
+{
     int d = get_number_digits(a, n);
     for (int k = 1; k <= d; k++)
         sort(a, n, k);
@@ -419,7 +431,7 @@ void radix_sort(int a[], int n) {
 double get_time_radix_sort(int a[], int n)
 {
     int start = clock();
-    radixsort(a, n);
+    radix_sort(a, n);
     int end = clock();
     return (double)(end - start) / CLOCKS_PER_SEC;
 }
