@@ -459,7 +459,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
     int n = stoi(argv[3]);
     int *a = new int[n];
     int comparisons = 0;
-    if (strcmp(argv[2], "-bubble-sort") == 0)
+    if (strcmp(argv[2], "bubble-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -478,7 +478,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         bubble_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "-selection-sort") == 0)
+    if (strcmp(argv[2], "selection-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -497,7 +497,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         selection_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "-insertion-sort") == 0)
+    if (strcmp(argv[2], "insertion-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -522,7 +522,7 @@ void count_sort_time(char *argv[], double time[])
 {
     int n = stoi(argv[3]);
     int *a = new int[n];
-    if (strcmp(argv[2], "-bubble-sort") == 0)
+    if (strcmp(argv[2], "bubble-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -541,7 +541,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         bubble_sort_time(a, n, time[3]);
     }
-    if (strcmp(argv[2], "-selection-sort") == 0)
+    if (strcmp(argv[2], "selection-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -560,7 +560,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         selection_sort_time(a, n, time[3]);
     }
-    if (strcmp(argv[2], "-insertion-sort") == 0)
+    if (strcmp(argv[2], "insertion-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -609,12 +609,10 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     char *algorithm = argv[2];
 
     // remove dashes
-    char *space = strchr(algorithm, '-');
-    space[0] = ' ';
     space = strchr(algorithm, '-');
     space[0] = ' ';
 
-    cout << "Algorithm:" << algorithm << '\n';
+    cout << "Algorithm: " << algorithm << '\n';
     cout << "Input size: " << stoi(argv[3]) << '\n'
          << '\n';
 
