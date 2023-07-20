@@ -4,23 +4,16 @@
 void countingSort(int a[], int n)
 {
     int *u = new int[n];
+    int *b = new int[n];
 
     for (int i = 0; i < n; i++)
-    {
         u[i] = 0;
-    }
 
     for (int i = 0; i < n; i++)
-    {
         u[a[i]]++;
-    }
 
     for (int i = 1; i < 100; i++)
-    {
         u[i] = u[i - 1] + u[i];
-    }
-
-    int *b = new int[n];
 
     for (int i = n - 1; i >= 0; i--)
     {
@@ -29,9 +22,7 @@ void countingSort(int a[], int n)
     }
 
     for (int i = 0; i < n; i++)
-    {
         a[i] = b[i];
-    }
 
     delete[] b;
     delete[] u;
