@@ -609,7 +609,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     char *algorithm = argv[2];
 
     // remove dashes
-    space = strchr(algorithm, '-');
+    char* space = strchr(algorithm, '-');
     space[0] = ' ';
 
     cout << "Algorithm: " << algorithm << '\n';
