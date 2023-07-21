@@ -317,9 +317,9 @@ void get_time_shakerSort(int a[], int n, double &elaspedTime)
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n && ++comparisons; i++)
     {
-        for (int j = n - 1; j > i; j--)
+        for (int j = n - 1; j > i && ++comparisons; j--)
         {
             if (a[j] < a[j - 1] && ++comparisons)
             {
@@ -349,11 +349,11 @@ void bubble_sort_time(int a[], int n, double &time)
 void selection_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n && ++comparisons; i++)
     {
         int min = a[i];
         int minIndex = i;
-        for (int j = i + 1; j < n; j++)
+        for (int j = i + 1; j < n && ++comparisons; j++)
         {
             if (a[j] < min && ++comparisons)
             {
@@ -389,7 +389,7 @@ void selection_sort_time(int a[], int n, double &time)
 void insertion_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
-    for (int i = 1; i < n; i++)
+    for (int i = 1; i < n && ++comparisons; i++)
     {
         int j = i - 1;
         int key = a[i];
