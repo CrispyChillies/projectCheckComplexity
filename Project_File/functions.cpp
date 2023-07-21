@@ -7,8 +7,7 @@ void countingSort(int a[], int n)
     int *u = new int[n];
     int *b = new int[n];
 
-    for (int i = 0; i < n; i++)
-        u[i] = 0;
+    u = {0};
 
     for (int i = 0; i < n; i++)
         u[a[i]]++;
@@ -27,6 +26,15 @@ void countingSort(int a[], int n)
 
     delete[] b;
     delete[] u;
+}
+
+void get_time_countingSort(int a[], int n, double &elaspedTime)
+{
+    clock_t start = clock();
+    countingSort(a, n);
+    clock_t end = clock();
+
+    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
 
 void insertionSort(int a[], int n)
@@ -178,6 +186,15 @@ void flashSort_count(int a[], int n, long long &countCompare)
     insertionSort_count(a, n, countCompare);
 }
 
+void get_time_flashSort(int a[], int n, double &elaspedTime)
+{
+    clock_t start = clock();
+    flashSort(a, n);
+    clock_t end = clock();
+
+    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+}
+
 void shakerSort_count(int a[], int n, long long &countCompare)
 {
     int left = 0;
@@ -253,6 +270,15 @@ void shakerSort(int a[], int n)
         right = k;
 
     } while (left < right);
+}
+
+void get_time_shakerSort(int a[], int n, double &elaspedTime)
+{
+    clock_t start = clock();
+    shakerSort(a, n);
+    clock_t end = clock();
+
+    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
 
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
@@ -388,6 +414,7 @@ int getDigit(int num, int digit)
         num /= 10;
         digit--;
     }
+
     return num % 10;
 }
 
@@ -415,22 +442,142 @@ void sort(int a[], int n, int k)
     delete[] b;
 }
 
-void radix_sort(int a[], int n)
+void radixsort(int a[], int n)
 {
     int d = get_number_digits(a, n);
+
     for (int k = 1; k <= d; k++)
         sort(a, n, k);
 }
 
 double get_time_radix_sort(int a[], int n)
 {
-    int start = clock();
-    radix_sort(a, n);
-    int end = clock();
+    clock_t start, end;
+
+    start = clock();
+    radixsort(a, n);
+    end = clock();
+
     return (double)(end - start) / CLOCKS_PER_SEC;
 }
 
-/*          ---          */
+// count comparisons of radix sort
+int get_number_digits_count(int a[], int n, long long &compCount)
+{
+    int max = a[0];
+
+    for (int i = 1; ++compCount && i < n; i++)
+        if (++compCount && a[i] > max)
+            max = a[i];
+
+    int count = 0;
+
+    while (++compCount && max > 0)
+    {
+        count++;
+        max /= 10;
+    }
+
+    return count;
+}
+
+int getDigit_count(int num, int digit, long long &compCount)
+{
+    while (++compCount && digit > 1)
+    {
+        num /= 10;
+        digit--;
+    }
+
+    return num % 10;
+}
+
+void sort_count(int a[], int n, int k, long long &compCount)
+{
+    int *b = new int[n];
+    int f[10] = {0};
+
+    for (int i = 0; ++compCount && i < n; i++)
+    {
+        f[getDigit_count(a[i], k, compCount)]++;
+    }
+
+    for (int i = 1; ++compCount && i < 10; i++)
+    {
+        f[i] += f[i - 1];
+    }
+
+    for (int i = n - 1; ++compCount && i >= 0; i--)
+    {
+        int j = getDigit_count(a[i], k, compCount);
+        b[f[j] - 1] = a[i];
+        f[j]--;
+    }
+
+    for (int i = 0; ++compCount && i < n; i++)
+    {
+        a[i] = b[i];
+    }
+
+    delete[] b;
+}
+
+void radixsort_count(int a[], int n, long long &compCount)
+{
+    int d = get_number_digits_count(a, n, compCount);
+
+    for (int k = 1; ++compCount && k <= d; k++)
+        sort(a, n, k);
+}
+
+int shell_sort(int arr[], int n)
+{
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i += 1)
+        {
+            int temp = arr[i];
+            int j;
+
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                arr[j] = arr[j - gap];
+
+            arr[j] = temp;
+        }
+    }
+    return 0;
+}
+
+double get_time_shell_sort(int a[], int n)
+{
+    clock_t start, end;
+
+    start = clock();
+    shell_sort(a, n);
+    end = clock();
+
+    return (double)(end - start) / CLOCKS_PER_SEC;
+}
+
+void shell_sort_count(int arr[], int n, long long &compCount)
+{
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i += 1)
+        {
+            int temp = arr[i];
+            int j;
+
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+            {
+                arr[j] = arr[j - gap];
+                compCount++;
+            }
+
+            arr[j] = temp;
+        }
+    }
+}
 
 void createData_3(char *argv[])
 {
@@ -609,7 +756,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     char *algorithm = argv[2];
 
     // remove dashes
-    char* space = strchr(algorithm, '-');
+    char *space = strchr(algorithm, '-');
     space[0] = ' ';
 
     cout << "Algorithm: " << algorithm << '\n';
@@ -719,36 +866,27 @@ void command_1(int argc, char *argv[])
     }
     else if (algorithm == "radix-sort")
     {
+        radixsort_count(a, count, countCompare);
+        elaspedTime = get_time_radix_sort(a, count);
     }
     else if (algorithm == "shaker-sort")
     {
-        start = clock();
-        shakerSort(a, count);
-        end = clock();
-
-        elaspedTime = double(end - start) / CLOCKS_PER_SEC;
-
         shakerSort_count(a, count, countCompare);
+        get_time_shakerSort(a, count, elaspedTime);
     }
     else if (algorithm == "counting-sort")
     {
-        start = clock();
-        countingSort(a, count);
-        end = clock();
-
-        elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+        get_time_countingSort(a, count, elaspedTime);
     }
     else if (algorithm == "shell-sort")
     {
+        shell_sort_count(a, count, countCompare);
+        elaspedTime = (a, count);
     }
     else if (algorithm == "flash-sort")
     {
-        start = clock();
-        flashSort(a, count);
-        end = clock();
-        elaspedTime = double(end - start) / CLOCKS_PER_SEC;
-
         flashSort_count(a, count, countCompare);
+        get_time_flashSort(a, count, elaspedTime);
     }
 
     if (outputParams == "-both")
