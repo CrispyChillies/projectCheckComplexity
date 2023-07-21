@@ -7,7 +7,10 @@ void countingSort(int a[], int n)
     int *u = new int[n];
     int *b = new int[n];
 
-    u = {0};
+    for (int i = 0; i < n; i++)
+    {
+        u[i] = 0;
+    }
 
     for (int i = 0; i < n; i++)
         u[a[i]]++;

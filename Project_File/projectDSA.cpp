@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     ofstream out("input.txt");
-    int n = 100000;
+    int n = 1000000;
     out << n << endl;
 
     if (!out)
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     a = new int[n];
 
-    GenerateData(a, n, 0);
+    GenerateReverseData(a, n);
 
     for (int i = 0; i < n; i++)
     {
