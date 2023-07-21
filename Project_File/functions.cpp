@@ -15,7 +15,7 @@ void countingSort(int a[], int n)
     for (int i = 0; i < n; i++)
         u[a[i]]++;
 
-    for (int i = 1; i < 100; i++)
+    for (int i = 1; i < n; i++)
         u[i] = u[i - 1] + u[i];
 
     for (int i = n - 1; i >= 0; i--)
@@ -38,6 +38,35 @@ void get_time_countingSort(int a[], int n, double &elaspedTime)
     clock_t end = clock();
 
     elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+}
+
+void countingSort_count(int a[], int n, long long &countCompare)
+{
+    int *u = new int[n];
+    int *b = new int[n];
+
+    for (int i = 0; ++countCompare && i < n; i++)
+    {
+        u[i] = 0;
+    }
+
+    for (int i = 0; ++countCompare && i < n; i++)
+        u[a[i]]++;
+
+    for (int i = 1; ++countCompare && i < n; i++)
+        u[i] = u[i - 1] + u[i];
+
+    for (int i = n - 1; ++countCompare && i >= 0; i--)
+    {
+        b[u[a[i]] - 1] = a[i];
+        u[a[i]]--;
+    }
+
+    for (int i = 0; ++countCompare && i < n; i++)
+        a[i] = b[i];
+
+    delete[] b;
+    delete[] u;
 }
 
 void insertionSort(int a[], int n)
@@ -133,27 +162,28 @@ void flashSort_count(int a[], int n, long long &countCompare)
     int m = int(0.45 * n);
     int *l = new int[m];
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; ++countCompare && i < m; i++)
         l[i] = 0;
-    for (int i = 1; i < n; i++)
+    for (int i = 1; ++countCompare && i < n; i++)
     {
         if (++countCompare && a[i] < minVal)
             minVal = a[i];
         if (++countCompare && a[i] > a[max])
             max = i;
     }
+
     if (a[max] == minVal)
         return;
 
     double c1 = (double)(m - 1) / (a[max] - minVal);
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; ++countCompare && i < n; i++)
     {
         int k = int(c1 * (a[i] - minVal));
         ++l[k];
     }
 
-    for (int i = 1; i < m; i++)
+    for (int i = 1; ++countCompare && i < m; i++)
         l[i] += l[i - 1];
 
     HoanVi(a[max], a[0]);
@@ -163,7 +193,7 @@ void flashSort_count(int a[], int n, long long &countCompare)
     int k = m - 1;
     int t = 0;
     int flash;
-    while (nmove < n - 1)
+    while (++countCompare && nmove < n - 1)
     {
         while (++countCompare && j > l[k] - 1)
         {
@@ -175,7 +205,7 @@ void flashSort_count(int a[], int n, long long &countCompare)
 
         if (++countCompare && k < 0)
             break;
-        while (j != l[k])
+        while (++countCompare && j != l[k])
         {
             k = int(c1 * (flash - minVal));
             int hold = a[t = --l[k]];
@@ -879,6 +909,7 @@ void command_1(int argc, char *argv[])
     }
     else if (algorithm == "counting-sort")
     {
+        countingSort_count(a, count, countCompare);
         get_time_countingSort(a, count, elaspedTime);
     }
     else if (algorithm == "shell-sort")

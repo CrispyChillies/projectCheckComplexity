@@ -11,6 +11,7 @@ void insertionSort(int a[], int n);
 void insertionSort_count(int a[], int n, long long &countCompare);
 
 void countingSort(int a[], int n);
+void countingSort_count(int a[], int n, long long &countCompare);
 void get_time_countingSort(int a[], int n, double &elaspedTime);
 
 void flashSort(int a[], int n);

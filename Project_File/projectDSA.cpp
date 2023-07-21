@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     ofstream out("input.txt");
-    int n = 1000000;
+    int n = 100000;
     out << n << endl;
 
     if (!out)
