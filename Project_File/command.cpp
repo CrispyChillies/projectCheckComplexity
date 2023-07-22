@@ -634,7 +634,7 @@ void command_2(int argc, char *argv[])
     {
         NumForGenerateData = 0;
     }
-    else if (DataOrder == "-sort")
+    else if (DataOrder == "-sorted")
     {
         NumForGenerateData = 1;
     }
@@ -642,7 +642,7 @@ void command_2(int argc, char *argv[])
     {
         NumForGenerateData = 2;
     }
-    else if (DataOrder == "-near")
+    else if (DataOrder == "-nsorted")
     {
         NumForGenerateData = 3;
     }
@@ -650,9 +650,9 @@ void command_2(int argc, char *argv[])
     {
         std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
         std::cout << "-Random order : -rand" << std::endl;
-        std::cout << "-Sorted order : -sort" << std::endl;
+        std::cout << "-Sorted order : -sorted" << std::endl;
         std::cout << "-Reversed order : -rev" << std::endl;
-        std::cout << "-Nearly sorted order : -near" << std::endl;
+        std::cout << "-Nearly sorted order : -nsorted" << std::endl;
         return;
     }
     int *a = new int[SizeOfInput];
