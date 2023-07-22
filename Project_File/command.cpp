@@ -652,7 +652,6 @@ void command_2(int argc, char *argv[])
     int* DataArray = new int[SizeOfInput];
     GenerateData(DataArray, SizeOfInput, NumForGenerateData);
     output_to_file("Command_2_input.txt",DataArray, SizeOfInput);
-    std::cout << "AlGORITHM MODE" << std::endl;
     std::cout << "Algorithm: " << Algorithm << std::endl;
     std::cout << "Input size: " << SizeOfInput << std::endl;
     std::cout << "Input order: " << DataOrder << std::endl;
