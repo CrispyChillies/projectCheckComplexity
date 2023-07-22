@@ -790,7 +790,6 @@ void count_sort_time(char *argv[], double time[])
     }
 }
 
-// P
 void Sift_with_count_compare(int a[], int left, int right, long long &count_compare)
 {
     int i = left;
@@ -1048,6 +1047,7 @@ double get_time_quick_sort(int a[], int n)
     Quick_sort_without_count_compare(a, 0, n - 1);
     clock_t EndofQuicksort = clock();
     double CountingsortRunningTime = static_cast<double>(EndofQuicksort - StartOfQuicksort) * 1000 / CLOCKS_PER_SEC;
+    return CountingsortRunningTime;
 }
 
 int Partition_with_count_compare(int a[], int left, int right, long long &count_compare)

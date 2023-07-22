@@ -50,10 +50,12 @@ void Quick_sort_with_count_compare(int a[], int left, int right, long long &coun
 double get_time_merge_sort(int a[], int n);
 void Merge_with_count_compare(int a[], int left, int right, int mid, long long &count_compare);
 void merge_sort_count(int a[], int left, int right, long long &count_compare);
+void Merge_sort_without_count_compare(int a[], int left, int right);
 
 double get_time_heap_sort(int a[], int n);
 void Sift_with_count_compare(int a[], int left, int right, long long &count_compare);
 void heap_sort_count(int a[], int n, long long &count_compare);
+void Heap_sort_without_count_compare(int a[], int n);
 
 // Miscellaneous functions
 void createData_3(char *argv[]);
