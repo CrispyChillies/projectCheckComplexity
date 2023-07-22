@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
     a = new int[n];
 
-    GenerateData(a, n, 0);
+    GenerateData(a, n, 2);
 
     for (int i = 0; i < n; i++)
     {

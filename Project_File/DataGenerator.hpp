@@ -15,3 +15,4 @@ void GenerateNearlySortedData(int a[], int n);
 
 void input_from_file(ifstream &in, int a[], int n);
 void final_output(char *argv[], long long num_of_comparisons[], double time[]);
+void copyFromFile(string inputFile, int *a, int n);

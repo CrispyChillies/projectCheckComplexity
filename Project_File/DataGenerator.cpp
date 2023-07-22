@@ -94,3 +94,24 @@ void input_from_file(ifstream &in, int a[], int n)
 		in >> a[i];
 	}
 }
+
+void copyFromFile(string inputFile, int *a, int n)
+{
+	ifstream inf(inputFile);
+
+	if (!inf)
+	{
+		cout << "Can't open des file to copy.\n";
+		return;
+	}
+
+	int temp;
+	inf >> temp;
+
+	for (int i = 0; i < n; i++)
+	{
+		inf >> a[i];
+	}
+
+	inf.close();
+}

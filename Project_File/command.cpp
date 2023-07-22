@@ -439,9 +439,6 @@ void command_1(int argc, char *argv[])
     string input_file = argv[3];
     string outputParams = argv[4];
 
-    cout << "ALGORITHM: " << algorithm << endl;
-    cout << "Input file: " << input_file << endl;
-
     ifstream inf(input_file);
 
     if (!inf)
@@ -471,68 +468,95 @@ void command_1(int argc, char *argv[])
     if (algorithm == "bubble-sort")
     {
         bubble_sort_time(a, count, elaspedTime);
+        copyFromFile(input_file, a, count);
         bubble_sort_comparisons(a, count, countCompare);
     }
     else if (algorithm == "selection-sort")
     {
         selection_sort_time(a, count, elaspedTime);
+        copyFromFile(input_file, a, count);
         selection_sort_comparisons(a, count, countCompare);
     }
     else if (algorithm == "insertion-sort")
     {
         insertion_sort_time(a, count, elaspedTime);
+        copyFromFile(input_file, a, count);
         insertion_sort_comparisons(a, count, countCompare);
     }
     else if (algorithm == "heap-sort")
     {
+        // heap-sort
     }
     else if (algorithm == "merge-sort")
     {
+        // merge-sort
     }
     else if (algorithm == "quick-sort")
     {
+        // quick-sort
     }
     else if (algorithm == "radix-sort")
     {
         radixsort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
         elaspedTime = get_time_radix_sort(a, count);
     }
     else if (algorithm == "shaker-sort")
     {
         shakerSort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
         get_time_shakerSort(a, count, elaspedTime);
     }
     else if (algorithm == "counting-sort")
     {
         countingSort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
         get_time_countingSort(a, count, elaspedTime);
     }
     else if (algorithm == "shell-sort")
     {
         shell_sort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
         elaspedTime = get_time_shell_sort(a, count);
     }
     else if (algorithm == "flash-sort")
     {
         flashSort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
         get_time_flashSort(a, count, elaspedTime);
+    }
+    else
+    {
+        cout << "Invalid Argument " << algorithm << ". \n";
+        exit(1);
     }
 
     if (outputParams == "-both")
     {
+        cout << "ALGORITHM: " << algorithm << endl;
+        cout << "Input file: " << input_file << endl;
         cout << "---------------------\n";
         cout << "Running Time: " << elaspedTime << endl;
         cout << "Comparisions: " << countCompare << endl;
     }
     else if (outputParams == "-comp")
     {
+        cout << "ALGORITHM: " << algorithm << endl;
+        cout << "Input file: " << input_file << endl;
         cout << "---------------------\n";
         cout << "Comparisions: " << countCompare << endl;
     }
-    else
+    else if (outputParams == "-time")
     {
+        cout << "ALGORITHM: " << algorithm << endl;
+        cout << "Input file: " << input_file << endl;
         cout << "---------------------\n";
         cout << "Running Time: " << elaspedTime << endl;
+    }
+    else
+    {
+        cout << "Invalid Argument " << outputParams << ".\n";
+        exit(1);
     }
 
     // Write the file into another file
