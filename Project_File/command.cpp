@@ -268,9 +268,10 @@ void command_5(int argc, char *argv[])
     int n = atoi(argv[4]);
     string input_order = argv[5];
 
-    int *a, *b;
+    ofstream outf("input.txt");
+
+    int *a;
     a = new int[n];
-    b = new int[n];
 
     if (input_order == "-rand")
     {
@@ -289,34 +290,60 @@ void command_5(int argc, char *argv[])
         GenerateReverseData(a, n);
     }
 
-    copy_array(a, b, n);
-
+    output_to_file(outf, a, n);
+    outf.close();
+    
     long long num_of_comparisons_1, num_of_comparisons_2;
     double time_1, time_2;
 
     if (algorithm_1 == "bubble-sort")
     {
         bubble_sort_comparisons(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         bubble_sort_time(a, n, time_1);
     }
     else if (algorithm_1 == "selection-sort")
     {
         selection_sort_comparisons(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         selection_sort_time(a, n, time_1);
     }
     else if (algorithm_1 == "insertion-sort")
     {
         insertion_sort_comparisons(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         insertion_sort_time(a, n, time_1);
     }
     else if (algorithm_1 == "shaker-sort")
     {
         shakerSort_count(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         get_time_shakerSort(a, n, time_1);
     }
     else if (algorithm_1 == "shell-sort")
     {
         shell_sort_count(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         time_1 = get_time_shell_sort(a, n);
     }
     else if (algorithm_1 == "heap-sort")
@@ -337,16 +364,31 @@ void command_5(int argc, char *argv[])
     else if (algorithm_1 == "flash-sort")
     {
         flashSort_count(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         get_time_flashSort(a, n, time_1);
     }
     else if (algorithm_1 == "counting-sort")
     {
         countingSort_count(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         get_time_countingSort(a, n, time_1);
     }
     else if (algorithm_1 == "radix-sort")
     {
         radixsort_count(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
         time_1 = get_time_radix_sort(a, n);
     }
     else
@@ -355,31 +397,59 @@ void command_5(int argc, char *argv[])
         exit(1);
     }
 
+    ifstream inpf("input.txt");
+	input_from_file(inpf,a,n);
+
     // get number of comparisons and time of algorithm 2
     if (algorithm_2 == "bubble-sort")
     {
-        bubble_sort_comparisons(b, n, num_of_comparisons_2);
-        bubble_sort_time(b, n, time_2);
+        bubble_sort_comparisons(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        bubble_sort_time(a, n, time_2);
     }
     else if (algorithm_2 == "selection-sort")
     {
-        selection_sort_comparisons(b, n, num_of_comparisons_2);
-        selection_sort_time(b, n, time_2);
+        selection_sort_comparisons(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        selection_sort_time(a, n, time_2);
     }
     else if (algorithm_2 == "insertion-sort")
     {
-        insertion_sort_comparisons(b, n, num_of_comparisons_2);
-        insertion_sort_time(b, n, time_2);
+        insertion_sort_comparisons(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        insertion_sort_time(a, n, time_2);
     }
     else if (algorithm_2 == "shaker-sort")
     {
-        shakerSort_count(b, n, num_of_comparisons_2);
-        get_time_shakerSort(b, n, time_2);
+        shakerSort_count(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        get_time_shakerSort(a, n, time_2);
     }
     else if (algorithm_2 == "shell-sort")
     {
-        shell_sort_count(b, n, num_of_comparisons_2);
-        time_2 = get_time_shell_sort(b, n);
+        shell_sort_count(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_2 = get_time_shell_sort(a, n);
     }
     else if (algorithm_2 == "heap-sort")
     {
@@ -398,18 +468,33 @@ void command_5(int argc, char *argv[])
     }
     else if (algorithm_2 == "flash-sort")
     {
-        flashSort_count(b, n, num_of_comparisons_2);
-        get_time_flashSort(b, n, time_2);
+        flashSort_count(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        get_time_flashSort(a, n, time_2);
     }
     else if (algorithm_2 == "counting-sort")
     {
-        countingSort_count(b, n, num_of_comparisons_2);
-        get_time_countingSort(b, n, time_2);
+        countingSort_count(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        get_time_countingSort(a, n, time_2);
     }
     else if (algorithm_2 == "radix-sort")
     {
-        radixsort_count(b, n, num_of_comparisons_2);
-        time_2 = get_time_radix_sort(b, n);
+        radixsort_count(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_2 = get_time_radix_sort(a, n);
     }
     else
     {
@@ -427,7 +512,6 @@ void command_5(int argc, char *argv[])
     cout << endl;
 
     delete[] a;
-    delete[] b;
 }
 
 void command_3(char *argv[])
