@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < n; i++)
     {
-        out << a[i] << endl;
+        out << a[i] << " ";
     }
 
     out.close();

@@ -47,10 +47,7 @@ void countingSort_count(int a[], int n, long long &countCompare)
     int *u = new int[n];
     int *b = new int[n];
 
-    for (int i = 0; ++countCompare && i < n; i++)
-    {
-        u[i] = 0;
-    }
+    memset(u, 0, n * sizeof(int));
 
     for (int i = 0; ++countCompare && i < n; i++)
         u[a[i]]++;
@@ -144,7 +141,7 @@ void flashSort(int a[], int n)
 
 void insertionSort_count(int a[], int n, long long &countCompare)
 {
-    for (int i = 1; i < n; i++)
+    for (int i = 1; ++countCompare && i < n; i++)
     {
         int k = i - 1;
         int key = a[i];
@@ -174,7 +171,7 @@ void flashSort_count(int a[], int n, long long &countCompare)
             max = i;
     }
 
-    if (a[max] == minVal)
+    if (++countCompare && a[max] == minVal)
         return;
 
     double c1 = (double)(m - 1) / (a[max] - minVal);
@@ -195,6 +192,7 @@ void flashSort_count(int a[], int n, long long &countCompare)
     int k = m - 1;
     int t = 0;
     int flash;
+
     while (++countCompare && nmove < n - 1)
     {
         while (++countCompare && j > l[k] - 1)
@@ -352,19 +350,18 @@ void bubble_sort_time(int a[], int n, double &time)
         }
     }
     clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC;
+    time = double(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 void selection_sort_comparisons(int a[], int n, long long &comparisons)
 {
-    comparisons = 0;
-    for (int i = 0; i < n && ++comparisons; i++)
+    for (int i = 0; ++comparisons && i < n; i++)
     {
         int min = a[i];
         int minIndex = i;
-        for (int j = i + 1; j < n && ++comparisons; j++)
+        for (int j = i + 1; ++comparisons && j < n; j++)
         {
-            if (a[j] < min && ++comparisons)
+            if (++comparisons && a[j] < min)
             {
                 min = a[j];
                 minIndex = j;
@@ -392,7 +389,7 @@ void selection_sort_time(int a[], int n, double &time)
         HoanVi(a[i], a[minIndex]);
     }
     clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC;
+    time = double(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 void insertion_sort_comparisons(int a[], int n, long long &comparisons)
@@ -426,7 +423,7 @@ void insertion_sort_time(int a[], int n, double &time)
         a[j + 1] = key;
     }
     clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC;
+    time = double(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 // Hieu - radix sort
@@ -603,17 +600,16 @@ double get_time_shell_sort(int a[], int n)
 
 void shell_sort_count(int arr[], int n, long long &compCount)
 {
-    for (int gap = n / 2; gap > 0; gap /= 2)
+    for (int gap = n / 2; ++compCount && gap > 0; gap /= 2)
     {
-        for (int i = gap; i < n; i += 1)
+        for (int i = gap; ++compCount && i < n; i += 1)
         {
             int temp = arr[i];
             int j;
 
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+            for (j = i; ++compCount && j >= gap && arr[j - gap] > temp; j -= gap)
             {
                 arr[j] = arr[j - gap];
-                compCount++;
             }
 
             arr[j] = temp;
@@ -626,18 +622,22 @@ void createData_3(char *argv[])
 {
     int n = stoi(argv[3]);
     int *a = new int[n];
+
     GenerateRandomData(a, n);
     ofstream out1("input1.txt");
     output_to_file(out1, a, n);
     out1.close();
+
     GenerateNearlySortedData(a, n);
     ofstream out2("input2.txt");
     output_to_file(out2, a, n);
     out2.close();
+
     GenerateSortedData(a, n);
     ofstream out3("input3.txt");
     output_to_file(out3, a, n);
     out3.close();
+
     GenerateReverseData(a, n);
     ofstream out4("input4.txt");
     output_to_file(out4, a, n);
@@ -649,20 +649,24 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
     int n = stoi(argv[3]);
     int *a = new int[n];
     int comparisons = 0;
+
     if (strcmp(argv[2], "bubble-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
         in_random.close();
         bubble_sort_comparisons(a, n, num_of_comparisons[0]);
+
         ifstream in_nearlysorted("input2.txt");
         input_from_file(in_nearlysorted, a, n);
         in_nearlysorted.close();
         bubble_sort_comparisons(a, n, num_of_comparisons[1]);
+
         ifstream in_sorted("input3.txt");
         input_from_file(in_sorted, a, n);
         in_sorted.close();
         bubble_sort_comparisons(a, n, num_of_comparisons[2]);
+
         ifstream in_reversed("input4.txt");
         input_from_file(in_reversed, a, n);
         in_reversed.close();
@@ -674,14 +678,17 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         input_from_file(in_random, a, n);
         in_random.close();
         selection_sort_comparisons(a, n, num_of_comparisons[0]);
+
         ifstream in_nearlysorted("input2.txt");
         input_from_file(in_nearlysorted, a, n);
         in_nearlysorted.close();
         selection_sort_comparisons(a, n, num_of_comparisons[1]);
+
         ifstream in_sorted("input3.txt");
         input_from_file(in_sorted, a, n);
         in_sorted.close();
         selection_sort_comparisons(a, n, num_of_comparisons[2]);
+
         ifstream in_reversed("input4.txt");
         input_from_file(in_reversed, a, n);
         in_reversed.close();
@@ -693,14 +700,17 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         input_from_file(in_random, a, n);
         in_random.close();
         insertion_sort_comparisons(a, n, num_of_comparisons[0]);
+
         ifstream in_nearlysorted("input2.txt");
         input_from_file(in_nearlysorted, a, n);
         in_nearlysorted.close();
         insertion_sort_comparisons(a, n, num_of_comparisons[1]);
+
         ifstream in_sorted("input3.txt");
         input_from_file(in_sorted, a, n);
         in_sorted.close();
         insertion_sort_comparisons(a, n, num_of_comparisons[2]);
+
         ifstream in_reversed("input4.txt");
         input_from_file(in_reversed, a, n);
         in_reversed.close();
@@ -718,14 +728,17 @@ void count_sort_time(char *argv[], double time[])
         input_from_file(in_random, a, n);
         in_random.close();
         bubble_sort_time(a, n, time[0]);
+
         ifstream in_nearlysorted("input2.txt");
         input_from_file(in_nearlysorted, a, n);
         in_nearlysorted.close();
         bubble_sort_time(a, n, time[1]);
+
         ifstream in_sorted("input3.txt");
         input_from_file(in_sorted, a, n);
         in_sorted.close();
         bubble_sort_time(a, n, time[2]);
+
         ifstream in_reversed("input4.txt");
         input_from_file(in_reversed, a, n);
         in_reversed.close();
@@ -737,14 +750,17 @@ void count_sort_time(char *argv[], double time[])
         input_from_file(in_random, a, n);
         in_random.close();
         selection_sort_time(a, n, time[0]);
+
         ifstream in_nearlysorted("input2.txt");
         input_from_file(in_nearlysorted, a, n);
         in_nearlysorted.close();
         selection_sort_time(a, n, time[1]);
+
         ifstream in_sorted("input3.txt");
         input_from_file(in_sorted, a, n);
         in_sorted.close();
         selection_sort_time(a, n, time[2]);
+
         ifstream in_reversed("input4.txt");
         input_from_file(in_reversed, a, n);
         in_reversed.close();
@@ -756,14 +772,17 @@ void count_sort_time(char *argv[], double time[])
         input_from_file(in_random, a, n);
         in_random.close();
         insertion_sort_time(a, n, time[0]);
+
         ifstream in_nearlysorted("input2.txt");
         input_from_file(in_nearlysorted, a, n);
         in_nearlysorted.close();
         insertion_sort_time(a, n, time[1]);
+
         ifstream in_sorted("input3.txt");
         input_from_file(in_sorted, a, n);
         in_sorted.close();
         insertion_sort_time(a, n, time[2]);
+
         ifstream in_reversed("input4.txt");
         input_from_file(in_reversed, a, n);
         in_reversed.close();

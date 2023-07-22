@@ -18,8 +18,10 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     // Random data
     cout << "Input order: Randomize" << '\n';
     cout << "--------------------------" << '\n';
+
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Running time: " << time[0] << '\n';
+
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[0] << '\n';
     cout << '\n';
@@ -27,8 +29,10 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     // Nearly sorted data
     cout << "Input order: Nearly Sorted" << '\n';
     cout << "--------------------------" << '\n';
+
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Running time: " << time[1] << '\n';
+
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[1] << '\n';
     cout << '\n';
@@ -36,8 +40,10 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     // Sorted data
     cout << "Input order: Sorted" << '\n';
     cout << "--------------------------" << '\n';
+
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Running time: " << time[2] << '\n';
+
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[2] << '\n';
     cout << '\n';
@@ -45,8 +51,10 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     // Reversed data
     cout << "Input order: Reversed" << '\n';
     cout << "--------------------------" << '\n';
+
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Running time: " << time[3] << '\n';
+
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[3] << '\n';
     cout << '\n';
@@ -72,8 +80,8 @@ void command_4(int argc, char *argv[])
     }
 
     int n;
-    long long num_of_comparisons_1, num_of_comparisons_2;
-    double time_1, time_2;
+    long long num_of_comparisons_1 = 0, num_of_comparisons_2 = 0;
+    double time_1 = 0, time_2 = 0;
 
     inf >> n;
 
@@ -88,26 +96,31 @@ void command_4(int argc, char *argv[])
     if (algorithm_1 == "bubble-sort")
     {
         bubble_sort_comparisons(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         bubble_sort_time(a, n, time_1);
     }
     else if (algorithm_1 == "selection-sort")
     {
         selection_sort_comparisons(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         selection_sort_time(a, n, time_1);
     }
     else if (algorithm_1 == "insertion-sort")
     {
         insertion_sort_comparisons(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         insertion_sort_time(a, n, time_1);
     }
     else if (algorithm_1 == "shaker-sort")
     {
         shakerSort_count(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         get_time_shakerSort(a, n, time_1);
     }
     else if (algorithm_1 == "shell-sort")
     {
         shell_sort_count(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         time_1 = get_time_shell_sort(a, n);
     }
     else if (algorithm_1 == "heap-sort")
@@ -128,16 +141,19 @@ void command_4(int argc, char *argv[])
     else if (algorithm_1 == "flash-sort")
     {
         flashSort_count(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         get_time_flashSort(a, n, time_1);
     }
     else if (algorithm_1 == "counting-sort")
     {
         countingSort_count(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         get_time_countingSort(a, n, time_1);
     }
     else if (algorithm_1 == "radix-sort")
     {
         radixsort_count(a, n, num_of_comparisons_1);
+        copyFromFile(input_file, a, n);
         time_1 = get_time_radix_sort(a, n);
     }
     else
@@ -157,26 +173,31 @@ void command_4(int argc, char *argv[])
     if (algorithm_2 == "bubble-sort")
     {
         bubble_sort_comparisons(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         bubble_sort_time(a, n, time_2);
     }
     else if (algorithm_2 == "selection-sort")
     {
         selection_sort_comparisons(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         selection_sort_time(a, n, time_2);
     }
     else if (algorithm_2 == "insertion-sort")
     {
         insertion_sort_comparisons(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         insertion_sort_time(a, n, time_2);
     }
     else if (algorithm_2 == "shaker-sort")
     {
         shakerSort_count(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         get_time_shakerSort(a, n, time_2);
     }
     else if (algorithm_2 == "shell-sort")
     {
         shell_sort_count(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         time_2 = get_time_shell_sort(a, n);
     }
     else if (algorithm_2 == "heap-sort")
@@ -197,16 +218,19 @@ void command_4(int argc, char *argv[])
     else if (algorithm_2 == "flash-sort")
     {
         flashSort_count(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         get_time_flashSort(a, n, time_2);
     }
     else if (algorithm_2 == "counting-sort")
     {
         countingSort_count(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         get_time_countingSort(a, n, time_2);
     }
     else if (algorithm_2 == "radix-sort")
     {
         radixsort_count(a, n, num_of_comparisons_2);
+        copyFromFile(input_file, a, n);
         time_2 = get_time_radix_sort(a, n);
     }
     else
@@ -410,8 +434,11 @@ void command_3(char *argv[])
 {
     long long num_of_comparisons[4];
     double time[4];
+
     createData_3(argv);
+
     int size = stoi(argv[3]); // size of the array
+
     if (strcmp(argv[4], "-comp") == 0)
     {
         count_sort_comparisons(argv, num_of_comparisons);
@@ -425,6 +452,7 @@ void command_3(char *argv[])
         count_sort_comparisons(argv, num_of_comparisons);
         count_sort_time(argv, time);
     }
+
     final_output(argv, num_of_comparisons, time);
 }
 
@@ -536,7 +564,7 @@ void command_1(int argc, char *argv[])
         cout << "ALGORITHM: " << algorithm << endl;
         cout << "Input file: " << input_file << endl;
         cout << "---------------------\n";
-        cout << "Running Time: " << elaspedTime << endl;
+        cout << "Running Time: " << elaspedTime << " ms" << endl;
         cout << "Comparisions: " << countCompare << endl;
     }
     else if (outputParams == "-comp")
@@ -551,7 +579,7 @@ void command_1(int argc, char *argv[])
         cout << "ALGORITHM: " << algorithm << endl;
         cout << "Input file: " << input_file << endl;
         cout << "---------------------\n";
-        cout << "Running Time: " << elaspedTime << endl;
+        cout << "Running Time: " << elaspedTime << " ms" << endl;
     }
     else
     {
@@ -568,9 +596,11 @@ void command_1(int argc, char *argv[])
         exit(1);
     }
 
+    out << count << endl;
+
     for (int i = 0; i < count; i++)
     {
-        out << a[i] << endl;
+        out << a[i] << " ";
     }
 
     out.close();
