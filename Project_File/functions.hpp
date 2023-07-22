@@ -45,9 +45,3 @@ double get_time_shell_sort(int a[], int n);
 // Miscellaneous functions
 void createData_3(char *argv[]);
 void output_to_file(ofstream &out, int a[], int n);
-
-// check mode functions
-string checkArgv_3(char *argv[]);
-
-void command_1(int argc, char *argv[]);
-void command_3(char *argv[]);

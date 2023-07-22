@@ -33,9 +33,11 @@ void countingSort(int a[], int n)
 
 void get_time_countingSort(int a[], int n, double &elaspedTime)
 {
-    clock_t start = clock();
+    clock_t start, end;
+
+    start = clock();
     countingSort(a, n);
-    clock_t end = clock();
+    end = clock();
 
     elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
@@ -221,9 +223,11 @@ void flashSort_count(int a[], int n, long long &countCompare)
 
 void get_time_flashSort(int a[], int n, double &elaspedTime)
 {
-    clock_t start = clock();
+    clock_t start, end;
+
+    start = clock();
     flashSort(a, n);
-    clock_t end = clock();
+    end = clock();
 
     elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
@@ -305,13 +309,17 @@ void shakerSort(int a[], int n)
     } while (left < right);
 }
 
-void get_time_shakerSort(int a[], int n, double &elaspedTime)
+void get_time_shakerSort(int a[], int n, double &elapsedTime)
 {
-    clock_t start = clock();
-    shakerSort(a, n);
-    clock_t end = clock();
+    clock_t start, end;
 
-    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+    start = clock();
+
+    shakerSort(a, n);
+
+    end = clock();
+
+    elapsedTime = ((double)(end - start)) / CLOCKS_PER_SEC * 1000;
 }
 
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
@@ -759,222 +767,4 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         insertion_sort_time(a, n, time[3]);
     }
-}
-
-void command_3(char *argv[])
-{
-    long long num_of_comparisons[4];
-    double time[4];
-    createData_3(argv);
-    int size = stoi(argv[3]); // size of the array
-    if (strcmp(argv[4], "-comp") == 0)
-    {
-        count_sort_comparisons(argv, num_of_comparisons);
-    }
-    if (strcmp(argv[4], "-time") == 0)
-    {
-        count_sort_time(argv, time);
-    }
-    if (strcmp(argv[4], "-both") == 0)
-    {
-        count_sort_comparisons(argv, num_of_comparisons);
-        count_sort_time(argv, time);
-    }
-    final_output(argv, num_of_comparisons, time);
-}
-
-void final_output(char *argv[], long long num_of_comparisons[], double time[])
-{
-    cout << "ALGORITHM MODE" << '\n';
-    char *algorithm = argv[2];
-
-    // remove dashes
-    char *space = strchr(algorithm, '-');
-    space[0] = ' ';
-
-    cout << "Algorithm: " << algorithm << '\n';
-    cout << "Input size: " << stoi(argv[3]) << '\n'
-         << '\n';
-
-    // Random data
-    cout << "Input order: Randomize" << '\n';
-    cout << "--------------------------" << '\n';
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[0] << '\n';
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[0] << '\n';
-    cout << '\n';
-
-    // Nearly sorted data
-    cout << "Input order: Nearly Sorted" << '\n';
-    cout << "--------------------------" << '\n';
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[1] << '\n';
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[1] << '\n';
-    cout << '\n';
-
-    // Sorted data
-    cout << "Input order: Sorted" << '\n';
-    cout << "--------------------------" << '\n';
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[2] << '\n';
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[2] << '\n';
-    cout << '\n';
-
-    // Reversed data
-    cout << "Input order: Reversed" << '\n';
-    cout << "--------------------------" << '\n';
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[3] << '\n';
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[3] << '\n';
-    cout << '\n';
-}
-
-void command_1(int argc, char *argv[])
-{
-    if (argc == 6)
-        return;
-
-    long long countCompare = 0;
-
-    string algorithm = argv[2];
-    string Input_Size = argv[3];
-    string outputParams = argv[4];
-
-    cout << "ALGORITHM: " << algorithm << endl;
-    cout << "Input file: " << Input_Size << endl;
-
-    ifstream inf(Input_Size);
-
-    if (!inf)
-    {
-        cout << "Can't open input file. \n";
-        exit(1);
-    }
-
-    int count = 0;
-
-    inf >> count;
-
-    int *a = new int[count];
-
-    for (int i = 0; i < count; i++)
-    {
-        inf >> a[i];
-    }
-
-    inf.close();
-
-    // Calculate the run time and the comparisions of the algorithm
-
-    double elaspedTime = 0;
-    clock_t start, end;
-
-    if (algorithm == "bubble-sort")
-    {
-        bubble_sort_time(a, count, elaspedTime);
-        bubble_sort_comparisons(a, count, countCompare);
-    }
-    else if (algorithm == "selection-sort")
-    {
-        selection_sort_time(a, count, elaspedTime);
-        selection_sort_comparisons(a, count, countCompare);
-    }
-    else if (algorithm == "insertion-sort")
-    {
-        insertion_sort_time(a, count, elaspedTime);
-        insertion_sort_comparisons(a, count, countCompare);
-    }
-    else if (algorithm == "heap-sort")
-    {
-    }
-    else if (algorithm == "merge-sort")
-    {
-    }
-    else if (algorithm == "quick-sort")
-    {
-    }
-    else if (algorithm == "radix-sort")
-    {
-        radixsort_count(a, count, countCompare);
-        elaspedTime = get_time_radix_sort(a, count);
-    }
-    else if (algorithm == "shaker-sort")
-    {
-        shakerSort_count(a, count, countCompare);
-        get_time_shakerSort(a, count, elaspedTime);
-    }
-    else if (algorithm == "counting-sort")
-    {
-        countingSort_count(a, count, countCompare);
-        get_time_countingSort(a, count, elaspedTime);
-    }
-    else if (algorithm == "shell-sort")
-    {
-        shell_sort_count(a, count, countCompare);
-        elaspedTime = (a, count);
-    }
-    else if (algorithm == "flash-sort")
-    {
-        flashSort_count(a, count, countCompare);
-        get_time_flashSort(a, count, elaspedTime);
-    }
-
-    if (outputParams == "-both")
-    {
-        cout << "---------------------\n";
-        cout << "Running Time: " << elaspedTime << endl;
-        cout << "Comparisions: " << countCompare << endl;
-    }
-    else if (outputParams == "-comp")
-    {
-        cout << "---------------------\n";
-        cout << "Comparisions: " << countCompare << endl;
-    }
-    else
-    {
-        cout << "---------------------\n";
-        cout << "Running Time: " << elaspedTime << endl;
-    }
-
-    // Write the file into another file
-    ofstream out("output.txt");
-
-    if (!out)
-    {
-        cout << "Can't open des file. \n";
-        exit(1);
-    }
-
-    for (int i = 0; i < count; i++)
-    {
-        out << a[i] << endl;
-    }
-
-    out.close();
-}
-
-string checkArgv_3(char *argv[])
-{
-    string Input = argv[3];
-
-    int l = Input.length();
-
-    string check;
-    int cnt = 0;
-
-    for (int i = l - 1; i >= 0; i--)
-    {
-        cnt++;
-        if (cnt > 3)
-        {
-            break;
-        }
-        check += Input[i];
-    }
-
-    return check;
 }
