@@ -291,11 +291,6 @@ void command_5(int argc, char *argv[])
 
     copy_array(a, b, n);
 
-    for (int i = 0; i < n; i++)
-    {
-        cout << b[i] << " ";
-    }
-
     long long num_of_comparisons_1 = 0, num_of_comparisons_2 = 0;
     double time_1 = 0, time_2 = 0;
 
