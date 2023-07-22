@@ -790,169 +790,220 @@ void count_sort_time(char *argv[], double time[])
     }
 }
 
-//P
-void Sift_with_count_compare(int a[], int left, int right, long& count_compare) {
+// P
+void Sift_with_count_compare(int a[], int left, int right, long long &count_compare)
+{
     int i = left;
     int j = i * 2;
     int x = a[i];
-    while (j <= right and ++count_compare) {
+    while (++count_compare && j <= right)
+    {
         count_compare++;
-        if (j < right) {
+        if (j < right)
+        {
             count_compare++;
-            if (a[j] > a[j + 1]) {
+            if (a[j] > a[j + 1])
+            {
                 j++;
             }
         }
         count_compare++;
-        if (x <= a[j]) {
+        if (x <= a[j])
+        {
             break;
         }
         a[i] = a[j];
-        i = j; j = i * 2;
+        i = j;
+        j = i * 2;
     }
     a[i] = x;
 }
-void heap_sort_count(int a[], int n, long& count_compare) {
+
+void heap_sort_count(int a[], int n, long long &count_compare)
+{
     int left = n / 2;
     int right = n - 1;
-    while (left > 0 and ++count_compare) {
+    while (++count_compare && left > 0)
+    {
         Sift_with_count_compare(a, left, right, count_compare);
         left--;
     }
-    while (right > 1 and ++count_compare) {
+    while (++count_compare && right > 1)
+    {
         std::swap(a[right], a[1]);
         right--;
         Sift_with_count_compare(a, 1, right, count_compare);
     }
 }
-double get_time_heap_sort(int a[], int n) {
+
+double get_time_heap_sort(int a[], int n)
+{
     clock_t StartofHeapsort = clock();
     Heap_sort_without_count_compare(a, n);
     clock_t EndofHeapsort = clock();
     double HeapsortRunningTime = static_cast<double>(EndofHeapsort - StartofHeapsort) * 1000 / CLOCKS_PER_SEC;
     return HeapsortRunningTime;
 }
-void sift_without_count_compare(int a[], int left, int right) {
+
+void sift_without_count_compare(int a[], int left, int right)
+{
     int i = left;
     int j = i * 2;
     int x = a[i];
-    while (j <= right) {
-        if (j < right) {
-            if (a[j] > a[j + 1]) {
+    while (j <= right)
+    {
+        if (j < right)
+        {
+            if (a[j] > a[j + 1])
+            {
                 j++;
             }
         }
-        if (x <= a[j]) {
+        if (x <= a[j])
+        {
             break;
         }
         a[i] = a[j];
-        i = j; j = i * 2;
+        i = j;
+        j = i * 2;
     }
     a[i] = x;
 }
-void Heap_sort_without_count_compare(int a[], int n) {
+
+void Heap_sort_without_count_compare(int a[], int n)
+{
     int left = n / 2;
     int right = n - 1;
-    while (left > 0) {
+    while (left > 0)
+    {
         sift_without_count_compare(a, left, right);
         left--;
     }
-    while (right > 1) {
-        std::swap(a[right], a[1]);
+    while (right > 1)
+    {
+        HoanVi(a[right], a[1]);
         right--;
         sift_without_count_compare(a, 1, right);
     }
 }
 
-
-void merge_sort_count(int a[], int left, int right, long& count_compare) {
-    if (left < right and ++count_compare) {
+void merge_sort_count(int a[], int left, int right, long long &count_compare)
+{
+    if (++count_compare && left < right)
+    {
         int mid = left + (right - left) / 2;
         merge_sort_count(a, left, mid, count_compare);
         merge_sort_count(a, mid + 1, right, count_compare);
         Merge_with_count_compare(a, left, right, mid, count_compare);
     }
 }
-void Merge_with_count_compare(int a[], int left, int right, int mid, long& count_compare) {
+
+void Merge_with_count_compare(int a[], int left, int right, int mid, long long &count_compare)
+{
     int t1 = mid - left + 1;
     int t2 = right - mid;
-    int* ML = new int[t1]; // mid to left
-    int* MR = new int[t2]; // mid to right
-    for (int i = 0; i < t1 and ++count_compare; i++) {
+    int *ML = new int[t1]; // mid to left
+    int *MR = new int[t2]; // mid to right
+    for (int i = 0; ++count_compare && i < t1; i++)
+    {
         ML[i] = a[i + left];
     }
-    for (int j = 0; j < t2 and ++count_compare; j++) {
+    for (int j = 0; ++count_compare && j < t2; j++)
+    {
         MR[j] = a[j + mid + 1];
     }
     int i = 0, j = 0, k = left;
     count_compare += 2;
-    while (i < t1 and j < t2) {
+    while (i < t1 && j < t2)
+    {
         count_compare++;
-        if (ML[i] > MR[j]) {
+        if (ML[i] > MR[j])
+        {
             a[k] = MR[j];
             j++;
         }
-        else {
+        else
+        {
             a[k] = ML[i];
             i++;
         }
         k++;
         count_compare += 2;
     }
-    while (i < t1 and ++count_compare) {
+    while (i < t1 && ++count_compare)
+    {
         a[k] = ML[i];
-        k++; i++;
+        k++;
+        i++;
     }
-    while (j < t2 and ++count_compare) {
+    while (j < t2 && ++count_compare)
+    {
         a[k] = MR[j];
-        k++; j++;
+        k++;
+        j++;
     }
     delete[] MR;
     delete[] ML;
 }
-double get_time_merge_sort(int a[], int n) {
+
+double get_time_merge_sort(int a[], int n)
+{
     clock_t StartofMergesort = clock();
     Merge_sort_without_count_compare(a, 0, n - 1);
     clock_t EndofMergesort = clock();
     double MergesortRunningTime = static_cast<double>(EndofMergesort - StartofMergesort) * 1000 / CLOCKS_PER_SEC;
     return MergesortRunningTime;
 }
-void merge_without_count_compare(int a[], int left, int right, int mid) {
+
+void merge_without_count_compare(int a[], int left, int right, int mid)
+{
     int t1 = mid - left + 1;
     int t2 = right - mid;
-    int* ML = new int[t1]; // mid to left
-    int* MR = new int[t2]; // mid to right
-    for (int i = 0; i < t1; i++) {
+    int *ML = new int[t1]; // mid to left
+    int *MR = new int[t2]; // mid to right
+    for (int i = 0; i < t1; i++)
+    {
         ML[i] = a[i + left];
     }
-    for (int j = 0; j < t2; j++) {
+    for (int j = 0; j < t2; j++)
+    {
         MR[j] = a[j + mid + 1];
     }
     int i = 0, j = 0, k = left;
-    while (i < t1 and j < t2) {
-        if (ML[i] > MR[j]) {
+    while (i < t1 && j < t2)
+    {
+        if (ML[i] > MR[j])
+        {
             a[k] = MR[j];
             j++;
         }
-        else {
+        else
+        {
             a[k] = ML[i];
             i++;
         }
         k++;
     }
-    while (i < t1) {
+    while (i < t1)
+    {
         a[k] = ML[i];
-        k++; i++;
+        k++;
+        i++;
     }
-    while (j < t2) {
+    while (j < t2)
+    {
         a[k] = MR[j];
-        k++; j++;
+        k++;
+        j++;
     }
     delete[] MR;
     delete[] ML;
 }
-void Merge_sort_without_count_compare(int a[], int left, int right) {
-    if (left < right) {
+
+void Merge_sort_without_count_compare(int a[], int left, int right)
+{
+    if (left < right)
+    {
         int mid = left + (right - left) / 2;
         Merge_sort_without_count_compare(a, left, mid);
         Merge_sort_without_count_compare(a, mid + 1, right);
@@ -960,190 +1011,72 @@ void Merge_sort_without_count_compare(int a[], int left, int right) {
     }
 }
 
-int Partition_without_count_compare(int a[], int left, int right) {
+int Partition_without_count_compare(int a[], int left, int right)
+{
     int p = a[left];
     int i = left;
     int j = right + 1;
-    do {
-        do i++; while (a[i] < p);
-        do j--; while (a[j] > p);
+    do
+    {
+        do
+            i++;
+        while (a[i] < p);
+        do
+            j--;
+        while (a[j] > p);
         std::swap(a[i], a[j]);
     } while (i < j);
     std::swap(a[i], a[j]);
     std::swap(a[j], a[left]);
     return j;
 }
-void Quick_sort_without_count_compare(int a[], int left, int right) {
+
+void Quick_sort_without_count_compare(int a[], int left, int right)
+{
     int s = 0;
-    if (left < right) {
+    if (left < right)
+    {
         s = Partition_without_count_compare(a, left, right);
         Quick_sort_without_count_compare(a, left, s - 1);
         Quick_sort_without_count_compare(a, s + 1, right);
     }
 }
-double get_time_quick_sort(int a[], int n) {
+
+double get_time_quick_sort(int a[], int n)
+{
     clock_t StartOfQuicksort = clock();
     Quick_sort_without_count_compare(a, 0, n - 1);
     clock_t EndofQuicksort = clock();
     double CountingsortRunningTime = static_cast<double>(EndofQuicksort - StartOfQuicksort) * 1000 / CLOCKS_PER_SEC;
 }
-int Partition_with_count_compare(int a[], int left, int right, long& count_compare) {
+
+int Partition_with_count_compare(int a[], int left, int right, long long &count_compare)
+{
     int p = a[left];
     int i = left;
     int j = right + 1;
-    do {
-        do i++; while (a[i] < p and ++count_compare);
-        do j--; while (a[j] > p and ++count_compare);
+    do
+    {
+        do
+            i++;
+        while (a[i] < p && ++count_compare);
+        do
+            j--;
+        while (a[j] > p && ++count_compare);
         std::swap(a[i], a[j]);
-    } while (i < j and ++count_compare);
+    } while (i < j && ++count_compare);
     std::swap(a[i], a[j]);
     std::swap(a[j], a[left]);
     return j;
 }
-void Quick_sort_with_count_compare(int a[], int left, int right, long& count_compare) {
+
+void Quick_sort_with_count_compare(int a[], int left, int right, long long &count_compare)
+{
     int s = 0;
-    if (left < right and ++count_compare) {
+    if (left < right && ++count_compare)
+    {
         s = Partition_with_count_compare(a, left, right, count_compare);
         Quick_sort_with_count_compare(a, left, s - 1, count_compare);
         Quick_sort_with_count_compare(a, s + 1, right, count_compare);
     }
-}
-
-//Command line 2| Syntax : [Execution file] -a [Algorithm] [Input size] [Input order] [Output parameter(s)]
-long Time_Output_Parameter(char* argv[], int a[], int n) {
-    std::string Algorithm = argv[2];
-    double TimeOP;
-    if (Algorithm == "selection-sort") {
-        TimeOP = get_time_selection_sort(a, n);
-    }
-    else if (Algorithm == "insertion-sort") {
-        TimeOP = get_time_insertion_sort(a, n);
-    }
-    else if (Algorithm == "bubble-sort") {
-        TimeOP = get_time_quick_sort(a, n);
-    }
-    else if (Algorithm == "heap-sort") {
-        TimeOP = get_time_heap_sort(a, n);
-    }
-    else if (Algorithm == "merge-sort") {
-        TimeOP = get_time_merge_sort(a, n);
-    }
-    else if (Algorithm == "quick-sort") {
-        TimeOP = get_time_quick_sort(a, n);
-    }
-    else if (Algorithm == "radix-sort") {
-        TimeOP = get_time_radix_sort(a, n);
-    }
-    else if (Algorithm == "shaker-sort") {
-        TimeOP = get_time_shaker_sort(a, n);
-    }
-    else if (Algorithm == "shell-sort") {
-        TimeOP = get_time_shell_sort(a, n);
-    }
-    else if (Algorithm == "counting-sort") {
-        TimeOP = get_time_counting_sort(a, n);
-    }
-    else if (Algorithm == "flash-sort") {
-        TimeOP = get_time_flash_sort(a, n);
-    }
-    return TimeOP;
-}
-long Compare_Output_Parameter(char* argv[], int a[], int n) {
-    std::string Algorithm = argv[2];
-    long count_compare = 0;
-    if (Algorithm == "selection-sort") {
-        count_compare = get_time_selection_sort(a, n);
-    }
-    else if (Algorithm == "insertion-sort") {
-        count_compare = get_time_insertion_sort(a, n);
-    }
-    else if (Algorithm == "bubble-sort") {
-        count_compare = get_time_quick_sort(a, n);
-    }
-    else if (Algorithm == "heap-sort") {
-        count_compare = get_time_heap_sort(a, n);
-    }
-    else if (Algorithm == "merge-sort") {
-        count_compare = get_time_merge_sort(a, n);
-    }
-    else if (Algorithm == "quick-sort") {
-        count_compare = get_time_quick_sort(a, n);
-    }
-    else if (Algorithm == "radix-sort") {
-        count_compare = get_time_radix_sort(a, n);
-    }
-    else if (Algorithm == "shaker-sort") {
-        count_compare = get_time_shaker_sort(a, n);
-    }
-    else if (Algorithm == "shell-sort") {
-        count_compare = get_time_shell_sort(a, n);
-    }
-    else if (Algorithm == "counting-sort") {
-        count_compare = get_time_counting_sort(a, n);
-    }
-    else if (Algorithm == "flash-sort") {
-        count_compare = get_time_flash_sort(a, n);
-    }
-    return count_compare;
-}
-
-
-void Function_For_Command_Line_2(int argc, char* argv[]) {
-    if (argc < 5) {
-        std::cerr << "Wrong prototype! , Usage : " << argv[0] << "-a [Algorithm] [Input size] [Input order] [Output parameter(s)]";
-        return;
-    }
-    std::string InputSize = argv[3];
-    std::string DataOrder = argv[4];
-    std::string OutputParammeter = argv[5];
-    int SizeOfInput = std::stoi(InputSize);
-    if (SizeOfInput == 0) {
-        std::cerr << "There is no data in the file ";
-        return;
-    }
-    int NumForGenerateData;
-    if (DataOrder == "-rand") {
-        NumForGenerateData = 0;
-    }
-    else if (DataOrder == "-sort") {
-        NumForGenerateData = 1;
-    }
-    else if (DataOrder == "-rev") {
-        NumForGenerateData = 2;
-    }
-    else if (DataOrder == "-near") {
-        NumForGenerateData = 3;
-    }
-    else {
-        std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
-        std::cout << "-Random order : -rand" << std::endl;
-        std::cout << "-Sorted order : -sort" << std::endl;
-        std::cout << "-Reversed order : -rev" << std::endl;
-        std::cout << "-Nearly sorted order : -near" << std::endl;
-        return;
-    }
-    int* a = new int[SizeOfInput];
-    GenerateData(a, SizeOfInput, NumForGenerateData);
-    std::cout << "---------------------------" << std::endl;
-    if (OutputParammeter == "-time") {
-        double TimeOP = Time_Output_Parameter(argv, a, SizeOfInput);
-        std::cout << "Running time: " << TimeOP;
-    }
-    else if (OutputParammeter == "-comp") {
-        long count_compare = Compare_Output_Parameter(argv, a, SizeOfInput);
-        std::cout << "Comparisions: " << count_compare;
-    }
-    else if (OutputParammeter == "-both") {
-        double TimeOP = Time_Output_Parameter(argv, a, SizeOfInput);
-        std::cout << "Running time: " << TimeOP << std::endl;
-        long count_compare = Compare_Output_Parameter(argv, a, SizeOfInput);
-        std::cout << "Comparisions: " << count_compare << std::endl;
-    }
-    else {
-        std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
-        std::cout << "-Running time : -time" << std::endl;
-        std::cout << "-Comparisions : -comp" << std::endl;
-        std::cout << "-Both of them : -both" << std::endl;
-    }
-    std::cout << std::endl;
 }

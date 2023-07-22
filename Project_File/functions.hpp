@@ -43,6 +43,18 @@ int shell_sort(int arr[], int n);
 void shell_sort_count(int arr[], int n, long long &compCount);
 double get_time_shell_sort(int a[], int n);
 
+double get_time_quick_sort(int a[], int n);
+int Partition_with_count_compare(int a[], int left, int right, long long &count_compare);
+void Quick_sort_with_count_compare(int a[], int left, int right, long long &count_compare);
+
+double get_time_merge_sort(int a[], int n);
+void Merge_with_count_compare(int a[], int left, int right, int mid, long long &count_compare);
+void merge_sort_count(int a[], int left, int right, long long &count_compare);
+
+double get_time_heap_sort(int a[], int n);
+void Sift_with_count_compare(int a[], int left, int right, long long &count_compare);
+void heap_sort_count(int a[], int n, long long &count_compare);
+
 // Miscellaneous functions
 void createData_3(char *argv[]);
 void output_to_file(ofstream &out, int a[], int n);

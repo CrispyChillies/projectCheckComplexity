@@ -509,6 +509,182 @@ void command_3(char *argv[])
     final_output(argv, num_of_comparisons, time);
 }
 
+// Command line 2| Syntax : [Execution file] -a [Algorithm] [Input size] [Input order] [Output parameter(s)]
+long Time_Output_Parameter(char *argv[], int a[], int n)
+{
+    std::string Algorithm = argv[2];
+    double TimeOP = 0;
+    if (Algorithm == "selection-sort")
+    {
+        selection_sort_time(a, n, TimeOP);
+    }
+    else if (Algorithm == "insertion-sort")
+    {
+        insertion_sort_time(a, n, TimeOP);
+    }
+    else if (Algorithm == "bubble-sort")
+    {
+        bubble_sort_time(a, n, TimeOP);
+    }
+    else if (Algorithm == "heap-sort")
+    {
+        TimeOP = get_time_heap_sort(a, n);
+    }
+    else if (Algorithm == "merge-sort")
+    {
+        TimeOP = get_time_merge_sort(a, n);
+    }
+    else if (Algorithm == "quick-sort")
+    {
+        TimeOP = get_time_quick_sort(a, n);
+    }
+    else if (Algorithm == "radix-sort")
+    {
+        TimeOP = get_time_radix_sort(a, n);
+    }
+    else if (Algorithm == "shaker-sort")
+    {
+        get_time_shakerSort(a, n, TimeOP);
+    }
+    else if (Algorithm == "shell-sort")
+    {
+        TimeOP = get_time_shell_sort(a, n);
+    }
+    else if (Algorithm == "counting-sort")
+    {
+        get_time_countingSort(a, n, TimeOP);
+    }
+    else if (Algorithm == "flash-sort")
+    {
+        get_time_flashSort(a, n, TimeOP);
+    }
+    return TimeOP;
+}
+
+long Compare_Output_Parameter(char *argv[], int a[], int n)
+{
+    std::string Algorithm = argv[2];
+    long long count_compare = 0;
+
+    if (Algorithm == "selection-sort")
+    {
+        selection_sort_comparisons(a, n, count_compare);
+    }
+    else if (Algorithm == "insertion-sort")
+    {
+        insertion_sort_comparisons(a, n, count_compare);
+    }
+    else if (Algorithm == "bubble-sort")
+    {
+        bubble_sort_comparisons(a, n, count_compare);
+    }
+    else if (Algorithm == "heap-sort")
+    {
+        heap_sort_count(a, n, count_compare);
+    }
+    else if (Algorithm == "merge-sort")
+    {
+        // merge_sort_count(a,n, count_compare);
+    }
+    else if (Algorithm == "quick-sort")
+    {
+        // Quick_sort_with_count_compare(a, n, count_compare);
+    }
+    else if (Algorithm == "radix-sort")
+    {
+        count_compare = get_time_radix_sort(a, n);
+    }
+    else if (Algorithm == "shaker-sort")
+    {
+        shakerSort_count(a, n, count_compare);
+    }
+    else if (Algorithm == "shell-sort")
+    {
+        shell_sort_count(a, n, count_compare);
+    }
+    else if (Algorithm == "counting-sort")
+    {
+        countingSort_count(a, n, count_compare);
+    }
+    else if (Algorithm == "flash-sort")
+    {
+        flashSort_count(a, n, count_compare);
+    }
+    return count_compare;
+}
+
+void command_2(int argc, char *argv[])
+{
+    if (argc < 5)
+    {
+        std::cerr << "Wrong prototype! , Usage : " << argv[0] << "-a [Algorithm] [Input size] [Input order] [Output parameter(s)]";
+        return;
+    }
+    std::string InputSize = argv[3];
+    std::string DataOrder = argv[4];
+    std::string OutputParammeter = argv[5];
+    int SizeOfInput = std::stoi(InputSize);
+    if (SizeOfInput == 0)
+    {
+        std::cerr << "There is no data in the file ";
+        return;
+    }
+    int NumForGenerateData;
+    if (DataOrder == "-rand")
+    {
+        NumForGenerateData = 0;
+    }
+    else if (DataOrder == "-sort")
+    {
+        NumForGenerateData = 1;
+    }
+    else if (DataOrder == "-rev")
+    {
+        NumForGenerateData = 2;
+    }
+    else if (DataOrder == "-near")
+    {
+        NumForGenerateData = 3;
+    }
+    else
+    {
+        std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
+        std::cout << "-Random order : -rand" << std::endl;
+        std::cout << "-Sorted order : -sort" << std::endl;
+        std::cout << "-Reversed order : -rev" << std::endl;
+        std::cout << "-Nearly sorted order : -near" << std::endl;
+        return;
+    }
+    int *a = new int[SizeOfInput];
+    GenerateData(a, SizeOfInput, NumForGenerateData);
+    std::cout << "---------------------------" << std::endl;
+    if (OutputParammeter == "-time")
+    {
+        double TimeOP = Time_Output_Parameter(argv, a, SizeOfInput);
+        std::cout << "Running time: " << TimeOP;
+    }
+    else if (OutputParammeter == "-comp")
+    {
+        long count_compare = Compare_Output_Parameter(argv, a, SizeOfInput);
+        std::cout << "Comparisions: " << count_compare;
+    }
+    else if (OutputParammeter == "-both")
+    {
+        double TimeOP = Time_Output_Parameter(argv, a, SizeOfInput);
+        std::cout << "Running time: " << TimeOP << std::endl;
+        long count_compare = Compare_Output_Parameter(argv, a, SizeOfInput);
+        std::cout << "Comparisions: " << count_compare << std::endl;
+    }
+    else
+    {
+        std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
+        std::cout << "-Running time : -time" << std::endl;
+        std::cout << "-Comparisions : -comp" << std::endl;
+        std::cout << "-Both of them : -both" << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 void command_1(int argc, char *argv[])
 {
     if (argc == 6)
