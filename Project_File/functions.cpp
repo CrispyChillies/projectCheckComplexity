@@ -314,6 +314,7 @@ void get_time_shakerSort(int a[], int n, double &elaspedTime)
     elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
 
+// Command 3 sorts:
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
@@ -612,6 +613,7 @@ void shell_sort_count(int arr[], int n, long long &compCount)
     }
 }
 
+// Creating data and check commands
 void createData_3(char *argv[])
 {
     int n = stoi(argv[3]);
