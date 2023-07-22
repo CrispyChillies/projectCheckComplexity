@@ -615,7 +615,7 @@ long Compare_Output_Parameter(char *argv[], int a[], int n)
 
 void command_2(int argc, char *argv[])
 {
-    if (argc < 5) {
+    if (argc < 6) {
         std::cerr << "Wrong prototype! , Usage : " << argv[0] << " " << argv[1] << " [Algorithm] [Input size] [Input order] [Output parameter(s)]";
         return;
     }
