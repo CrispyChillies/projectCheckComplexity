@@ -1,7 +1,127 @@
 #include "functions.hpp"
 #include "DataGenerator.hpp"
 
-// Long - countingSort - flashSort - shakerSort - command_1
+/////////////////////////////
+///////Selection-sort////////
+/////////////////////////////
+
+void selection_sort_comparisons(int a[], int n, long long &comparisons)
+{
+    for (int i = 0; ++comparisons && i < n; i++)
+    {
+        int min = a[i];
+        int minIndex = i;
+        for (int j = i + 1; ++comparisons && j < n; j++)
+        {
+            if (++comparisons && a[j] < min)
+            {
+                min = a[j];
+                minIndex = j;
+            }
+        }
+        HoanVi(a[i], a[minIndex]);
+    }
+}
+
+void selection_sort_time(int a[], int n, double &time)
+{
+    clock_t start = clock();
+    for (int i = 0; i < n; i++)
+    {
+        int min = a[i];
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++)
+        {
+            if (a[j] < min)
+            {
+                min = a[j];
+                minIndex = j;
+            }
+        }
+        HoanVi(a[i], a[minIndex]);
+    }
+    clock_t end = clock();
+    time = double(end - start) / CLOCKS_PER_SEC * 1000;
+}
+
+/////////////////////////////
+///////Insertion-sort////////
+/////////////////////////////
+
+void insertion_sort_comparisons(int a[], int n, long long &comparisons)
+{
+    comparisons = 0;
+    for (int i = 1; ++comparisons && i < n; i++)
+    {
+        int j = i - 1;
+        int key = a[i];
+        while (++comparisons && a[j] > key && ++comparisons && j >= 0)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+}
+
+void insertion_sort_time(int a[], int n, double &time)
+{
+    clock_t start = clock();
+    for (int i = 1; i < n; i++)
+    {
+        int j = i - 1;
+        int key = a[i];
+        while (a[j] > key && j >= 0)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+    clock_t end = clock();
+    time = double(end - start) / CLOCKS_PER_SEC * 1000;
+}
+
+/////////////////////////////
+/////////Bubble-sort/////////
+/////////////////////////////
+
+void bubble_sort_comparisons(int a[], int n, long long &comparisons)
+{
+    comparisons = 0;
+    for (int i = 0; ++comparisons && i < n; i++)
+    {
+        for (int j = n - 1; ++comparisons && j > i; j--)
+        {
+            if (++comparisons && a[j] < a[j - 1])
+            {
+                HoanVi(a[j], a[j - 1]);
+            }
+        }
+    }
+}
+
+void bubble_sort_time(int a[], int n, double &time)
+{
+    clock_t start = clock();
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = n - 1; j > i; j--)
+        {
+            if (a[j] < a[j - 1])
+            {
+                HoanVi(a[j], a[j - 1]);
+            }
+        }
+    }
+    clock_t end = clock();
+    time = double(end - start) / CLOCKS_PER_SEC * 1000;
+}
+
+/////////////////////////////
+/////////Heap-sort/////////
+/////////////////////////////
+
 void countingSort(int a[], int n)
 {
     int *u = new int[n];
@@ -320,113 +440,6 @@ void get_time_shakerSort(int a[], int n, double &elapsedTime)
     elapsedTime = ((double)(end - start)) / CLOCKS_PER_SEC * 1000;
 }
 
-// Command 3 sorts:
-void bubble_sort_comparisons(int a[], int n, long long &comparisons)
-{
-    comparisons = 0;
-    for (int i = 0; ++comparisons && i < n; i++)
-    {
-        for (int j = n - 1; ++comparisons && j > i; j--)
-        {
-            if (++comparisons && a[j] < a[j - 1])
-            {
-                HoanVi(a[j], a[j - 1]);
-            }
-        }
-    }
-}
-
-void bubble_sort_time(int a[], int n, double &time)
-{
-    clock_t start = clock();
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = n - 1; j > i; j--)
-        {
-            if (a[j] < a[j - 1])
-            {
-                HoanVi(a[j], a[j - 1]);
-            }
-        }
-    }
-    clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC * 1000;
-}
-
-void selection_sort_comparisons(int a[], int n, long long &comparisons)
-{
-    for (int i = 0; ++comparisons && i < n; i++)
-    {
-        int min = a[i];
-        int minIndex = i;
-        for (int j = i + 1; ++comparisons && j < n; j++)
-        {
-            if (++comparisons && a[j] < min)
-            {
-                min = a[j];
-                minIndex = j;
-            }
-        }
-        HoanVi(a[i], a[minIndex]);
-    }
-}
-
-void selection_sort_time(int a[], int n, double &time)
-{
-    clock_t start = clock();
-    for (int i = 0; i < n; i++)
-    {
-        int min = a[i];
-        int minIndex = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (a[j] < min)
-            {
-                min = a[j];
-                minIndex = j;
-            }
-        }
-        HoanVi(a[i], a[minIndex]);
-    }
-    clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC * 1000;
-}
-
-void insertion_sort_comparisons(int a[], int n, long long &comparisons)
-{
-    comparisons = 0;
-    for (int i = 1; ++comparisons && i < n; i++)
-    {
-        int j = i - 1;
-        int key = a[i];
-        while (++comparisons && a[j] > key && ++comparisons && j >= 0)
-        {
-            a[j + 1] = a[j];
-            j--;
-        }
-        a[j + 1] = key;
-    }
-}
-
-void insertion_sort_time(int a[], int n, double &time)
-{
-    clock_t start = clock();
-    for (int i = 1; i < n; i++)
-    {
-        int j = i - 1;
-        int key = a[i];
-        while (a[j] > key && j >= 0)
-        {
-            a[j + 1] = a[j];
-            j--;
-        }
-        a[j + 1] = key;
-    }
-    clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC * 1000;
-}
-
-// Hieu - radix sort
 int get_number_digits(int a[], int n)
 {
     int max = a[0];
@@ -500,7 +513,6 @@ double get_time_radix_sort(int a[], int n)
     return (double)(end - start) / CLOCKS_PER_SEC;
 }
 
-// count comparisons of radix sort
 int get_number_digits_count(int a[], int n, long long &compCount)
 {
     int max = a[0];
