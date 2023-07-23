@@ -15,3 +15,4 @@ void GenerateNearlySortedData(int a[], int n);
 
 void input_from_file(ifstream &in, int a[], int n);
 void copyFromFile(string inputFile, int *a, int n);
+void output_to_file(ofstream &out, int a[], int n);

@@ -742,7 +742,9 @@ void command_1(int argc, char *argv[])
     }
     else if (algorithm == "heap-sort")
     {
-        // heap-sort
+        heap_sort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        get_time_heap_sort(a, count);
     }
     else if (algorithm == "merge-sort")
     {

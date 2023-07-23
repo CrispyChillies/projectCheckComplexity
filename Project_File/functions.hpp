@@ -59,4 +59,3 @@ void Heap_sort_without_count_compare(int a[], int n);
 
 // Miscellaneous functions
 void createData_3(char *argv[]);
-void output_to_file(ofstream &out, int a[], int n);
