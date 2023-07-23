@@ -269,6 +269,12 @@ void shell_sort_count(int arr[], int n, long long &compCount)
 //////////Heap-sort///////////
 //////////////////////////////
 
+
+
+//////////////////////////////
+////////Counting-sort/////////
+//////////////////////////////
+
 void countingSort(int a[], int n)
 {
     int *u = new int[n];
@@ -350,6 +356,25 @@ void insertionSort(int a[], int n)
     }
 }
 
+void insertionSort_count(int a[], int n, long long &countCompare)
+{
+    for (int i = 1; ++countCompare && i < n; i++)
+    {
+        int k = i - 1;
+        int key = a[i];
+        while (++countCompare && a[k] > key && k >= 0)
+        {
+            a[k + 1] = a[k];
+            k--;
+        }
+        a[k + 1] = key;
+    }
+}
+
+//////////////////////////////
+//////////Flash-sort//////////
+//////////////////////////////
+
 void flashSort(int a[], int n)
 {
     int minVal = a[0];
@@ -404,21 +429,6 @@ void flashSort(int a[], int n)
     }
     delete[] l;
     insertionSort(a, n);
-}
-
-void insertionSort_count(int a[], int n, long long &countCompare)
-{
-    for (int i = 1; ++countCompare && i < n; i++)
-    {
-        int k = i - 1;
-        int key = a[i];
-        while (++countCompare && a[k] > key && k >= 0)
-        {
-            a[k + 1] = a[k];
-            k--;
-        }
-        a[k + 1] = key;
-    }
 }
 
 void flashSort_count(int a[], int n, long long &countCompare)
@@ -497,7 +507,9 @@ void get_time_flashSort(int a[], int n, double &elaspedTime)
     elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
 
-
+//////////////////////////////
+//////////Radix-sort//////////
+//////////////////////////////
 
 int get_number_digits(int a[], int n)
 {
