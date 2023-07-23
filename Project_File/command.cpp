@@ -225,7 +225,6 @@ void command_2(int argc, char* argv[]) {
     delete[]DataArray;
 }
 
-
 void command_3(char *argv[])
 {
     long long num_of_comparisons[4];
@@ -688,7 +687,7 @@ void command_5(int argc, char *argv[])
     cout << endl;
 
     delete[] a;
-}//
+}
 
 /////////////////////////////
 ///////support_func//////////
