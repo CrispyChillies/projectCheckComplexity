@@ -227,7 +227,7 @@ void get_time_flashSort(int a[], int n, double &elaspedTime)
     flashSort(a, n);
     end = clock();
 
-    elaspedTime = double(end - start) / CLOCKS_PER_SEC * 1000;
+    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
 
 void shakerSort_count(int a[], int n, long long &countCompare)
@@ -595,7 +595,7 @@ double get_time_shell_sort(int a[], int n)
     shell_sort(a, n);
     end = clock();
 
-    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    return (double)(end - start) / CLOCKS_PER_SEC;
 }
 
 void shell_sort_count(int arr[], int n, long long &compCount)
