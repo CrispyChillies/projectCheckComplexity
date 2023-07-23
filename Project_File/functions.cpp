@@ -119,8 +119,154 @@ void bubble_sort_time(int a[], int n, double &time)
 }
 
 /////////////////////////////
-/////////Heap-sort/////////
+/////////Shaker-sort/////////
 /////////////////////////////
+
+void shakerSort_count(int a[], int n, long long &countCompare)
+{
+    int left = 0;
+    int k = 0;
+    int right = n - 1;
+    int temp = 0;
+
+    do
+    {
+        for (int j = right; ++countCompare && j > left; j--)
+        {
+            // Comparison: a[j - 1] > a[j]
+
+            if (++countCompare && a[j - 1] > a[j])
+            {
+                HoanVi(a[j - 1], a[j]);
+                k = j;
+            }
+        }
+
+        left = k;
+
+        for (int j = left; ++countCompare && j < right; j++)
+        {
+            // Comparison: a[j] > a[j + 1]
+
+            if (++countCompare && a[j] > a[j + 1])
+            {
+                HoanVi(a[j], a[j + 1]);
+                k = j;
+            }
+        }
+
+        right = k;
+        // Assignment: right = k
+
+    } while (++countCompare && left < right);
+}
+
+void shakerSort(int a[], int n)
+{
+    int left = 0;
+    int k = 0;
+    int right = n - 1;
+    int temp = 0;
+
+    do
+    {
+        for (int j = right; j > left; j--)
+        {
+            if (a[j - 1] > a[j])
+            {
+                temp = a[j - 1];
+                a[j - 1] = a[j];
+                a[j] = temp;
+                k = j;
+            }
+        }
+
+        left = k;
+
+        for (int j = left; j < right; j++)
+        {
+            if (a[j] > a[j + 1])
+            {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+                k = j;
+            }
+        }
+
+        right = k;
+
+    } while (left < right);
+}
+
+void get_time_shakerSort(int a[], int n, double &elapsedTime)
+{
+    clock_t start, end;
+
+    start = clock();
+
+    shakerSort(a, n);
+
+    end = clock();
+
+    elapsedTime = ((double)(end - start)) / CLOCKS_PER_SEC * 1000;
+}
+
+//////////////////////////////
+/////////Shell-sort///////////
+//////////////////////////////
+
+int shell_sort(int arr[], int n)
+{
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i += 1)
+        {
+            int temp = arr[i];
+            int j;
+
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                arr[j] = arr[j - gap];
+
+            arr[j] = temp;
+        }
+    }
+    return 0;
+}
+
+double get_time_shell_sort(int a[], int n)
+{
+    clock_t start, end;
+
+    start = clock();
+    shell_sort(a, n);
+    end = clock();
+
+    return (double)(end - start) / CLOCKS_PER_SEC;
+}
+
+void shell_sort_count(int arr[], int n, long long &compCount)
+{
+    for (int gap = n / 2; ++compCount && gap > 0; gap /= 2)
+    {
+        for (int i = gap; ++compCount && i < n; i += 1)
+        {
+            int temp = arr[i];
+            int j;
+
+            for (j = i; ++compCount && j >= gap && arr[j - gap] > temp; j -= gap)
+            {
+                arr[j] = arr[j - gap];
+            }
+
+            arr[j] = temp;
+        }
+    }
+}
+
+//////////////////////////////
+//////////Heap-sort///////////
+//////////////////////////////
 
 void countingSort(int a[], int n)
 {
@@ -350,95 +496,7 @@ void get_time_flashSort(int a[], int n, double &elaspedTime)
     elaspedTime = double(end - start) / CLOCKS_PER_SEC;
 }
 
-void shakerSort_count(int a[], int n, long long &countCompare)
-{
-    int left = 0;
-    int k = 0;
-    int right = n - 1;
-    int temp = 0;
 
-    do
-    {
-        for (int j = right; ++countCompare && j > left; j--)
-        {
-            // Comparison: a[j - 1] > a[j]
-
-            if (++countCompare && a[j - 1] > a[j])
-            {
-                HoanVi(a[j - 1], a[j]);
-                k = j;
-            }
-        }
-
-        left = k;
-
-        for (int j = left; ++countCompare && j < right; j++)
-        {
-            // Comparison: a[j] > a[j + 1]
-
-            if (++countCompare && a[j] > a[j + 1])
-            {
-                HoanVi(a[j], a[j + 1]);
-                k = j;
-            }
-        }
-
-        right = k;
-        // Assignment: right = k
-
-    } while (++countCompare && left < right);
-}
-
-void shakerSort(int a[], int n)
-{
-    int left = 0;
-    int k = 0;
-    int right = n - 1;
-    int temp = 0;
-
-    do
-    {
-        for (int j = right; j > left; j--)
-        {
-            if (a[j - 1] > a[j])
-            {
-                temp = a[j - 1];
-                a[j - 1] = a[j];
-                a[j] = temp;
-                k = j;
-            }
-        }
-
-        left = k;
-
-        for (int j = left; j < right; j++)
-        {
-            if (a[j] > a[j + 1])
-            {
-                temp = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = temp;
-                k = j;
-            }
-        }
-
-        right = k;
-
-    } while (left < right);
-}
-
-void get_time_shakerSort(int a[], int n, double &elapsedTime)
-{
-    clock_t start, end;
-
-    start = clock();
-
-    shakerSort(a, n);
-
-    end = clock();
-
-    elapsedTime = ((double)(end - start)) / CLOCKS_PER_SEC * 1000;
-}
 
 int get_number_digits(int a[], int n)
 {
@@ -581,53 +639,7 @@ void radixsort_count(int a[], int n, long long &compCount)
         sort(a, n, k);
 }
 
-int shell_sort(int arr[], int n)
-{
-    for (int gap = n / 2; gap > 0; gap /= 2)
-    {
-        for (int i = gap; i < n; i += 1)
-        {
-            int temp = arr[i];
-            int j;
 
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
-                arr[j] = arr[j - gap];
-
-            arr[j] = temp;
-        }
-    }
-    return 0;
-}
-
-double get_time_shell_sort(int a[], int n)
-{
-    clock_t start, end;
-
-    start = clock();
-    shell_sort(a, n);
-    end = clock();
-
-    return (double)(end - start) / CLOCKS_PER_SEC;
-}
-
-void shell_sort_count(int arr[], int n, long long &compCount)
-{
-    for (int gap = n / 2; ++compCount && gap > 0; gap /= 2)
-    {
-        for (int i = gap; ++compCount && i < n; i += 1)
-        {
-            int temp = arr[i];
-            int j;
-
-            for (j = i; ++compCount && j >= gap && arr[j - gap] > temp; j -= gap)
-            {
-                arr[j] = arr[j - gap];
-            }
-
-            arr[j] = temp;
-        }
-    }
-}
 
 // Creating data and check commands
 void createData_3(char *argv[])
