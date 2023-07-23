@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            // command_2
+            command_2(argc, argv);
         }
     }
 

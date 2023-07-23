@@ -64,5 +64,5 @@ double Quick_sort_running_time(int a[], int n);
 // Miscellaneous functions
 void createData_3(char *argv[]);
 
-long Compare_Output_Parameter(char *argv[], int a[], int n);
-long Time_Output_Parameter(char *argv[], int a[], int n);
+long long Compare_Output_Parameter(const std::string Algorithm, int a[], int n);
+double Time_Output_Parameter(const std::string Algorithm, int a[], int n);
