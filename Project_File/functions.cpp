@@ -49,6 +49,21 @@ void selection_sort_time(int a[], int n, double &time)
 ///////Insertion-sort////////
 /////////////////////////////
 
+void insertion_sort(int a[], int n)
+{
+    for (int i = 1; i < n; i++)
+    {
+        int j = i - 1;
+        int key = a[i];
+        while (a[j] > key && j >= 0)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+}
+
 void insertion_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
@@ -398,7 +413,7 @@ void flashSort(int a[], int n)
         }
     }
     delete[] l;
-    insertionSort(a, n);
+    insertion_sort(a, n);
 }
 
 void flashSort_count(int a[], int n, long long &countCompare)
@@ -463,7 +478,7 @@ void flashSort_count(int a[], int n, long long &countCompare)
     }
 
     delete[] l;
-    insertionSort_count(a, n, countCompare);
+    insertion_sort_comparisons(a, n, countCompare);
 }
 
 void get_time_flashSort(int a[], int n, double &elaspedTime)

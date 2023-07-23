@@ -29,6 +29,7 @@ void bubble_sort_time(int a[], int n, double &time);
 void selection_sort_comparisons(int a[], int n, long long &comparisons);
 void selection_sort_time(int a[], int n, double &time);
 
+void insertion_sort(int a[], int n);
 void insertion_sort_comparisons(int a[], int n, long long &comparisons);
 void insertion_sort_time(int a[], int n, double &time);
 

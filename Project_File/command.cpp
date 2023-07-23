@@ -717,7 +717,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     cout << "--------------------------" << '\n';
 
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[0] << '\n';
+        cout << "Running time: " << time[0] << " ms" << '\n';
 
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[0] << '\n';
@@ -728,7 +728,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     cout << "--------------------------" << '\n';
 
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[1] << '\n';
+        cout << "Running time: " << time[1] << " ms" << '\n';
 
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[1] << '\n';
@@ -739,7 +739,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     cout << "--------------------------" << '\n';
 
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[2] << '\n';
+        cout << "Running time: " << time[2] << " ms" << '\n';
 
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[2] << '\n';
@@ -750,7 +750,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
     cout << "--------------------------" << '\n';
 
     if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[3] << '\n';
+        cout << "Running time: " << time[3] << " ms" << '\n';
 
     if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
         cout << "Comparisons: " << num_of_comparisons[3] << '\n';
