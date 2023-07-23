@@ -197,10 +197,8 @@ void command_2(int argc, char* argv[]) {
     std::cout << "Input size: " << SizeOfInput << std::endl;
     std::cout << "Input order: " << DataOrder << std::endl;
     std::cout << "-----------------------------------------------------------------" << std::endl;
-    double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-    long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
     if (OutputParammeter == "-time") {
-        //double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
         std::cout << "Running time: " << TimeOP;
     }
     else if (OutputParammeter == "-comp") {
