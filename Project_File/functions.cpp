@@ -243,7 +243,7 @@ double get_time_shell_sort(int a[], int n)
     shell_sort(a, n);
     end = clock();
 
-    return (double)(end - start) / CLOCKS_PER_SEC;
+    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 void shell_sort_count(int arr[], int n, long long &compCount)
@@ -312,7 +312,7 @@ void get_time_countingSort(int a[], int n, double &elaspedTime)
     countingSort(a, n);
     end = clock();
 
-    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+    elaspedTime = double(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 void countingSort_count(int a[], int n, long long &countCompare)
@@ -339,36 +339,6 @@ void countingSort_count(int a[], int n, long long &countCompare)
 
     delete[] b;
     delete[] u;
-}
-
-void insertionSort(int a[], int n)
-{
-    for (int i = 1; i < n; i++)
-    {
-        int k = i - 1;
-        int key = a[i];
-        while (a[k] > key && k >= 0)
-        {
-            a[k + 1] = a[k];
-            k--;
-        }
-        a[k + 1] = key;
-    }
-}
-
-void insertionSort_count(int a[], int n, long long &countCompare)
-{
-    for (int i = 1; ++countCompare && i < n; i++)
-    {
-        int k = i - 1;
-        int key = a[i];
-        while (++countCompare && a[k] > key && k >= 0)
-        {
-            a[k + 1] = a[k];
-            k--;
-        }
-        a[k + 1] = key;
-    }
 }
 
 //////////////////////////////
@@ -504,7 +474,7 @@ void get_time_flashSort(int a[], int n, double &elaspedTime)
     flashSort(a, n);
     end = clock();
 
-    elaspedTime = double(end - start) / CLOCKS_PER_SEC;
+    elaspedTime = double(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 //////////////////////////////
@@ -581,7 +551,7 @@ double get_time_radix_sort(int a[], int n)
     radixsort(a, n);
     end = clock();
 
-    return (double)(end - start) / CLOCKS_PER_SEC;
+    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 int get_number_digits_count(int a[], int n, long long &compCount)
