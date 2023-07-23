@@ -2,62 +2,259 @@
 #include "command.hpp"
 #include "DataGenerator.hpp"
 
-void final_output(char *argv[], long long num_of_comparisons[], double time[])
+/////////////////////////////
+///////command_func//////////
+/////////////////////////////
+
+void command_1(int argc, char *argv[])
 {
-    cout << "ALGORITHM MODE" << '\n';
-    char *algorithm = argv[2];
+    if (argc == 6)
+        return;
 
-    // remove dashes
-    char *space = strchr(algorithm, '-');
-    space[0] = ' ';
+    long long countCompare = 0;
 
-    cout << "Algorithm: " << algorithm << '\n';
-    cout << "Input size: " << stoi(argv[3]) << '\n'
-         << '\n';
+    string algorithm = argv[2];
+    string input_file = argv[3];
+    string outputParams = argv[4];
 
-    // Random data
-    cout << "Input order: Randomize" << '\n';
-    cout << "--------------------------" << '\n';
+    ifstream inf(input_file);
 
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[0] << '\n';
+    if (!inf)
+    {
+        cout << "Can't open input file. \n";
+        exit(1);
+    }
 
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[0] << '\n';
-    cout << '\n';
+    int count = 0;
 
-    // Nearly sorted data
-    cout << "Input order: Nearly Sorted" << '\n';
-    cout << "--------------------------" << '\n';
+    inf >> count;
 
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[1] << '\n';
+    int *a = new int[count];
 
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[1] << '\n';
-    cout << '\n';
+    for (int i = 0; i < count; i++)
+    {
+        inf >> a[i];
+    }
 
-    // Sorted data
-    cout << "Input order: Sorted" << '\n';
-    cout << "--------------------------" << '\n';
+    inf.close();
 
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[2] << '\n';
+    // Calculate the run time and the comparisions of the algorithm
 
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[2] << '\n';
-    cout << '\n';
+    double elaspedTime = 0;
+    clock_t start, end;
 
-    // Reversed data
-    cout << "Input order: Reversed" << '\n';
-    cout << "--------------------------" << '\n';
+    if (algorithm == "bubble-sort")
+    {
+        bubble_sort_time(a, count, elaspedTime);
+        copyFromFile(input_file, a, count);
+        bubble_sort_comparisons(a, count, countCompare);
+    }
+    else if (algorithm == "selection-sort")
+    {
+        selection_sort_time(a, count, elaspedTime);
+        copyFromFile(input_file, a, count);
+        selection_sort_comparisons(a, count, countCompare);
+    }
+    else if (algorithm == "insertion-sort")
+    {
+        insertion_sort_time(a, count, elaspedTime);
+        copyFromFile(input_file, a, count);
+        insertion_sort_comparisons(a, count, countCompare);
+    }
+    else if (algorithm == "heap-sort")
+    {
+        heap_sort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        get_time_heap_sort(a, count);
+    }
+    else if (algorithm == "merge-sort")
+    {
+        // merge-sort
+    }
+    else if (algorithm == "quick-sort")
+    {
+        // quick-sort
+    }
+    else if (algorithm == "radix-sort")
+    {
+        radixsort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        elaspedTime = get_time_radix_sort(a, count);
+    }
+    else if (algorithm == "shaker-sort")
+    {
+        shakerSort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        get_time_shakerSort(a, count, elaspedTime);
+    }
+    else if (algorithm == "counting-sort")
+    {
+        countingSort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        get_time_countingSort(a, count, elaspedTime);
+    }
+    else if (algorithm == "shell-sort")
+    {
+        shell_sort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        elaspedTime = get_time_shell_sort(a, count);
+    }
+    else if (algorithm == "flash-sort")
+    {
+        flashSort_count(a, count, countCompare);
+        copyFromFile(input_file, a, count);
+        get_time_flashSort(a, count, elaspedTime);
+    }
+    else
+    {
+        cout << "Invalid Argument " << algorithm << ". \n";
+        exit(1);
+    }
 
-    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Running time: " << time[3] << '\n';
+    if (outputParams == "-both")
+    {
+        cout << "ALGORITHM: " << algorithm << endl;
+        cout << "Input file: " << input_file << endl;
+        cout << "---------------------\n";
+        cout << "Running Time: " << elaspedTime << " ms" << endl;
+        cout << "Comparisions: " << countCompare << endl;
+    }
+    else if (outputParams == "-comp")
+    {
+        cout << "ALGORITHM: " << algorithm << endl;
+        cout << "Input file: " << input_file << endl;
+        cout << "---------------------\n";
+        cout << "Comparisions: " << countCompare << endl;
+    }
+    else if (outputParams == "-time")
+    {
+        cout << "ALGORITHM: " << algorithm << endl;
+        cout << "Input file: " << input_file << endl;
+        cout << "---------------------\n";
+        cout << "Running Time: " << elaspedTime << " ms" << endl;
+    }
+    else
+    {
+        cout << "Invalid Argument " << outputParams << ".\n";
+        exit(1);
+    }
 
-    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
-        cout << "Comparisons: " << num_of_comparisons[3] << '\n';
-    cout << '\n';
+    // Write the file into another file
+    ofstream out("output.txt");
+
+    if (!out)
+    {
+        cout << "Can't open des file. \n";
+        exit(1);
+    }
+
+    out << count << endl;
+
+    for (int i = 0; i < count; i++)
+    {
+        out << a[i] << " ";
+    }
+
+    out.close();
+}
+
+void command_2(int argc, char *argv[])
+{
+    std::string Algorithm = argv[2];
+    std::string InputSize = argv[3];
+    std::string DataOrder = argv[4];
+    std::string OutputParammeter = argv[5];
+    int SizeOfInput = std::stoi(InputSize);
+    if (SizeOfInput == 0)
+    {
+        std::cerr << "There is no data in the file ";
+        return;
+    }
+    int NumForGenerateData;
+    if (DataOrder == "-rand")
+    {
+        NumForGenerateData = 0;
+    }
+    else if (DataOrder == "-sorted")
+    {
+        NumForGenerateData = 1;
+    }
+    else if (DataOrder == "-rev")
+    {
+        NumForGenerateData = 2;
+    }
+    else if (DataOrder == "-nsorted")
+    {
+        NumForGenerateData = 3;
+    }
+    else
+    {
+        std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
+        std::cout << "-Random order : -rand" << std::endl;
+        std::cout << "-Sorted order : -sorted" << std::endl;
+        std::cout << "-Reversed order : -rev" << std::endl;
+        std::cout << "-Nearly sorted order : -nsorted" << std::endl;
+        return;
+    }
+    int *DataArray = new int[SizeOfInput];
+    GenerateData(DataArray, SizeOfInput, NumForGenerateData);
+    // output_to_file("Command_2_input.txt",DataArray, SizeOfInput);
+    std::cout << "Algorithm: " << Algorithm << std::endl;
+    std::cout << "Input size: " << SizeOfInput << std::endl;
+    std::cout << "Input order: " << DataOrder << std::endl;
+    std::cout << "---------------------------" << std::endl;
+    if (OutputParammeter == "-time")
+    {
+        double TimeOP = Time_Output_Parameter(argv, DataArray, SizeOfInput);
+        std::cout << "Running time: " << TimeOP;
+    }
+    else if (OutputParammeter == "-comp")
+    {
+        long count_compare = Compare_Output_Parameter(argv, DataArray, SizeOfInput);
+        std::cout << "Comparisions: " << count_compare;
+    }
+    else if (OutputParammeter == "-both")
+    {
+        double TimeOP = Time_Output_Parameter(argv, DataArray, SizeOfInput);
+        std::cout << "Running time: " << TimeOP << std::endl;
+        long count_compare = Compare_Output_Parameter(argv, DataArray, SizeOfInput);
+        std::cout << "Comparisions: " << count_compare << std::endl;
+    }
+    else
+    {
+        std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
+        std::cout << "-Running time : -time" << std::endl;
+        std::cout << "-Comparisions : -comp" << std::endl;
+        std::cout << "-Both of them : -both" << std::endl;
+    }
+    std::cout << std::endl;
+    // output_to_file("Command_2_output.txt",DataArray, SizeOfInput);
+}
+
+void command_3(char *argv[])
+{
+    long long num_of_comparisons[4];
+    double time[4];
+
+    createData_3(argv);
+
+    int size = stoi(argv[3]); // size of the array
+
+    if (strcmp(argv[4], "-comp") == 0)
+    {
+        count_sort_comparisons(argv, num_of_comparisons);
+    }
+    if (strcmp(argv[4], "-time") == 0)
+    {
+        count_sort_time(argv, time);
+    }
+    if (strcmp(argv[4], "-both") == 0)
+    {
+        count_sort_comparisons(argv, num_of_comparisons);
+        count_sort_time(argv, time);
+    }
+
+    final_output(argv, num_of_comparisons, time);
 }
 
 void command_4(int argc, char *argv[])
@@ -252,15 +449,6 @@ void command_4(int argc, char *argv[])
     delete[] a;
 }
 
-void copy_array(int a[], int b[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        b[i] = a[i];
-    }
-}
-
-// Prototype: [Execution file] -c [Algorithm 1] [Algorithm 2] [Input size] [Input order]
 void command_5(int argc, char *argv[])
 {
     string algorithm_1 = argv[2];
@@ -505,34 +693,78 @@ void command_5(int argc, char *argv[])
     cout << endl;
 
     delete[] a;
-}
-void command_3(char *argv[])
+}//
+
+/////////////////////////////
+///////support_func//////////
+/////////////////////////////
+
+void final_output(char *argv[], long long num_of_comparisons[], double time[])
 {
-    long long num_of_comparisons[4];
-    double time[4];
+    cout << "ALGORITHM MODE" << '\n';
+    char *algorithm = argv[2];
 
-    createData_3(argv);
+    // remove dashes
+    char *space = strchr(algorithm, '-');
+    space[0] = ' ';
 
-    int size = stoi(argv[3]); // size of the array
+    cout << "Algorithm: " << algorithm << '\n';
+    cout << "Input size: " << stoi(argv[3]) << '\n'
+         << '\n';
 
-    if (strcmp(argv[4], "-comp") == 0)
-    {
-        count_sort_comparisons(argv, num_of_comparisons);
-    }
-    if (strcmp(argv[4], "-time") == 0)
-    {
-        count_sort_time(argv, time);
-    }
-    if (strcmp(argv[4], "-both") == 0)
-    {
-        count_sort_comparisons(argv, num_of_comparisons);
-        count_sort_time(argv, time);
-    }
+    // Random data
+    cout << "Input order: Randomize" << '\n';
+    cout << "--------------------------" << '\n';
 
-    final_output(argv, num_of_comparisons, time);
+    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Running time: " << time[0] << '\n';
+
+    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Comparisons: " << num_of_comparisons[0] << '\n';
+    cout << '\n';
+
+    // Nearly sorted data
+    cout << "Input order: Nearly Sorted" << '\n';
+    cout << "--------------------------" << '\n';
+
+    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Running time: " << time[1] << '\n';
+
+    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Comparisons: " << num_of_comparisons[1] << '\n';
+    cout << '\n';
+
+    // Sorted data
+    cout << "Input order: Sorted" << '\n';
+    cout << "--------------------------" << '\n';
+
+    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Running time: " << time[2] << '\n';
+
+    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Comparisons: " << num_of_comparisons[2] << '\n';
+    cout << '\n';
+
+    // Reversed data
+    cout << "Input order: Reversed" << '\n';
+    cout << "--------------------------" << '\n';
+
+    if (strcmp(argv[4], "-time") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Running time: " << time[3] << '\n';
+
+    if (strcmp(argv[4], "-comp") == 0 || strcmp(argv[4], "-both") == 0)
+        cout << "Comparisons: " << num_of_comparisons[3] << '\n';
+    cout << '\n';
 }
 
-// Command line 2| Syntax : [Execution file] -a [Algorithm] [Input size] [Input order] [Output parameter(s)]
+void copy_array(int a[], int b[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        b[i] = a[i];
+    }
+}
+
 long Time_Output_Parameter(char *argv[], int a[], int n)
 {
     std::string Algorithm = argv[2];
@@ -634,231 +866,6 @@ long Compare_Output_Parameter(char *argv[], int a[], int n)
         flashSort_count(a, n, count_compare);
     }
     return count_compare;
-}
-
-void command_2(int argc, char *argv[])
-{
-    std::string Algorithm = argv[2];
-    std::string InputSize = argv[3];
-    std::string DataOrder = argv[4];
-    std::string OutputParammeter = argv[5];
-    int SizeOfInput = std::stoi(InputSize);
-    if (SizeOfInput == 0)
-    {
-        std::cerr << "There is no data in the file ";
-        return;
-    }
-    int NumForGenerateData;
-    if (DataOrder == "-rand")
-    {
-        NumForGenerateData = 0;
-    }
-    else if (DataOrder == "-sorted")
-    {
-        NumForGenerateData = 1;
-    }
-    else if (DataOrder == "-rev")
-    {
-        NumForGenerateData = 2;
-    }
-    else if (DataOrder == "-nsorted")
-    {
-        NumForGenerateData = 3;
-    }
-    else
-    {
-        std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
-        std::cout << "-Random order : -rand" << std::endl;
-        std::cout << "-Sorted order : -sorted" << std::endl;
-        std::cout << "-Reversed order : -rev" << std::endl;
-        std::cout << "-Nearly sorted order : -nsorted" << std::endl;
-        return;
-    }
-    int *DataArray = new int[SizeOfInput];
-    GenerateData(DataArray, SizeOfInput, NumForGenerateData);
-    // output_to_file("Command_2_input.txt",DataArray, SizeOfInput);
-    std::cout << "Algorithm: " << Algorithm << std::endl;
-    std::cout << "Input size: " << SizeOfInput << std::endl;
-    std::cout << "Input order: " << DataOrder << std::endl;
-    std::cout << "---------------------------" << std::endl;
-    if (OutputParammeter == "-time")
-    {
-        double TimeOP = Time_Output_Parameter(argv, DataArray, SizeOfInput);
-        std::cout << "Running time: " << TimeOP;
-    }
-    else if (OutputParammeter == "-comp")
-    {
-        long count_compare = Compare_Output_Parameter(argv, DataArray, SizeOfInput);
-        std::cout << "Comparisions: " << count_compare;
-    }
-    else if (OutputParammeter == "-both")
-    {
-        double TimeOP = Time_Output_Parameter(argv, DataArray, SizeOfInput);
-        std::cout << "Running time: " << TimeOP << std::endl;
-        long count_compare = Compare_Output_Parameter(argv, DataArray, SizeOfInput);
-        std::cout << "Comparisions: " << count_compare << std::endl;
-    }
-    else
-    {
-        std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
-        std::cout << "-Running time : -time" << std::endl;
-        std::cout << "-Comparisions : -comp" << std::endl;
-        std::cout << "-Both of them : -both" << std::endl;
-    }
-    std::cout << std::endl;
-    // output_to_file("Command_2_output.txt",DataArray, SizeOfInput);
-}
-
-void command_1(int argc, char *argv[])
-{
-    if (argc == 6)
-        return;
-
-    long long countCompare = 0;
-
-    string algorithm = argv[2];
-    string input_file = argv[3];
-    string outputParams = argv[4];
-
-    ifstream inf(input_file);
-
-    if (!inf)
-    {
-        cout << "Can't open input file. \n";
-        exit(1);
-    }
-
-    int count = 0;
-
-    inf >> count;
-
-    int *a = new int[count];
-
-    for (int i = 0; i < count; i++)
-    {
-        inf >> a[i];
-    }
-
-    inf.close();
-
-    // Calculate the run time and the comparisions of the algorithm
-
-    double elaspedTime = 0;
-    clock_t start, end;
-
-    if (algorithm == "bubble-sort")
-    {
-        bubble_sort_time(a, count, elaspedTime);
-        copyFromFile(input_file, a, count);
-        bubble_sort_comparisons(a, count, countCompare);
-    }
-    else if (algorithm == "selection-sort")
-    {
-        selection_sort_time(a, count, elaspedTime);
-        copyFromFile(input_file, a, count);
-        selection_sort_comparisons(a, count, countCompare);
-    }
-    else if (algorithm == "insertion-sort")
-    {
-        insertion_sort_time(a, count, elaspedTime);
-        copyFromFile(input_file, a, count);
-        insertion_sort_comparisons(a, count, countCompare);
-    }
-    else if (algorithm == "heap-sort")
-    {
-        heap_sort_count(a, count, countCompare);
-        copyFromFile(input_file, a, count);
-        get_time_heap_sort(a, count);
-    }
-    else if (algorithm == "merge-sort")
-    {
-        // merge-sort
-    }
-    else if (algorithm == "quick-sort")
-    {
-        // quick-sort
-    }
-    else if (algorithm == "radix-sort")
-    {
-        radixsort_count(a, count, countCompare);
-        copyFromFile(input_file, a, count);
-        elaspedTime = get_time_radix_sort(a, count);
-    }
-    else if (algorithm == "shaker-sort")
-    {
-        shakerSort_count(a, count, countCompare);
-        copyFromFile(input_file, a, count);
-        get_time_shakerSort(a, count, elaspedTime);
-    }
-    else if (algorithm == "counting-sort")
-    {
-        countingSort_count(a, count, countCompare);
-        copyFromFile(input_file, a, count);
-        get_time_countingSort(a, count, elaspedTime);
-    }
-    else if (algorithm == "shell-sort")
-    {
-        shell_sort_count(a, count, countCompare);
-        copyFromFile(input_file, a, count);
-        elaspedTime = get_time_shell_sort(a, count);
-    }
-    else if (algorithm == "flash-sort")
-    {
-        flashSort_count(a, count, countCompare);
-        copyFromFile(input_file, a, count);
-        get_time_flashSort(a, count, elaspedTime);
-    }
-    else
-    {
-        cout << "Invalid Argument " << algorithm << ". \n";
-        exit(1);
-    }
-
-    if (outputParams == "-both")
-    {
-        cout << "ALGORITHM: " << algorithm << endl;
-        cout << "Input file: " << input_file << endl;
-        cout << "---------------------\n";
-        cout << "Running Time: " << elaspedTime << " ms" << endl;
-        cout << "Comparisions: " << countCompare << endl;
-    }
-    else if (outputParams == "-comp")
-    {
-        cout << "ALGORITHM: " << algorithm << endl;
-        cout << "Input file: " << input_file << endl;
-        cout << "---------------------\n";
-        cout << "Comparisions: " << countCompare << endl;
-    }
-    else if (outputParams == "-time")
-    {
-        cout << "ALGORITHM: " << algorithm << endl;
-        cout << "Input file: " << input_file << endl;
-        cout << "---------------------\n";
-        cout << "Running Time: " << elaspedTime << " ms" << endl;
-    }
-    else
-    {
-        cout << "Invalid Argument " << outputParams << ".\n";
-        exit(1);
-    }
-
-    // Write the file into another file
-    ofstream out("output.txt");
-
-    if (!out)
-    {
-        cout << "Can't open des file. \n";
-        exit(1);
-    }
-
-    out << count << endl;
-
-    for (int i = 0; i < count; i++)
-    {
-        out << a[i] << " ";
-    }
-
-    out.close();
 }
 
 string checkArgv_3(char *argv[])
