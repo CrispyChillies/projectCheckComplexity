@@ -1,4 +1,4 @@
-#include "functions.hpp"
+#include "sort.hpp"
 #include "command.hpp"
 #include "DataGenerator.hpp"
 
