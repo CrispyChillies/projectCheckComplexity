@@ -69,11 +69,15 @@ void command_1(int argc, char *argv[])
     }
     else if (algorithm == "merge-sort")
     {
-        // merge-sort
+        Merge_sort_with_count_compare(a, 0, count - 1, countCompare);
+        copyFromFile(input_file, a, count);
+        elaspedTime = Merge_sort_running_time(a, count);
     }
     else if (algorithm == "quick-sort")
     {
-        // quick-sort
+        Quick_sort_with_count_compare(a, 0, count - 1, countCompare);
+        copyFromFile(input_file, a, count);
+        elaspedTime = Quick_sort_running_time(a, count);
     }
     else if (algorithm == "radix-sort")
     {
@@ -395,18 +399,18 @@ void command_4(int argc, char *argv[])
     }
     else if (algorithm_2 == "heap-sort")
     {
-        // heap_sort_count(a, n, num_of_comparisons_2);
-        // time_2 = get_time_heap_sort(a, n);
+        Heap_sort_with_count_compare(a, n, num_of_comparisons_2);
+        time_2 = Heap_sort_running_time(a, n);
     }
     else if (algorithm_2 == "merge-sort")
     {
-        // merge_sort_count(a, n, num_of_comparisons_2);
-        // time_2 = get_time_merge_sort(a, n);
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
+        time_2 = Merge_sort_running_time(a, n);
     }
     else if (algorithm_2 == "quick-sort")
     {
-        // quick_sort_count(a, n, num_of_comparisons_2);
-        // time_2 = get_time_quick_sort(a, n);
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
+        time_2 = Quick_sort_running_time(a, n);
     }
     else if (algorithm_2 == "flash-sort")
     {
@@ -576,6 +580,26 @@ void command_5(int argc, char *argv[])
 
         time_1 = get_time_radix_sort(a, n);
     }
+    else if (algorithm_1 == "merge-sort")
+    {
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_1 = Merge_sort_running_time(a, n);
+    }
+    else if (algorithm_1 == "quick-sort")
+    {
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_1 = Quick_sort_running_time(a, n);
+    }
     else
         exit(1);
 
@@ -672,6 +696,26 @@ void command_5(int argc, char *argv[])
         inpf.close();
 
         time_2 = get_time_radix_sort(a, n);
+    }
+    else if (algorithm_2 == "merge-sort")
+    {
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_2 = Merge_sort_running_time(a, n);
+    }
+    else if (algorithm_2 == "quick-sort")
+    {
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_2 = Quick_sort_running_time(a, n);
     }
     else
     {

@@ -1083,7 +1083,84 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0; 
         flashSort_count(a, n, num_of_comparisons[3]);
     }
-    
+        if (strcmp(argv[2], "quick-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        num_of_comparisons[0] = 0; 
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        num_of_comparisons[1] = 0; 
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        num_of_comparisons[2] = 0; 
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        num_of_comparisons[3] = 0; 
+        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[3]);
+    }
+        if (strcmp(argv[2], "merge-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        num_of_comparisons[0] = 0; 
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        num_of_comparisons[1] = 0; 
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        num_of_comparisons[2] = 0; 
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        num_of_comparisons[3] = 0; 
+        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[3]);
+    }
+        if (strcmp(argv[2], "heap-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        num_of_comparisons[0] = 0; 
+        Heap_sort_with_count_compare(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        num_of_comparisons[1] = 0; 
+        Heap_sort_with_count_compare(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        num_of_comparisons[2] = 0; 
+        Heap_sort_with_count_compare(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        num_of_comparisons[3] = 0; 
+        Heap_sort_with_count_compare(a, n, num_of_comparisons[3]);
+    }
 }
 
 void count_sort_time(char *argv[], double time[])
@@ -1265,6 +1342,72 @@ void count_sort_time(char *argv[], double time[])
         input_from_file(in_reversed, a, n);
         in_reversed.close();
         get_time_flashSort(a, n, time[3]);
+    }
+    if (strcmp(argv[2], "quick-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        time[0] = Quick_sort_running_time(a, n);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        time[1] = Quick_sort_running_time(a, n);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        time[2] = Quick_sort_running_time(a, n);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        time[3] = Quick_sort_running_time(a, n);
+    }
+        if (strcmp(argv[2], "merge-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        time[0] = Merge_sort_running_time(a, n);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        time[1] = Merge_sort_running_time(a, n);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        time[2] = Merge_sort_running_time(a, n);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        time[3] = Merge_sort_running_time(a, n);
+    }
+        if (strcmp(argv[2], "heap-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        time[0] = Heap_sort_running_time(a, n);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        time[1] = Heap_sort_running_time(a, n);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        time[2] = Heap_sort_running_time(a, n);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        time[3] = Heap_sort_running_time(a, n);
     }
 }
 
