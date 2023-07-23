@@ -324,11 +324,11 @@ void get_time_shakerSort(int a[], int n, double &elapsedTime)
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
-    for (int i = 0; i < n && ++comparisons; i++)
+    for (int i = 0; ++comparisons && i < n; i++)
     {
-        for (int j = n - 1; j > i && ++comparisons; j--)
+        for (int j = n - 1; ++comparisons && j > i; j--)
         {
-            if (a[j] < a[j - 1] && ++comparisons)
+            if (++comparisons && a[j] < a[j - 1])
             {
                 HoanVi(a[j], a[j - 1]);
             }
@@ -395,11 +395,11 @@ void selection_sort_time(int a[], int n, double &time)
 void insertion_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
-    for (int i = 1; i < n && ++comparisons; i++)
+    for (int i = 1; ++comparisons && i < n; i++)
     {
         int j = i - 1;
         int key = a[i];
-        while (a[j] > key && j >= 0 && ++comparisons && ++comparisons)
+        while (++comparisons && a[j] > key && ++comparisons && j >= 0)
         {
             a[j + 1] = a[j];
             j--;
@@ -716,6 +716,116 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         insertion_sort_comparisons(a, n, num_of_comparisons[3]);
     }
+    if (strcmp(argv[2], "radix-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        radixsort_count(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        radixsort_count(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        radixsort_count(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        radixsort_count(a, n, num_of_comparisons[3]);
+    }
+    if (strcmp(argv[2], "shaker-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        shakerSort_count(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        shakerSort_count(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        shakerSort_count(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        shakerSort_count(a, n, num_of_comparisons[3]);
+    }
+    if (strcmp(argv[2], "counting-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        countingSort_count(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        countingSort_count(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        countingSort_count(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        countingSort_count(a, n, num_of_comparisons[3]);
+    }
+    if (strcmp(argv[2], "shell-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        shell_sort_count(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        shell_sort_count(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        shell_sort_count(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        shell_sort_count(a, n, num_of_comparisons[3]);
+    }
+    if (strcmp(argv[2], "flash-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        flashSort_count(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        flashSort_count(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        flashSort_count(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        flashSort_count(a, n, num_of_comparisons[3]);
+    }
 }
 
 void count_sort_time(char *argv[], double time[])
@@ -788,7 +898,119 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         insertion_sort_time(a, n, time[3]);
     }
+    if (strcmp(argv[2], "radix-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        time[0] = get_time_radix_sort(a, n);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        time[1] = get_time_radix_sort(a, n);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        time[2] = get_time_radix_sort(a, n);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        time[3] = get_time_radix_sort(a, n);
+    }
+    if (strcmp(argv[2], "shaker-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        get_time_shakerSort(a, n, time[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        get_time_shakerSort(a, n, time[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        get_time_shakerSort(a, n, time[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        get_time_shakerSort(a, n, time[3]);
+    }
+    if (strcmp(argv[2], "counting-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        get_time_countingSort(a, n, time[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        get_time_countingSort(a, n, time[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        get_time_countingSort(a, n, time[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        get_time_countingSort(a, n, time[3]);
+    }
+    if (strcmp(argv[2], "shell-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        time[0] = get_time_shell_sort(a, n);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        time[1] = get_time_shell_sort(a, n);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        time[2] = get_time_shell_sort(a, n);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        time[3] = get_time_shell_sort(a, n);
+    }
+    if (strcmp(argv[2], "flash-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        get_time_flashSort(a, n, time[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        get_time_flashSort(a, n, time[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        get_time_flashSort(a, n, time[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        get_time_flashSort(a, n, time[3]);
+    }
 }
+
+// Advanced comparison sorts
 
 void Sift_with_count_compare(int a[], int left, int right, long long &count_compare)
 {
