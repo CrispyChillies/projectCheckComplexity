@@ -354,6 +354,13 @@ void command_5(int argc, char *argv[])
     }
     else if (algorithm_1 == "heap-sort")
     {
+        heap_sort_count(a, n, num_of_comparisons_1);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_1 = get_time_heap_sort(a, n);
     }
     else if (algorithm_1 == "flash-sort")
     {
@@ -444,6 +451,13 @@ void command_5(int argc, char *argv[])
     }
     else if (algorithm_2 == "heap-sort")
     {
+        heap_sort_count(a, n, num_of_comparisons_2);
+
+        ifstream inpf("input.txt");
+        input_from_file(inpf, a, n);
+        inpf.close();
+
+        time_2 = get_time_heap_sort(a, n);
     }
     else if (algorithm_2 == "flash-sort")
     {
@@ -480,6 +494,15 @@ void command_5(int argc, char *argv[])
         cout << endl;
         exit(1);
     }
+
+    cout << "COMPARE MODE" << endl;
+    cout << "Algorithm: " << algorithm_1 << " | " << algorithm_2 << endl;
+    cout << "Input size: " << n << endl;
+    cout << "Input order: " << input_order << endl;
+    cout << "-------------------------" << endl;
+    cout << "Running time: " << time_1 << " | " << time_2 << endl;
+    cout << "Comparisons: " << num_of_comparisons_1 << " | " << num_of_comparisons_2 << endl;
+    cout << endl;
 
     delete[] a;
 }
