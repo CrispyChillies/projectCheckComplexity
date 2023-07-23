@@ -620,24 +620,30 @@ void command_2(int argc, char *argv[])
     std::string DataOrder = argv[4];
     std::string OutputParammeter = argv[5];
     int SizeOfInput = std::stoi(InputSize);
-    if (SizeOfInput == 0) {
+    if (SizeOfInput == 0)
+    {
         std::cerr << "There is no data in the file ";
         return;
     }
     int NumForGenerateData;
-    if (DataOrder == "-rand") {
+    if (DataOrder == "-rand")
+    {
         NumForGenerateData = 0;
     }
-    else if (DataOrder == "-sorted") {
+    else if (DataOrder == "-sorted")
+    {
         NumForGenerateData = 1;
     }
-    else if (DataOrder == "-rev") {
+    else if (DataOrder == "-rev")
+    {
         NumForGenerateData = 2;
     }
-    else if (DataOrder == "-nsorted") {
+    else if (DataOrder == "-nsorted")
+    {
         NumForGenerateData = 3;
     }
-    else {
+    else
+    {
         std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
         std::cout << "-Random order : -rand" << std::endl;
         std::cout << "-Sorted order : -sorted" << std::endl;
@@ -645,35 +651,39 @@ void command_2(int argc, char *argv[])
         std::cout << "-Nearly sorted order : -nsorted" << std::endl;
         return;
     }
-    int* DataArray = new int[SizeOfInput];
+    int *DataArray = new int[SizeOfInput];
     GenerateData(DataArray, SizeOfInput, NumForGenerateData);
-    output_to_file("Command_2_input.txt",DataArray, SizeOfInput);
+    // output_to_file("Command_2_input.txt",DataArray, SizeOfInput);
     std::cout << "Algorithm: " << Algorithm << std::endl;
     std::cout << "Input size: " << SizeOfInput << std::endl;
     std::cout << "Input order: " << DataOrder << std::endl;
     std::cout << "---------------------------" << std::endl;
-    if (OutputParammeter == "-time") {
+    if (OutputParammeter == "-time")
+    {
         double TimeOP = Time_Output_Parameter(argv, DataArray, SizeOfInput);
         std::cout << "Running time: " << TimeOP;
     }
-    else if (OutputParammeter == "-comp") {
+    else if (OutputParammeter == "-comp")
+    {
         long count_compare = Compare_Output_Parameter(argv, DataArray, SizeOfInput);
         std::cout << "Comparisions: " << count_compare;
     }
-    else if (OutputParammeter == "-both") {
+    else if (OutputParammeter == "-both")
+    {
         double TimeOP = Time_Output_Parameter(argv, DataArray, SizeOfInput);
         std::cout << "Running time: " << TimeOP << std::endl;
         long count_compare = Compare_Output_Parameter(argv, DataArray, SizeOfInput);
         std::cout << "Comparisions: " << count_compare << std::endl;
     }
-    else {
+    else
+    {
         std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
         std::cout << "-Running time : -time" << std::endl;
         std::cout << "-Comparisions : -comp" << std::endl;
         std::cout << "-Both of them : -both" << std::endl;
     }
     std::cout << std::endl;
-    output_to_file("Command_2_output.txt",DataArray, SizeOfInput);
+    // output_to_file("Command_2_output.txt",DataArray, SizeOfInput);
 }
 
 void command_1(int argc, char *argv[])
