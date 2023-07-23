@@ -59,3 +59,6 @@ void Heap_sort_without_count_compare(int a[], int n);
 
 // Miscellaneous functions
 void createData_3(char *argv[]);
+
+long Compare_Output_Parameter(char *argv[], int a[], int n);
+long Time_Output_Parameter(char *argv[], int a[], int n);
