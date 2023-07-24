@@ -225,7 +225,7 @@ void command_2(int argc, char *argv[])
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
         if(TimeOP == -1)
         {
-            std::cout << "Invalid sort algorithm";
+            std::cout << "Invalid sorting algorithm";
             return;
         }
         std::cout << "Running time: " << TimeOP << " ms" << endl;
@@ -235,7 +235,7 @@ void command_2(int argc, char *argv[])
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
         if(count_compare == -1)
         {
-            std::cout << "Invalid sort algorithm";
+            std::cout << "Invalid sorting algorithm";
             return;
         }
         std::cout << "Comparisons: " << count_compare;
@@ -251,14 +251,14 @@ void command_2(int argc, char *argv[])
         double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);\
         if(TimeOP == -1)
         {
-            std::cout << "Invalid sort algorithm";
+            std::cout << "Invalid sorting algorithm";
             return;
         }
         std::cout << "Running time: " << TimeOP << " ms" << std::endl;
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
         if(count_compare == -1)
         {
-            std::cout << "Invalid sort algorithm";
+            std::cout << "Invalid sorting algorithm";
             return;
         }
         std::cout << "Comparisons: " << count_compare << std::endl;
