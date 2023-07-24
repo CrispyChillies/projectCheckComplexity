@@ -222,14 +222,17 @@ void command_2(int argc, char *argv[])
     }
     else if (OutputParammeter == "-both")
     {
-        int*CopyOfDataArray=new int[SizeOfInput];
-        for(int i=0;i<SizeOfInput;i++){
-            CopyOfDataArray[i]=DataArray[i];
+        int *CopyOfDataArray = new int[SizeOfInput];
+        for (int i = 0; i < SizeOfInput; i++)
+        {
+            CopyOfDataArray[i] = DataArray[i];
         }
-        long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Comparisons: " << count_compare << std::endl;
+
         double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);
         std::cout << "Running time: " << TimeOP << " ms" << std::endl;
+        long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        std::cout << "Comparisons: " << count_compare << std::endl;
+
         delete[] CopyOfDataArray;
     }
     else
@@ -457,7 +460,7 @@ void command_4(int argc, char *argv[])
     cout << "Input file: " << input_file << endl;
     cout << "Input size: " << n << endl;
     cout << "-------------------------" << endl;
-    cout << "Running time: " << time_1 << " | " << time_2 << endl;
+    cout << "Running time: " << time_1 << " ms | " << time_2 << " ms" << endl;
     cout << "Comparisons: " << num_of_comparisons_1 << " | " << num_of_comparisons_2 << endl;
     cout << endl;
 
@@ -744,7 +747,7 @@ void command_5(int argc, char *argv[])
     cout << "Input size: " << n << endl;
     cout << "Input order: " << input_order << endl;
     cout << "-------------------------" << endl;
-    cout << "Running time: " << time_1 << " | " << time_2 << endl;
+    cout << "Running time: " << time_1 << " ms | " << time_2 << " ms" << endl;
     cout << "Comparisons: " << num_of_comparisons_1 << " | " << num_of_comparisons_2 << endl;
     cout << endl;
 
@@ -762,7 +765,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
 
     // remove dashes
     char *space = strchr(algorithm, '-');
-    while(space != NULL)
+    while (space != NULL)
     {
         space[0] = ' ';
         space = strchr(algorithm, '-');
