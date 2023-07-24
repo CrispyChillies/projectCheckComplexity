@@ -294,13 +294,16 @@ int shell_sort(int arr[], int n)
 
 double get_time_shell_sort(int a[], int n)
 {
-    clock_t start, end;
-
-    start = clock();
+    double elaspedTime;
+    auto start_time = std::chrono::high_resolution_clock::now();
+    
     shell_sort(a, n);
-    end = clock();
+    
+    auto end_time = std::chrono::high_resolution_clock::now();
 
-    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+
+    return elaspedTime;
 }
 
 void shell_sort_count(int arr[], int n, long long &compCount)
@@ -875,13 +878,14 @@ void radixsort(int a[], int n)
 
 double get_time_radix_sort(int a[], int n)
 {
-    clock_t start, end;
-
-    start = clock();
+    double elaspedTime;
+    auto start_time = std::chrono::high_resolution_clock::now();
+    
     radixsort(a, n);
-    end = clock();
-
-    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    
+    auto end_time = std::chrono::high_resolution_clock::now();
+    elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+    return elaspedTime;
 }
 
 int get_number_digits_count(int a[], int n, long long &compCount)
