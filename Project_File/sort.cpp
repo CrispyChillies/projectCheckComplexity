@@ -292,13 +292,16 @@ int shell_sort(int arr[], int n)
 
 double get_time_shell_sort(int a[], int n)
 {
-    clock_t start, end;
-
-    start = clock();
+    double elaspedTime;
+    auto start_time = std::chrono::high_resolution_clock::now();
+    
     shell_sort(a, n);
-    end = clock();
+    
+    auto end_time = std::chrono::high_resolution_clock::now();
 
-    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+
+    return elaspedTime;
 }
 
 void shell_sort_count(int arr[], int n, long long &compCount)
@@ -407,11 +410,11 @@ void Heap_sort_without_count_compare(int a[], int n)
 }
 double Heap_sort_running_time(int a[], int n)
 {
-    clock_t Start = clock();
+    auto start = std::chrono::high_resolution_clock::now();
     Heap_sort_without_count_compare(a, n);
-    clock_t End = clock();
-    double RunningTime = static_cast<double>(End - Start) * 1000 / CLOCKS_PER_SEC;
-    return RunningTime;
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> runningTime = end - start;
+    return runningTime.count();
 }
 
 ////////////////////////////////
@@ -528,11 +531,12 @@ void Merge_sort_without_count_compare(int a[], int left, int right)
 }
 double Merge_sort_running_time(int a[], int n)
 {
-    clock_t Start = clock();
+    auto start = std::chrono::high_resolution_clock::now();
     Merge_sort_without_count_compare(a, 0, n - 1);
-    clock_t End = clock();
-    double RunningTime = static_cast<double>(End - Start) * 1000 / CLOCKS_PER_SEC;
-    return RunningTime;
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double, std::milli> runningTime = end - start;
+    return runningTime.count();
 }
 ///////////////////////////////
 //////////Quick-sort///////////
@@ -590,11 +594,11 @@ void Quick_sort_with_count_compare(int a[], int left, int right, long long &coun
 }
 double Quick_sort_running_time(int a[], int n)
 {
-    clock_t StartOfQuicksort = clock();
-    Quick_sort_without_count_compare(a, 0, n - 1);
-    clock_t EndofQuicksort = clock();
-    double RunningTime = static_cast<double>(EndofQuicksort - StartOfQuicksort) * 1000 / CLOCKS_PER_SEC;
-    return RunningTime;
+    auto start = std::chrono::high_resolution_clock::now();
+    Heap_sort_without_count_compare(a, n);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> runningTime = end - start;
+    return runningTime.count();
 }
 
 //////////////////////////////
@@ -872,13 +876,14 @@ void radixsort(int a[], int n)
 
 double get_time_radix_sort(int a[], int n)
 {
-    clock_t start, end;
-
-    start = clock();
+    double elaspedTime;
+    auto start_time = std::chrono::high_resolution_clock::now();
+    
     radixsort(a, n);
-    end = clock();
-
-    return (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    
+    auto end_time = std::chrono::high_resolution_clock::now();
+    elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+    return elaspedTime;
 }
 
 int get_number_digits_count(int a[], int n, long long &compCount)

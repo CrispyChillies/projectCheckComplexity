@@ -38,8 +38,7 @@ int main(int argc, char *argv[])
             command_2(argc, argv);
         }
     }
-
-    if (option == "-c")
+    else if (option == "-c")
     {
         if (argc == 5)
         {
@@ -49,6 +48,10 @@ int main(int argc, char *argv[])
         {
             command_5(argc, argv);
         }
+    }
+    else
+    {
+        cout << "Invalid argument\n";
     }
 
     return 0;
