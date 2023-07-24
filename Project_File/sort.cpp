@@ -259,15 +259,13 @@ void shakerSort(int a[], int n)
 
 void get_time_shakerSort(int a[], int n, double &elapsedTime)
 {
-    clock_t start, end;
-
-    start = clock();
+    auto start_time = std::chrono::high_resolution_clock::now();
 
     shakerSort(a, n);
 
-    end = clock();
+    auto end_time = std::chrono::high_resolution_clock::now();
 
-    elapsedTime = ((double)(end - start)) / CLOCKS_PER_SEC * 1000;
+    elapsedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
 //////////////////////////////
@@ -634,13 +632,13 @@ void countingSort(int a[], int n)
 
 void get_time_countingSort(int a[], int n, double &elaspedTime)
 {
-    clock_t start, end;
+    auto start_time = std::chrono::high_resolution_clock::now();
 
-    start = clock();
     countingSort(a, n);
-    end = clock();
 
-    elaspedTime = double(end - start) / CLOCKS_PER_SEC * 1000;
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
 void countingSort_count(int a[], int n, long long &countCompare)
@@ -797,13 +795,13 @@ void flashSort_count(int arr[], int n, long long &countCompare)
 
 void get_time_flashSort(int a[], int n, double &elaspedTime)
 {
-    clock_t start, end;
+    auto start_time = std::chrono::high_resolution_clock::now();
 
-    start = clock();
     flashSort(a, n);
-    end = clock();
 
-    elaspedTime = double(end - start) / CLOCKS_PER_SEC * 1000;
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
 //////////////////////////////
