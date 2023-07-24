@@ -1,16 +1,14 @@
 ﻿#include "DataGenerator.hpp"
 
 template <class T>
-void HoanVi(T &a, T &b)
+void HoanVi(T& a, T& b)
 {
 	T x = a;
 	a = b;
 	b = x;
 }
 
-//-------------------------------------------------
 
-// Hàm phát sinh mảng dữ liệu ngẫu nhiên
 void GenerateRandomData(int a[], int n)
 {
 	srand((unsigned int)time(NULL));
@@ -21,7 +19,7 @@ void GenerateRandomData(int a[], int n)
 	}
 }
 
-// Hàm phát sinh mảng dữ liệu có thứ tự tăng dần
+
 void GenerateSortedData(int a[], int n)
 {
 	for (int i = 0; i < n; i++)
@@ -30,7 +28,7 @@ void GenerateSortedData(int a[], int n)
 	}
 }
 
-// Hàm phát sinh mảng dữ liệu có thứ tự ngược (giảm dần)
+
 void GenerateReverseData(int a[], int n)
 {
 	for (int i = 0; i < n; i++)
@@ -39,7 +37,7 @@ void GenerateReverseData(int a[], int n)
 	}
 }
 
-// Hàm phát sinh mảng dữ liệu gần như có thứ tự
+
 void GenerateNearlySortedData(int a[], int n)
 {
 	for (int i = 0; i < n; i++)
@@ -59,16 +57,16 @@ void GenerateData(int a[], int n, int dataType)
 {
 	switch (dataType)
 	{
-	case 0: // ngẫu nhiên
+	case 0: 
 		GenerateRandomData(a, n);
 		break;
-	case 1: // có thứ tự
+	case 1:
 		GenerateSortedData(a, n);
 		break;
-	case 2: // có thứ tự ngược
+	case 2: 
 		GenerateReverseData(a, n);
 		break;
-	case 3: // gần như có thứ tự
+	case 3:
 		GenerateNearlySortedData(a, n);
 		break;
 	default:
@@ -76,7 +74,7 @@ void GenerateData(int a[], int n, int dataType)
 	}
 }
 
-void output_to_file(ofstream &out, int a[], int n)
+void output_to_file(ofstream& out, int a[], int n)
 {
 	out << n << '\n';
 	for (int i = 0; i < n; i++)
@@ -85,7 +83,7 @@ void output_to_file(ofstream &out, int a[], int n)
 	}
 }
 
-void input_from_file(ifstream &in, int a[], int n)
+void input_from_file(ifstream& in, int a[], int n)
 {
 	char line[10];
 	in.getline(line, 10);
@@ -95,7 +93,7 @@ void input_from_file(ifstream &in, int a[], int n)
 	}
 }
 
-void copyFromFile(string inputFile, int *a, int n)
+void copyFromFile(string inputFile, int* a, int n)
 {
 	ifstream inf(inputFile);
 

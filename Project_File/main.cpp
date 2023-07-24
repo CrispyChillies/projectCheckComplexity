@@ -4,12 +4,33 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    if (argc < 5)
+    ofstream out("input.txt");
+    int n = 100000;
+    out << n << endl;
+
+    if (!out)
     {
-        cout << "NOT ENOUGH ARGUMENT TO EXECUTE\n\n";
-        cout << "Sample Command: \n";
+        cout << "Can't open file to generate data\n";
+        exit(1);
+    }
+
+    int* a;
+
+    a = new int[n];
+
+    GenerateData(a, n, 2);
+
+    for (int i = 0; i < n; i++)
+    {
+        out << a[i] << " ";
+    }
+
+    out.close();
+
+    if (argc < 4)
+    {
         cout << "Usage: " << argv[0] << " -a [Algorithm] [Given input] [Output parameter(s)]\n";
         cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Input order] [Output parameter(s)]\n";
         cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Output parameter(s)]\n";
@@ -53,6 +74,8 @@ int main(int argc, char *argv[])
     {
         cout << "Invalid argument\n";
     }
+
+    delete[] a;
 
     return 0;
 }
