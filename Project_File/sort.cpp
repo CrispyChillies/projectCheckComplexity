@@ -5,47 +5,48 @@
 ///////Selection-sort////////
 /////////////////////////////
 
+// older versions
+// void selection_sort_comparisons(int a[], int n, long long &comparisons)
+// {
+//     comparisons = 0;
+//     for (int i = 0; ++comparisons && i < n; i++)
+//     {
+//         int min = a[i];
+//         int minIndex = i;
+//         for (int j = i + 1; ++comparisons && j < n; j++)
+//         {
+//             if (++comparisons && a[j] < min)
+//             {
+//                 min = a[j];
+//                 minIndex = j;
+//             }
+//         }
+//         HoanVi(a[i], a[minIndex]);
+//     }
+// }
+
+// void selection_sort_time(int a[], int n, double &time)
+// {
+//     auto start_time = std::chrono::high_resolution_clock::now();
+//     for (int i = 0; i < n; i++)
+//     {
+//         int min = a[i];
+//         int minIndex = i;
+//         for (int j = i + 1; j < n; j++)
+//         {
+//             if (a[j] < min)
+//             {
+//                 min = a[j];
+//                 minIndex = j;
+//             }
+//         }
+//         HoanVi(a[i], a[minIndex]);
+//     }
+//     auto end_time = std::chrono::high_resolution_clock::now();
+//     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+// }
+
 void selection_sort_comparisons(int a[], int n, long long &comparisons)
-{
-    comparisons = 0;
-    for (int i = 0; ++comparisons && i < n; i++)
-    {
-        int min = a[i];
-        int minIndex = i;
-        for (int j = i + 1; ++comparisons && j < n; j++)
-        {
-            if (++comparisons && a[j] < min)
-            {
-                min = a[j];
-                minIndex = j;
-            }
-        }
-        HoanVi(a[i], a[minIndex]);
-    }
-}
-
-void selection_sort_time(int a[], int n, double &time)
-{
-    auto start_time = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < n; i++)
-    {
-        int min = a[i];
-        int minIndex = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (a[j] < min)
-            {
-                min = a[j];
-                minIndex = j;
-            }
-        }
-        HoanVi(a[i], a[minIndex]);
-    }
-    auto end_time = std::chrono::high_resolution_clock::now();
-    time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
-}
-
-void improved_selection_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
 	int min_index = 0;
@@ -75,7 +76,7 @@ void improved_selection_sort_comparisons(int a[], int n, long long &comparisons)
 	}
 }
 
-void improved_selection_sort_time(int a[], int n, double &time)
+void selection_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
 	int min_index = 0;
@@ -111,6 +112,42 @@ void improved_selection_sort_time(int a[], int n, double &time)
 ///////Insertion-sort////////
 /////////////////////////////
 
+// older versions
+
+// void insertion_sort_comparisons(int a[], int n, long long &comparisons)
+// {
+//     comparisons = 0;
+//     for (int i = 1; ++comparisons && i < n; i++)
+//     {
+//         int j = i - 1;
+//         int key = a[i];
+//         while (++comparisons && a[j] > key && ++comparisons && j >= 0)
+//         {
+//             a[j + 1] = a[j];
+//             j--;
+//         }
+//         a[j + 1] = key;
+//     }
+// }
+
+// void insertion_sort_time(int a[], int n, double &time)
+// {
+//     auto start_time = std::chrono::high_resolution_clock::now();
+//     for (int i = 1; i < n; i++)
+//     {
+//         int j = i - 1;
+//         int key = a[i];
+//         while (a[j] > key && j >= 0)
+//         {
+//             a[j + 1] = a[j];
+//             j--;
+//         }
+//         a[j + 1] = key;
+//     }
+//     auto end_time = std::chrono::high_resolution_clock::now();
+//     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+// }
+
 void insertion_sort(int a[], int n)
 {
     for (int i = 1; i < n; i++)
@@ -126,41 +163,7 @@ void insertion_sort(int a[], int n)
     }
 }
 
-void insertion_sort_comparisons(int a[], int n, long long &comparisons)
-{
-    comparisons = 0;
-    for (int i = 1; ++comparisons && i < n; i++)
-    {
-        int j = i - 1;
-        int key = a[i];
-        while (++comparisons && a[j] > key && ++comparisons && j >= 0)
-        {
-            a[j + 1] = a[j];
-            j--;
-        }
-        a[j + 1] = key;
-    }
-}
-
-void insertion_sort_time(int a[], int n, double &time)
-{
-    auto start_time = std::chrono::high_resolution_clock::now();
-    for (int i = 1; i < n; i++)
-    {
-        int j = i - 1;
-        int key = a[i];
-        while (a[j] > key && j >= 0)
-        {
-            a[j + 1] = a[j];
-            j--;
-        }
-        a[j + 1] = key;
-    }
-    auto end_time = std::chrono::high_resolution_clock::now();
-    time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
-}
-
-void binary_insertion_sort_comparisons(int* arr, int n, long long &comparisons)
+void insertion_sort_comparisons(int* arr, int n, long long &comparisons)
 {
     comparisons = 0;
 	int j, v, left, right;
@@ -185,7 +188,7 @@ void binary_insertion_sort_comparisons(int* arr, int n, long long &comparisons)
 	}
 }
 
-void binary_insertion_sort_time(int* arr, int n, double &time)
+void insertion_sort_time(int* arr, int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
 	int j, v, left, right;
@@ -1152,28 +1155,6 @@ bool count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         selection_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    else if (strcmp(argv[2], "improved-selection-sort") == 0)
-    {
-        ifstream in_random("input1.txt");
-        input_from_file(in_random, a, n);
-        in_random.close();
-        improved_selection_sort_comparisons(a, n, num_of_comparisons[0]);
-
-        ifstream in_nearlysorted("input2.txt");
-        input_from_file(in_nearlysorted, a, n);
-        in_nearlysorted.close();
-        improved_selection_sort_comparisons(a, n, num_of_comparisons[1]);
-
-        ifstream in_sorted("input3.txt");
-        input_from_file(in_sorted, a, n);
-        in_sorted.close();
-        improved_selection_sort_comparisons(a, n, num_of_comparisons[2]);
-
-        ifstream in_reversed("input4.txt");
-        input_from_file(in_reversed, a, n);
-        in_reversed.close();
-        improved_selection_sort_comparisons(a, n, num_of_comparisons[3]);
-    }
     else if (strcmp(argv[2], "insertion-sort") == 0)
     {
         ifstream in_random("input1.txt");
@@ -1195,28 +1176,6 @@ bool count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         input_from_file(in_reversed, a, n);
         in_reversed.close();
         insertion_sort_comparisons(a, n, num_of_comparisons[3]);
-    }
-    else if (strcmp(argv[2], "binary-insertion-sort") == 0)
-    {
-        ifstream in_random("input1.txt");
-        input_from_file(in_random, a, n);
-        in_random.close();
-        binary_insertion_sort_comparisons(a, n, num_of_comparisons[0]);
-
-        ifstream in_nearlysorted("input2.txt");
-        input_from_file(in_nearlysorted, a, n);
-        in_nearlysorted.close();
-        binary_insertion_sort_comparisons(a, n, num_of_comparisons[1]);
-
-        ifstream in_sorted("input3.txt");
-        input_from_file(in_sorted, a, n);
-        in_sorted.close();
-        binary_insertion_sort_comparisons(a, n, num_of_comparisons[2]);
-
-        ifstream in_reversed("input4.txt");
-        input_from_file(in_reversed, a, n);
-        in_reversed.close();
-        binary_insertion_sort_comparisons(a, n, num_of_comparisons[3]);
     }
     else if (strcmp(argv[2], "radix-sort") == 0)
     {
@@ -1478,28 +1437,6 @@ bool count_sort_time(char *argv[], double time[])
         in_reversed.close();
         selection_sort_time(a, n, time[3]);
     }
-    else if (strcmp(argv[2], "improved-selection-sort") == 0)
-    {
-        ifstream in_random("input1.txt");
-        input_from_file(in_random, a, n);
-        in_random.close();
-        improved_selection_sort_time(a, n, time[0]);
-
-        ifstream in_nearlysorted("input2.txt");
-        input_from_file(in_nearlysorted, a, n);
-        in_nearlysorted.close();
-        improved_selection_sort_time(a, n, time[1]);
-
-        ifstream in_sorted("input3.txt");
-        input_from_file(in_sorted, a, n);
-        in_sorted.close();
-        improved_selection_sort_time(a, n, time[2]);
-
-        ifstream in_reversed("input4.txt");
-        input_from_file(in_reversed, a, n);
-        in_reversed.close();
-        improved_selection_sort_time(a, n, time[3]);
-    }
     else if (strcmp(argv[2], "insertion-sort") == 0)
     {
         ifstream in_random("input1.txt");
@@ -1521,28 +1458,6 @@ bool count_sort_time(char *argv[], double time[])
         input_from_file(in_reversed, a, n);
         in_reversed.close();
         insertion_sort_time(a, n, time[3]);
-    }
-    else if (strcmp(argv[2], "binary-insertion-sort") == 0)
-    {
-        ifstream in_random("input1.txt");
-        input_from_file(in_random, a, n);
-        in_random.close();
-        binary_insertion_sort_time(a, n, time[0]);
-
-        ifstream in_nearlysorted("input2.txt");
-        input_from_file(in_nearlysorted, a, n);
-        in_nearlysorted.close();
-        binary_insertion_sort_time(a, n, time[1]);
-
-        ifstream in_sorted("input3.txt");
-        input_from_file(in_sorted, a, n);
-        in_sorted.close();
-        binary_insertion_sort_time(a, n, time[2]);
-
-        ifstream in_reversed("input4.txt");
-        input_from_file(in_reversed, a, n);
-        in_reversed.close();
-        binary_insertion_sort_time(a, n, time[3]);
     }
     else if (strcmp(argv[2], "radix-sort") == 0)
     {
