@@ -287,24 +287,35 @@ void command_3(char *argv[])
 
     createData_3(argv);
 
-    int size = stoi(argv[3]); // size of the array
-
+    int size = stoi(argv[3]);
     if (strcmp(argv[4], "-comp") == 0)
     {
-        count_sort_comparisons(argv, num_of_comparisons);
+        if (!count_sort_comparisons(argv, num_of_comparisons))
+        {
+            cout << "Invalid sorting algorithm: " << argv[2] << " \n";
+            exit(1);
+        }
     }
     else if (strcmp(argv[4], "-time") == 0)
     {
-        count_sort_time(argv, time);
+        if (!count_sort_time(argv, time))
+        {
+            cout << "Invalid sorting algorithm: " << argv[2] << " \n";
+            exit(1);
+        }
     }
     else if (strcmp(argv[4], "-both") == 0)
     {
-        count_sort_comparisons(argv, num_of_comparisons);
+        if (!count_sort_comparisons(argv, num_of_comparisons))
+        {
+            cout << "Invalid sorting algorithm: " << argv[2] << " \n";
+            exit(1);
+        }
         count_sort_time(argv, time);
     }
     else
     {
-        cout << "Invalid argument " << argv[4] << " \n";
+        cout << "Invalid output parameter(s): " << argv[4] << " \n";
         exit(1);
     }
 

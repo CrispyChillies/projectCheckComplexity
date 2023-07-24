@@ -29,13 +29,15 @@ void improved_bubble_sort_time(int a[], int n, double& time);
 
 void selection_sort_comparisons(int a[], int n, long long& comparisons);
 void selection_sort_time(int a[], int n, double& time);
+void improved_selection_sort_comparisons(int a[], int n, long long &comparisons);
+void improved_selection_sort_time(int a[], int n, double &time);
 
 void insertion_sort(int a[], int n);
 void insertion_sort_comparisons(int a[], int n, long long& comparisons);
 void insertion_sort_time(int a[], int n, double& time);
 
-void count_sort_comparisons(char* argv[], long long num_of_comparisons[]);
-void count_sort_time(char* argv[], double time[]);
+bool count_sort_comparisons(char* argv[], long long num_of_comparisons[]);
+bool count_sort_time(char* argv[], double time[]);
 
 void radixsort(int a[], int n);
 void radixsort_count(int a[], int n, long long& compCount);

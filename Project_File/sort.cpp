@@ -45,6 +45,68 @@ void selection_sort_time(int a[], int n, double &time)
     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
+void improved_selection_sort_comparisons(int a[], int n, long long &comparisons)
+{
+    comparisons = 0;
+	int min_index = 0;
+	int max_index = 0;
+	for (int i = 0; ++comparisons && i < n / 2; i++)
+	{
+		min_index = i;
+		max_index = i;
+		int max = a[i];
+		for (int j = i; ++comparisons && j < n - i; j++)
+		{
+			if (++comparisons && a[j] < a[min_index])
+			{
+				min_index = j;
+			}
+			if (++comparisons && a[j] > a[max_index])
+			{
+				max_index = j;
+				max = a[j];
+			}
+		}
+		swap(a[i], a[min_index]);
+		if (++comparisons && a[min_index] == max)
+			swap(a[n - i - 1], a[min_index]);
+		else
+			swap(a[n - i - 1], a[max_index]);
+	}
+}
+
+void improved_selection_sort_time(int a[], int n, double &time)
+{
+    auto start_time = std::chrono::high_resolution_clock::now();
+	int min_index = 0;
+	int max_index = 0;
+	for (int i = 0; i < n / 2; i++)
+	{
+		min_index = i;
+		max_index = i;
+		int max = a[i];
+		for (int j = i; j < n - i; j++)
+		{
+			if (a[j] < a[min_index])
+			{
+				min_index = j;
+			}
+			if (a[j] > a[max_index])
+			{
+				max_index = j;
+				max = a[j];
+			}
+		}
+		swap(a[i], a[min_index]);
+		if (a[min_index] == max)
+			swap(a[n - i - 1], a[min_index]);
+		else
+			swap(a[n - i - 1], a[max_index]);
+	}
+    auto end_time = std::chrono::high_resolution_clock::now();
+    time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+}
+
 /////////////////////////////
 ///////Insertion-sort////////
 /////////////////////////////
@@ -988,7 +1050,7 @@ void createData_3(char *argv[])
     out4.close();
 }
 
-void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
+bool count_sort_comparisons(char *argv[], long long num_of_comparisons[])
 {
     int n = stoi(argv[3]);
     int *a = new int[n];
@@ -1015,7 +1077,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         bubble_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "improved-bubble-sort") == 0)
+    else if (strcmp(argv[2], "improved-bubble-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1037,7 +1099,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         improved_bubble_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "selection-sort") == 0)
+    else if (strcmp(argv[2], "selection-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1059,7 +1121,29 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         selection_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "insertion-sort") == 0)
+    else if (strcmp(argv[2], "improved-selection-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        improved_selection_sort_comparisons(a, n, num_of_comparisons[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        improved_selection_sort_comparisons(a, n, num_of_comparisons[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        improved_selection_sort_comparisons(a, n, num_of_comparisons[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        improved_selection_sort_comparisons(a, n, num_of_comparisons[3]);
+    }
+    else if (strcmp(argv[2], "insertion-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1081,7 +1165,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         insertion_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "radix-sort") == 0)
+    else if (strcmp(argv[2], "radix-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1107,7 +1191,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         radixsort_count(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "shaker-sort") == 0)
+    else if (strcmp(argv[2], "shaker-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1133,7 +1217,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         shakerSort_count(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "counting-sort") == 0)
+    else if (strcmp(argv[2], "counting-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1159,7 +1243,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         countingSort_count(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "shell-sort") == 0)
+    else if (strcmp(argv[2], "shell-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1185,7 +1269,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         shell_sort_count(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "flash-sort") == 0)
+    else if (strcmp(argv[2], "flash-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1211,7 +1295,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         flashSort_count(a, n, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "quick-sort") == 0)
+    else if (strcmp(argv[2], "quick-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1237,7 +1321,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "merge-sort") == 0)
+    else if (strcmp(argv[2], "merge-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1263,7 +1347,7 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons[3]);
     }
-    if (strcmp(argv[2], "heap-sort") == 0)
+    else if (strcmp(argv[2], "heap-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1289,9 +1373,11 @@ void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         Heap_sort_with_count_compare(a, n, num_of_comparisons[3]);
     }
+    else return false;
+    return true;
 }
 
-void count_sort_time(char *argv[], double time[])
+bool count_sort_time(char *argv[], double time[])
 {
     int n = stoi(argv[3]);
     int *a = new int[n];
@@ -1317,7 +1403,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         bubble_sort_time(a, n, time[3]);
     }
-    if (strcmp(argv[2], "improved-bubble-sort") == 0)
+    else if (strcmp(argv[2], "improved-bubble-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1339,7 +1425,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         improved_bubble_sort_time(a, n, time[3]);
     }
-    if (strcmp(argv[2], "selection-sort") == 0)
+    else if (strcmp(argv[2], "selection-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1361,7 +1447,29 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         selection_sort_time(a, n, time[3]);
     }
-    if (strcmp(argv[2], "insertion-sort") == 0)
+    else if (strcmp(argv[2], "improved-selection-sort") == 0)
+    {
+        ifstream in_random("input1.txt");
+        input_from_file(in_random, a, n);
+        in_random.close();
+        improved_selection_sort_time(a, n, time[0]);
+
+        ifstream in_nearlysorted("input2.txt");
+        input_from_file(in_nearlysorted, a, n);
+        in_nearlysorted.close();
+        improved_selection_sort_time(a, n, time[1]);
+
+        ifstream in_sorted("input3.txt");
+        input_from_file(in_sorted, a, n);
+        in_sorted.close();
+        improved_selection_sort_time(a, n, time[2]);
+
+        ifstream in_reversed("input4.txt");
+        input_from_file(in_reversed, a, n);
+        in_reversed.close();
+        improved_selection_sort_time(a, n, time[3]);
+    }
+    else if (strcmp(argv[2], "insertion-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1383,7 +1491,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         insertion_sort_time(a, n, time[3]);
     }
-    if (strcmp(argv[2], "radix-sort") == 0)
+    else if (strcmp(argv[2], "radix-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1405,7 +1513,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         time[3] = get_time_radix_sort(a, n);
     }
-    if (strcmp(argv[2], "shaker-sort") == 0)
+    else if (strcmp(argv[2], "shaker-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1427,7 +1535,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         get_time_shakerSort(a, n, time[3]);
     }
-    if (strcmp(argv[2], "counting-sort") == 0)
+    else if (strcmp(argv[2], "counting-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1449,7 +1557,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         get_time_countingSort(a, n, time[3]);
     }
-    if (strcmp(argv[2], "shell-sort") == 0)
+    else if (strcmp(argv[2], "shell-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1471,7 +1579,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         time[3] = get_time_shell_sort(a, n);
     }
-    if (strcmp(argv[2], "flash-sort") == 0)
+    else if (strcmp(argv[2], "flash-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1493,7 +1601,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         get_time_flashSort(a, n, time[3]);
     }
-    if (strcmp(argv[2], "quick-sort") == 0)
+    else if (strcmp(argv[2], "quick-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1515,7 +1623,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         time[3] = Quick_sort_running_time(a, n);
     }
-    if (strcmp(argv[2], "merge-sort") == 0)
+    else if (strcmp(argv[2], "merge-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1537,7 +1645,7 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         time[3] = Merge_sort_running_time(a, n);
     }
-    if (strcmp(argv[2], "heap-sort") == 0)
+    else if (strcmp(argv[2], "heap-sort") == 0)
     {
         ifstream in_random("input1.txt");
         input_from_file(in_random, a, n);
@@ -1559,4 +1667,6 @@ void count_sort_time(char *argv[], double time[])
         in_reversed.close();
         time[3] = Heap_sort_running_time(a, n);
     }
+    else return false;
+    return true;
 }
