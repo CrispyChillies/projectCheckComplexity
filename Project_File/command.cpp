@@ -223,11 +223,21 @@ void command_2(int argc, char *argv[])
     if (OutputParammeter == "-time")
     {
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        if(TimeOP == -1)
+        {
+            std::cout << "Invalid sort algorithm";
+            return;
+        }
         std::cout << "Running time: " << TimeOP << " ms" << endl;
     }
     else if (OutputParammeter == "-comp")
     {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        if(count_compare == -1)
+        {
+            std::cout << "Invalid sort algorithm";
+            return;
+        }
         std::cout << "Comparisons: " << count_compare;
     }
     else if (OutputParammeter == "-both")
@@ -238,9 +248,19 @@ void command_2(int argc, char *argv[])
             CopyOfDataArray[i] = DataArray[i];
         }
 
-        double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);
+        double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);\
+        if(TimeOP == -1)
+        {
+            std::cout << "Invalid sort algorithm";
+            return;
+        }
         std::cout << "Running time: " << TimeOP << " ms" << std::endl;
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        if(count_compare == -1)
+        {
+            std::cout << "Invalid sort algorithm";
+            return;
+        }
         std::cout << "Comparisons: " << count_compare << std::endl;
 
         delete[] CopyOfDataArray;
@@ -899,6 +919,7 @@ double Time_Output_Parameter(const std::string Algorithm, int a[], int n)
     {
         get_time_flashSort(a, n, TimeOP);
     }
+    else return -1;
     return TimeOP;
 }
 
@@ -950,6 +971,7 @@ long long Compare_Output_Parameter(const std::string Algorithm, int a[], int n)
     {
         flashSort_count(a, n, count_compare);
     }
+    else return -1;
     return count_compare;
 }
 
