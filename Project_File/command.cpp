@@ -757,7 +757,11 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
 
     // remove dashes
     char *space = strchr(algorithm, '-');
-    space[0] = ' ';
+    while(space != NULL)
+    {
+        space[0] = ' ';
+        space = strchr(algorithm, '-');
+    }
 
     cout << "Algorithm: " << algorithm << '\n';
     cout << "Input size: " << stoi(argv[3]) << '\n'
