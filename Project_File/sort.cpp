@@ -26,7 +26,7 @@ void selection_sort_comparisons(int a[], int n, long long &comparisons)
 
 void selection_sort_time(int a[], int n, double &time)
 {
-    clock_t start = clock();
+    auto start_time = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < n; i++)
     {
         int min = a[i];
@@ -41,8 +41,8 @@ void selection_sort_time(int a[], int n, double &time)
         }
         HoanVi(a[i], a[minIndex]);
     }
-    clock_t end = clock();
-    time = double(end - start) / CLOCKS_PER_SEC * 1000;
+    auto end_time = std::chrono::high_resolution_clock::now();
+    time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
 /////////////////////////////
