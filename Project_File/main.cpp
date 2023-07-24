@@ -6,7 +6,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-
     if (argc < 5)
     {
         cout << "Usage: " << argv[0] << " -a [Algorithm] [Given input] [Output parameter(s)]\n";

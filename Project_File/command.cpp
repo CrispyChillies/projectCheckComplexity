@@ -6,7 +6,7 @@
 ///////command_func//////////
 /////////////////////////////
 
-void command_1(int argc, char* argv[])
+void command_1(int argc, char *argv[])
 {
     if (argc == 6)
         return;
@@ -29,7 +29,7 @@ void command_1(int argc, char* argv[])
 
     inf >> count;
 
-    int* a = new int[count];
+    int *a = new int[count];
 
     for (int i = 0; i < count; i++)
     {
@@ -163,13 +163,23 @@ void command_1(int argc, char* argv[])
 }
 
 // Command line 2 : [Execution file] -a [Algorithm] [Input size] [Input order] [Output parameter(s)]
-void command_2(int argc, char* argv[])
+void command_2(int argc, char *argv[])
 {
     std::string Algorithm = argv[2];
     std::string InputSize = argv[3];
     std::string DataOrder = argv[4];
     std::string OutputParammeter = argv[5];
-    int SizeOfInput = std::stoi(InputSize);
+
+    int n = stoi(InputSize);
+
+    if (n <= 0)
+    {
+        cout << "Input Size Should Be Above 0\n";
+        exit(1);
+    }
+
+    int SizeOfInput = n;
+
     if (SizeOfInput == 0)
     {
         std::cerr << "There is no data in the file ";
@@ -201,7 +211,7 @@ void command_2(int argc, char* argv[])
         std::cout << "-Nearly sorted order : -nsorted" << std::endl;
         return;
     }
-    int* DataArray = new int[SizeOfInput];
+    int *DataArray = new int[SizeOfInput];
     GenerateData(DataArray, SizeOfInput, NumForGenerateData);
     std::ofstream out("Command_2_input.txt");
     output_to_file(out, DataArray, SizeOfInput);
@@ -209,7 +219,7 @@ void command_2(int argc, char* argv[])
     std::cout << "Algorithm: " << Algorithm << std::endl;
     std::cout << "Input size: " << SizeOfInput << std::endl;
     std::cout << "Input order: " << DataOrder << std::endl;
-    std::cout << "-----------------------------------------------------------------" << std::endl;
+    std::cout << "---------------------------------------" << std::endl;
     if (OutputParammeter == "-time")
     {
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
@@ -222,7 +232,7 @@ void command_2(int argc, char* argv[])
     }
     else if (OutputParammeter == "-both")
     {
-        int* CopyOfDataArray = new int[SizeOfInput];
+        int *CopyOfDataArray = new int[SizeOfInput];
         for (int i = 0; i < SizeOfInput; i++)
         {
             CopyOfDataArray[i] = DataArray[i];
@@ -250,7 +260,7 @@ void command_2(int argc, char* argv[])
     delete[] DataArray;
 }
 
-void command_3(char* argv[])
+void command_3(char *argv[])
 {
     long long num_of_comparisons[4];
     double time[4];
@@ -263,20 +273,25 @@ void command_3(char* argv[])
     {
         count_sort_comparisons(argv, num_of_comparisons);
     }
-    if (strcmp(argv[4], "-time") == 0)
+    else if (strcmp(argv[4], "-time") == 0)
     {
         count_sort_time(argv, time);
     }
-    if (strcmp(argv[4], "-both") == 0)
+    else if (strcmp(argv[4], "-both") == 0)
     {
         count_sort_comparisons(argv, num_of_comparisons);
         count_sort_time(argv, time);
+    }
+    else
+    {
+        cout << "Invalid argument " << argv[4] << " \n";
+        exit(1);
     }
 
     final_output(argv, num_of_comparisons, time);
 }
 
-void command_4(int argc, char* argv[])
+void command_4(int argc, char *argv[])
 {
     if (argc > 5)
     {
@@ -301,7 +316,7 @@ void command_4(int argc, char* argv[])
 
     inf >> n;
 
-    int* a = new int[n];
+    int *a = new int[n];
 
     for (int i = 0; i < n; i++)
     {
@@ -468,16 +483,22 @@ void command_4(int argc, char* argv[])
     delete[] a;
 }
 
-void command_5(int argc, char* argv[])
+void command_5(int argc, char *argv[])
 {
     string algorithm_1 = argv[2];
     string algorithm_2 = argv[3];
     int n = atoi(argv[4]);
     string input_order = argv[5];
 
+    if (n <= 0)
+    {
+        cout << "Input Should Be Above 0 \n";
+        exit(1);
+    }
+
     ofstream outf("input.txt");
 
-    int* a;
+    int *a;
     a = new int[n];
 
     if (input_order == "-rand")
@@ -622,9 +643,8 @@ void command_5(int argc, char* argv[])
     else
     {
         cout << "Wrong Arguments.\n";
-	    exit(1);
+        exit(1);
     }
-        
 
     ifstream inpf("input.txt");
     input_from_file(inpf, a, n);
@@ -762,13 +782,13 @@ void command_5(int argc, char* argv[])
 ///////support_func//////////
 /////////////////////////////
 
-void final_output(char* argv[], long long num_of_comparisons[], double time[])
+void final_output(char *argv[], long long num_of_comparisons[], double time[])
 {
     cout << "ALGORITHM MODE" << '\n';
-    char* algorithm = argv[2];
+    char *algorithm = argv[2];
 
     // remove dashes
-    char* space = strchr(algorithm, '-');
+    char *space = strchr(algorithm, '-');
     while (space != NULL)
     {
         space[0] = ' ';
@@ -777,7 +797,7 @@ void final_output(char* argv[], long long num_of_comparisons[], double time[])
 
     cout << "Algorithm: " << algorithm << '\n';
     cout << "Input size: " << stoi(argv[3]) << '\n'
-        << '\n';
+         << '\n';
 
     // Random data
     cout << "Input order: Randomize" << '\n';
@@ -933,7 +953,7 @@ long long Compare_Output_Parameter(const std::string Algorithm, int a[], int n)
     return count_compare;
 }
 
-string checkArgv_3(char* argv[])
+string checkArgv_3(char *argv[])
 {
     string Input = argv[3];
 

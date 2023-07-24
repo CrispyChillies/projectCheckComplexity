@@ -5,7 +5,7 @@
 ///////Selection-sort////////
 /////////////////////////////
 
-void selection_sort_comparisons(int a[], int n, long long& comparisons)
+void selection_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
     for (int i = 0; ++comparisons && i < n; i++)
@@ -24,7 +24,7 @@ void selection_sort_comparisons(int a[], int n, long long& comparisons)
     }
 }
 
-void selection_sort_time(int a[], int n, double& time)
+void selection_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < n; i++)
@@ -64,7 +64,7 @@ void insertion_sort(int a[], int n)
     }
 }
 
-void insertion_sort_comparisons(int a[], int n, long long& comparisons)
+void insertion_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
     for (int i = 1; ++comparisons && i < n; i++)
@@ -80,7 +80,7 @@ void insertion_sort_comparisons(int a[], int n, long long& comparisons)
     }
 }
 
-void insertion_sort_time(int a[], int n, double& time)
+void insertion_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
     for (int i = 1; i < n; i++)
@@ -102,7 +102,7 @@ void insertion_sort_time(int a[], int n, double& time)
 /////////Bubble-sort/////////
 /////////////////////////////
 
-void bubble_sort_comparisons(int a[], int n, long long& comparisons)
+void bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
     for (int i = 0; ++comparisons && i < n; i++)
@@ -117,7 +117,7 @@ void bubble_sort_comparisons(int a[], int n, long long& comparisons)
     }
 }
 
-void bubble_sort_time(int a[], int n, double& time)
+void bubble_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < n; i++)
@@ -134,7 +134,7 @@ void bubble_sort_time(int a[], int n, double& time)
     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
-void improved_bubble_sort_comparisons(int a[], int n, long long& comparisons)
+void improved_bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
     bool sorted;
     comparisons = 0;
@@ -154,7 +154,7 @@ void improved_bubble_sort_comparisons(int a[], int n, long long& comparisons)
     }
 }
 
-void improved_bubble_sort_time(int a[], int n, double& time)
+void improved_bubble_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
     bool sorted;
@@ -180,7 +180,7 @@ void improved_bubble_sort_time(int a[], int n, double& time)
 /////////Shaker-sort/////////
 /////////////////////////////
 
-void shakerSort_count(int a[], int n, long long& countCompare)
+void shakerSort_count(int a[], int n, long long &countCompare)
 {
     int left = 0;
     int k = 0;
@@ -257,7 +257,7 @@ void shakerSort(int a[], int n)
     } while (left < right);
 }
 
-void get_time_shakerSort(int a[], int n, double& elapsedTime)
+void get_time_shakerSort(int a[], int n, double &elapsedTime)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -304,7 +304,7 @@ double get_time_shell_sort(int a[], int n)
     return elaspedTime;
 }
 
-void shell_sort_count(int arr[], int n, long long& compCount)
+void shell_sort_count(int arr[], int n, long long &compCount)
 {
     for (int gap = n / 2; ++compCount && gap > 0; gap /= 2)
     {
@@ -327,7 +327,7 @@ void shell_sort_count(int arr[], int n, long long& compCount)
 //////////Heap-sort///////////
 //////////////////////////////
 
-void sift_with_count_compare(int a[], int left, int right, long long& count_compare)
+void sift_with_count_compare(int a[], int left, int right, long long &count_compare)
 {
     int i = left;
     int j = i * 2;
@@ -351,7 +351,7 @@ void sift_with_count_compare(int a[], int left, int right, long long& count_comp
     }
     a[i] = x;
 }
-void Heap_sort_with_count_compare(int a[], int n, long long& count_compare)
+void Heap_sort_with_count_compare(int a[], int n, long long &count_compare)
 {
     int left = n / 2;
     int right = n - 1;
@@ -420,12 +420,12 @@ double Heap_sort_running_time(int a[], int n)
 ////////////////////////////////
 //////////Merge-sort///////////
 ////////////////////////////////
-void merge_with_count_compare(int a[], int left, int right, int mid, long long& count_compare)
+void merge_with_count_compare(int a[], int left, int right, int mid, long long &count_compare)
 {
     int t1 = mid - left + 1;
     int t2 = right - mid;
-    int* ML = new int[t1]; // mid to left
-    int* MR = new int[t2]; // mid to right
+    int *ML = new int[t1]; // mid to left
+    int *MR = new int[t2]; // mid to right
     for (int i = 0; ++count_compare && i < t1; i++)
     {
         ML[i] = a[i + left];
@@ -464,7 +464,7 @@ void merge_with_count_compare(int a[], int left, int right, int mid, long long& 
     delete[] MR;
     delete[] ML;
 }
-void Merge_sort_with_count_compare(int a[], int left, int right, long long& count_compare)
+void Merge_sort_with_count_compare(int a[], int left, int right, long long &count_compare)
 {
     if (++count_compare && left < right)
     {
@@ -479,8 +479,8 @@ void merge_without_count_compare(int a[], int left, int right, int mid)
 {
     int t1 = mid - left + 1;
     int t2 = right - mid;
-    int* ML = new int[t1]; // mid to left
-    int* MR = new int[t2]; // mid to right
+    int *ML = new int[t1]; // mid to left
+    int *MR = new int[t2]; // mid to right
     for (int i = 0; i < t1; i++)
     {
         ML[i] = a[i + left];
@@ -567,7 +567,7 @@ void Quick_sort_without_count_compare(int a[], int left, int right)
     }
 }
 
-int Partition_with_count_compare(int a[], int low, int high, long long& count_compare)
+int Partition_with_count_compare(int a[], int low, int high, long long &count_compare)
 {
     int p = a[(high + low) / 2];
     int i = low - 1;
@@ -582,7 +582,7 @@ int Partition_with_count_compare(int a[], int low, int high, long long& count_co
     std::swap(a[i + 1], a[high]);
     return i + 1;
 }
-void Quick_sort_with_count_compare(int a[], int left, int right, long long& count_compare)
+void Quick_sort_with_count_compare(int a[], int left, int right, long long &count_compare)
 {
     int s = 0;
     if (left < right && ++count_compare)
@@ -607,8 +607,8 @@ double Quick_sort_running_time(int a[], int n)
 
 void countingSort(int a[], int n)
 {
-    int* u = new int[n];
-    int* b = new int[n];
+    int *u = new int[n];
+    int *b = new int[n];
 
     for (int i = 0; i < n; i++)
     {
@@ -634,7 +634,7 @@ void countingSort(int a[], int n)
     delete[] u;
 }
 
-void get_time_countingSort(int a[], int n, double& elaspedTime)
+void get_time_countingSort(int a[], int n, double &elaspedTime)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -645,10 +645,10 @@ void get_time_countingSort(int a[], int n, double& elaspedTime)
     elaspedTime = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
 
-void countingSort_count(int a[], int n, long long& countCompare)
+void countingSort_count(int a[], int n, long long &countCompare)
 {
-    int* u = new int[n];
-    int* b = new int[n];
+    int *u = new int[n];
+    int *b = new int[n];
 
     memset(u, 0, n * sizeof(int));
 
@@ -735,7 +735,7 @@ void flashSort(int arr[], int n)
     insertion_sort(arr, n);
 }
 
-void flashSort_count(int arr[], int n, long long& countCompare)
+void flashSort_count(int arr[], int n, long long &countCompare)
 {
     if (++countCompare && n <= 1)
         return;
@@ -797,7 +797,7 @@ void flashSort_count(int arr[], int n, long long& countCompare)
     insertion_sort_comparisons(arr, n, countCompare);
 }
 
-void get_time_flashSort(int a[], int n, double& elaspedTime)
+void get_time_flashSort(int a[], int n, double &elaspedTime)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -844,8 +844,8 @@ int getDigit(int num, int digit)
 
 void sort(int a[], int n, int k)
 {
-    int* b = new int[n];
-    int f[10] = { 0 };
+    int *b = new int[n];
+    int f[10] = {0};
 
     for (int i = 0; i < n; i++)
         f[getDigit(a[i], k)]++;
@@ -886,7 +886,7 @@ double get_time_radix_sort(int a[], int n)
     return elaspedTime;
 }
 
-int get_number_digits_count(int a[], int n, long long& compCount)
+int get_number_digits_count(int a[], int n, long long &compCount)
 {
     int max = a[0];
 
@@ -905,7 +905,7 @@ int get_number_digits_count(int a[], int n, long long& compCount)
     return count;
 }
 
-int getDigit_count(int num, int digit, long long& compCount)
+int getDigit_count(int num, int digit, long long &compCount)
 {
     while (++compCount && digit > 1)
     {
@@ -916,10 +916,10 @@ int getDigit_count(int num, int digit, long long& compCount)
     return num % 10;
 }
 
-void sort_count(int a[], int n, int k, long long& compCount)
+void sort_count(int a[], int n, int k, long long &compCount)
 {
-    int* b = new int[n];
-    int f[10] = { 0 };
+    int *b = new int[n];
+    int f[10] = {0};
 
     for (int i = 0; ++compCount && i < n; i++)
     {
@@ -946,7 +946,7 @@ void sort_count(int a[], int n, int k, long long& compCount)
     delete[] b;
 }
 
-void radixsort_count(int a[], int n, long long& compCount)
+void radixsort_count(int a[], int n, long long &compCount)
 {
     int d = get_number_digits_count(a, n, compCount);
 
@@ -955,10 +955,17 @@ void radixsort_count(int a[], int n, long long& compCount)
 }
 
 // Creating data and check commands
-void createData_3(char* argv[])
+void createData_3(char *argv[])
 {
     int n = stoi(argv[3]);
-    int* a = new int[n];
+
+    if (n <= 0)
+    {
+        cout << "Input Size Should Be Above 0 \n";
+        exit(1);
+    }
+
+    int *a = new int[n];
 
     GenerateRandomData(a, n);
     ofstream out1("input1.txt");
@@ -981,10 +988,10 @@ void createData_3(char* argv[])
     out4.close();
 }
 
-void count_sort_comparisons(char* argv[], long long num_of_comparisons[])
+void count_sort_comparisons(char *argv[], long long num_of_comparisons[])
 {
     int n = stoi(argv[3]);
-    int* a = new int[n];
+    int *a = new int[n];
 
     if (strcmp(argv[2], "bubble-sort") == 0)
     {
@@ -1284,10 +1291,10 @@ void count_sort_comparisons(char* argv[], long long num_of_comparisons[])
     }
 }
 
-void count_sort_time(char* argv[], double time[])
+void count_sort_time(char *argv[], double time[])
 {
     int n = stoi(argv[3]);
-    int* a = new int[n];
+    int *a = new int[n];
     if (strcmp(argv[2], "bubble-sort") == 0)
     {
         ifstream in_random("input1.txt");
