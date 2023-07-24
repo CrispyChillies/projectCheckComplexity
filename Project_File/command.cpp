@@ -240,10 +240,11 @@ void command_2(int argc, char *argv[])
     }
     std::cout << std::endl;
     std::cout << std::endl;
-    out.open("Command_2_input.txt");
+    out.open("Command_2_output.txt");
     output_to_file(out, DataArray, SizeOfInput);
     out.close();
     delete[] DataArray;
+    delete[] CopyOfDataArray;
 }
 
 void command_3(char *argv[])
