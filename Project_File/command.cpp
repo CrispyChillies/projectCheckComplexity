@@ -222,14 +222,15 @@ void command_2(int argc, char *argv[])
     }
     else if (OutputParammeter == "-both")
     {
-        int*CopyOfDataArray=new int[SizeOfArray];
-        for(int i=0;i<SizeOfInput,i++){
+        int*CopyOfDataArray=new int[SizeOfInput];
+        for(int i=0;i<SizeOfInput;i++){
             CopyOfDataArray[i]=DataArray[i];
         }
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
         std::cout << "Comparisons: " << count_compare << std::endl;
         double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);
         std::cout << "Running time: " << TimeOP << " ms" << std::endl;
+        delete[] CopyOfDataArray;
     }
     else
     {
@@ -244,7 +245,6 @@ void command_2(int argc, char *argv[])
     output_to_file(out, DataArray, SizeOfInput);
     out.close();
     delete[] DataArray;
-    delete[] CopyOfDataArray;
 }
 
 void command_3(char *argv[])
