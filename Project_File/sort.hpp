@@ -35,6 +35,8 @@ void improved_selection_sort_time(int a[], int n, double &time);
 void insertion_sort(int a[], int n);
 void insertion_sort_comparisons(int a[], int n, long long& comparisons);
 void insertion_sort_time(int a[], int n, double& time);
+void binary_insertion_sort_comparisons(int* arr, int n, long long &comparisons);
+void binary_insertion_sort_time(int* arr, int n, double &time);
 
 bool count_sort_comparisons(char* argv[], long long num_of_comparisons[]);
 bool count_sort_time(char* argv[], double time[]);
