@@ -222,9 +222,13 @@ void command_2(int argc, char *argv[])
     }
     else if (OutputParammeter == "-both")
     {
+        int*CopyOfDataArray=new int[SizeOfArray];
+        for(int i=0;i<SizeOfInput,i++){
+            CopyOfDataArray[i]=DataArray[i];
+        }
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
         std::cout << "Comparisons: " << count_compare << std::endl;
-        double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);
         std::cout << "Running time: " << TimeOP << " ms" << std::endl;
     }
     else
