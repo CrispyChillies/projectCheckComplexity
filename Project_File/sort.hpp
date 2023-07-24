@@ -5,11 +5,9 @@
 #include <time.h>
 #include <string>
 #include <cstring>
+#include <vector>
 
 using namespace std;
-
-void insertionSort(int a[], int n);
-void insertionSort_count(int a[], int n, long long &countCompare);
 
 void countingSort(int a[], int n);
 void countingSort_count(int a[], int n, long long &countCompare);
@@ -44,22 +42,22 @@ int shell_sort(int arr[], int n);
 void shell_sort_count(int arr[], int n, long long &compCount);
 double get_time_shell_sort(int a[], int n);
 
-void sift_with_count_compare(int a[], int left, int right,long long& count_compare);
-void Heap_sort_with_count_compare(int a[], int n,long long& count_compare);
+void sift_with_count_compare(int a[], int left, int right, long long &count_compare);
+void Heap_sort_with_count_compare(int a[], int n, long long &count_compare);
 void sift_without_count_compare(int a[], int left, int right);
 void Heap_sort_without_count_compare(int a[], int n);
 double Heap_sort_running_time(int a[], int n);
 
-void merge_with_count_compare(int a[], int left, int right, int mid,long long& count_compare);
-void Merge_sort_with_count_compare(int a[], int left, int right,long long& count_compare);
+void merge_with_count_compare(int a[], int left, int right, int mid, long long &count_compare);
+void Merge_sort_with_count_compare(int a[], int left, int right, long long &count_compare);
 void merge_without_count_compare(int a[], int left, int right, int mid);
 void Merge_sort_without_count_compare(int a[], int left, int right);
 double Merge_sort_running_time(int a[], int n);
 
 int Partition_without_count_compare(int a[], int low, int high);
 void Quick_sort_without_count_compare(int a[], int left, int right);
-int Partition_with_count_compare(int a[], int low, int high,long long& count_compare);
-void Quick_sort_with_count_compare(int a[], int left, int right,long long& count_compare);
+int Partition_with_count_compare(int a[], int low, int high, long long &count_compare);
+void Quick_sort_with_count_compare(int a[], int left, int right, long long &count_compare);
 double Quick_sort_running_time(int a[], int n);
 // Miscellaneous functions
 void createData_3(char *argv[]);
