@@ -199,17 +199,27 @@ void command_2(int argc, char* argv[]) {
     std::cout << "-----------------------------------------------------------------" << std::endl;
     if (OutputParammeter == "-time") {
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Running time: " << TimeOP;
+         if(TimeOP=-1){
+            std::cout << "Invalid sort algorithm";
+        } else std::cout << "Running time: " << TimeOP << std::endl;
     }
     else if (OutputParammeter == "-comp") {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Comparisions: " << count_compare;
+          if(count_compare=-1){
+            std::cout << "Invalid sort algorithm";
+        } else std::cout << "Running time: " << TimeOP << std::endl;
     }
     else if (OutputParammeter == "-both") {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Comparisions: " << count_compare << std::endl;
+        if(count_compare=-1){
+            std::cout << "Invalid sort algorithm";
+        }
+        else std::cout << "Comparisions: " << count_compare << std::endl;
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Running time: " << TimeOP << std::endl;
+        if(TimeOP=-1){
+            std::cout << "Invalid sort algorithm";
+        } 
+        else std::cout << "Running time: " << TimeOP << std::endl;
     }
     else {
         std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
@@ -807,7 +817,7 @@ double Time_Output_Parameter(char *argv[], int a[], int n)
         get_time_flashSort(a, n, TimeOP);
     }
      else {
-        std::cout<<"Invalid sort algorithm";
+        TimeOP=-1;
     }
     return TimeOP;
 }
@@ -862,7 +872,7 @@ long long Compare_Output_Parameter(char *argv[], int a[], int n)
         flashSort_count(a, n, count_compare);
     }
      else {
-        std::cout<<"Invalid sort algorithm";
+        count_compare=-1;
     }
     return count_compare;
 }
