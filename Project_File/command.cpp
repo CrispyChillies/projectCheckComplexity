@@ -1,4 +1,4 @@
-#include "sort.hpp"
+#include "functions.hpp"
 #include "command.hpp"
 #include "DataGenerator.hpp"
 
@@ -63,21 +63,17 @@ void command_1(int argc, char *argv[])
     }
     else if (algorithm == "heap-sort")
     {
-        Heap_sort_with_count_compare(a, count, countCompare);
+        heap_sort_count(a, count, countCompare);
         copyFromFile(input_file, a, count);
-        elaspedTime = Heap_sort_running_time(a, count);
+        get_time_heap_sort(a, count);
     }
     else if (algorithm == "merge-sort")
     {
-        Merge_sort_with_count_compare(a, 0, count - 1, countCompare);
-        copyFromFile(input_file, a, count);
-        elaspedTime = Merge_sort_running_time(a, count);
+        // merge-sort
     }
     else if (algorithm == "quick-sort")
     {
-        Quick_sort_with_count_compare(a, 0, count - 1, countCompare);
-        copyFromFile(input_file, a, count);
-        elaspedTime = Quick_sort_running_time(a, count);
+        // quick-sort
     }
     else if (algorithm == "radix-sort")
     {
@@ -162,38 +158,31 @@ void command_1(int argc, char *argv[])
     out.close();
 }
 
-// Command line 2 : [Execution file] -a [Algorithm] [Input size] [Input order] [Output parameter(s)]
-void command_2(int argc, char *argv[])
-{
+//Command line 2 : [Execution file] -a [Algorithm] [Input size] [Input order] [Output parameter(s)]
+void command_2(int argc, char* argv[]) {
     std::string Algorithm = argv[2];
     std::string InputSize = argv[3];
     std::string DataOrder = argv[4];
     std::string OutputParammeter = argv[5];
     int SizeOfInput = std::stoi(InputSize);
-    if (SizeOfInput == 0)
-    {
+    if (SizeOfInput == 0) {
         std::cerr << "There is no data in the file ";
         return;
     }
     int NumForGenerateData;
-    if (DataOrder == "-rand")
-    {
+    if (DataOrder == "-rand") {
         NumForGenerateData = 0;
     }
-    else if (DataOrder == "-sorted")
-    {
+    else if (DataOrder == "-sorted") {
         NumForGenerateData = 1;
     }
-    else if (DataOrder == "-rev")
-    {
+    else if (DataOrder == "-rev") {
         NumForGenerateData = 2;
     }
-    else if (DataOrder == "-nsorted")
-    {
+    else if (DataOrder == "-nsorted") {
         NumForGenerateData = 3;
     }
-    else
-    {
+    else {
         std::cerr << "Invalid input order! Please using these syntax:" << std::endl;
         std::cout << "-Random order : -rand" << std::endl;
         std::cout << "-Sorted order : -sorted" << std::endl;
@@ -201,54 +190,39 @@ void command_2(int argc, char *argv[])
         std::cout << "-Nearly sorted order : -nsorted" << std::endl;
         return;
     }
-    int *DataArray = new int[SizeOfInput];
+    int* DataArray = new int[SizeOfInput];
     GenerateData(DataArray, SizeOfInput, NumForGenerateData);
-    std::ofstream out("Command_2_input.txt");
-    output_to_file(out, DataArray, SizeOfInput);
-    out.close();
+    output_to_file(DataArray, SizeOfInput, "Command_2_input.txt");
     std::cout << "Algorithm: " << Algorithm << std::endl;
     std::cout << "Input size: " << SizeOfInput << std::endl;
     std::cout << "Input order: " << DataOrder << std::endl;
     std::cout << "-----------------------------------------------------------------" << std::endl;
-    if (OutputParammeter == "-time")
-    {
+    if (OutputParammeter == "-time") {
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Running time: " << TimeOP << " ms" << endl;
+        std::cout << "Running time: " << TimeOP;
     }
-    else if (OutputParammeter == "-comp")
-    {
+    else if (OutputParammeter == "-comp") {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Comparisons: " << count_compare;
+        std::cout << "Comparisions: " << count_compare;
     }
-    else if (OutputParammeter == "-both")
-    {
-        int *CopyOfDataArray = new int[SizeOfInput];
-        for (int i = 0; i < SizeOfInput; i++)
-        {
-            CopyOfDataArray[i] = DataArray[i];
-        }
-
-        double TimeOP = Time_Output_Parameter(Algorithm, CopyOfDataArray, SizeOfInput);
-        std::cout << "Running time: " << TimeOP << " ms" << std::endl;
+    else if (OutputParammeter == "-both") {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        std::cout << "Comparisons: " << count_compare << std::endl;
-
-        delete[] CopyOfDataArray;
+        std::cout << "Comparisions: " << count_compare << std::endl;
+        double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
+        std::cout << "Running time: " << TimeOP << std::endl;
     }
-    else
-    {
+    else {
         std::cerr << "Invalid output parameter(s)! Please using these syntax:" << std::endl;
         std::cout << "-Running time : -time" << std::endl;
-        std::cout << "-Comparisons : -comp" << std::endl;
+        std::cout << "-Comparisions : -comp" << std::endl;
         std::cout << "-Both of them : -both" << std::endl;
     }
     std::cout << std::endl;
     std::cout << std::endl;
-    out.open("Command_2_output.txt");
-    output_to_file(out, DataArray, SizeOfInput);
-    out.close();
-    delete[] DataArray;
+    output_to_file(DataArray, SizeOfInput, "Command_2_output.txt");
+    delete[]DataArray;
 }
+
 
 void command_3(char *argv[])
 {
@@ -341,18 +315,18 @@ void command_4(int argc, char *argv[])
     }
     else if (algorithm_1 == "heap-sort")
     {
-        Heap_sort_with_count_compare(a, n, num_of_comparisons_1);
-        time_1 = Heap_sort_running_time(a, n);
+        // heap_sort_count(a, n, num_of_comparisons_1);
+        // time_1 = get_time_heap_sort(a, n);
     }
     else if (algorithm_1 == "merge-sort")
     {
-        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_1);
-        time_1 = Merge_sort_running_time(a, n);
+        // merge_sort_count(a, n, num_of_comparisons_1);
+        // time_1 = get_time_merge_sort(a, n);
     }
     else if (algorithm_1 == "quick-sort")
     {
-        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_1);
-        time_1 = Quick_sort_running_time(a, n);
+        // quick_sort_count(a, n, num_of_comparisons_1);
+        // time_1 = get_time_quick_sort(a, n);
     }
     else if (algorithm_1 == "flash-sort")
     {
@@ -418,18 +392,18 @@ void command_4(int argc, char *argv[])
     }
     else if (algorithm_2 == "heap-sort")
     {
-        Heap_sort_with_count_compare(a, n, num_of_comparisons_2);
-        time_2 = Heap_sort_running_time(a, n);
+        // heap_sort_count(a, n, num_of_comparisons_2);
+        // time_2 = get_time_heap_sort(a, n);
     }
     else if (algorithm_2 == "merge-sort")
     {
-        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
-        time_2 = Merge_sort_running_time(a, n);
+        // merge_sort_count(a, n, num_of_comparisons_2);
+        // time_2 = get_time_merge_sort(a, n);
     }
     else if (algorithm_2 == "quick-sort")
     {
-        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
-        time_2 = Quick_sort_running_time(a, n);
+        // quick_sort_count(a, n, num_of_comparisons_2);
+        // time_2 = get_time_quick_sort(a, n);
     }
     else if (algorithm_2 == "flash-sort")
     {
@@ -460,7 +434,7 @@ void command_4(int argc, char *argv[])
     cout << "Input file: " << input_file << endl;
     cout << "Input size: " << n << endl;
     cout << "-------------------------" << endl;
-    cout << "Running time: " << time_1 << " ms | " << time_2 << " ms" << endl;
+    cout << "Running time: " << time_1 << " | " << time_2 << endl;
     cout << "Comparisons: " << num_of_comparisons_1 << " | " << num_of_comparisons_2 << endl;
     cout << endl;
 
@@ -561,13 +535,13 @@ void command_5(int argc, char *argv[])
     }
     else if (algorithm_1 == "heap-sort")
     {
-        Heap_sort_with_count_compare(a, n, num_of_comparisons_1);
+        heap_sort_count(a, n, num_of_comparisons_1);
 
         ifstream inpf("input.txt");
         input_from_file(inpf, a, n);
         inpf.close();
 
-        time_1 = Heap_sort_running_time(a, n);
+        time_1 = get_time_heap_sort(a, n);
     }
     else if (algorithm_1 == "flash-sort")
     {
@@ -598,26 +572,6 @@ void command_5(int argc, char *argv[])
         inpf.close();
 
         time_1 = get_time_radix_sort(a, n);
-    }
-    else if (algorithm_1 == "merge-sort")
-    {
-        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_1);
-
-        ifstream inpf("input.txt");
-        input_from_file(inpf, a, n);
-        inpf.close();
-
-        time_1 = Merge_sort_running_time(a, n);
-    }
-    else if (algorithm_1 == "quick-sort")
-    {
-        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_1);
-
-        ifstream inpf("input.txt");
-        input_from_file(inpf, a, n);
-        inpf.close();
-
-        time_1 = Quick_sort_running_time(a, n);
     }
     else
         exit(1);
@@ -678,13 +632,13 @@ void command_5(int argc, char *argv[])
     }
     else if (algorithm_2 == "heap-sort")
     {
-        Heap_sort_with_count_compare(a, n, num_of_comparisons_2);
+        heap_sort_count(a, n, num_of_comparisons_2);
 
         ifstream inpf("input.txt");
         input_from_file(inpf, a, n);
         inpf.close();
 
-        time_2 = Heap_sort_running_time(a, n);
+        time_2 = get_time_heap_sort(a, n);
     }
     else if (algorithm_2 == "flash-sort")
     {
@@ -716,26 +670,6 @@ void command_5(int argc, char *argv[])
 
         time_2 = get_time_radix_sort(a, n);
     }
-    else if (algorithm_2 == "merge-sort")
-    {
-        Merge_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
-
-        ifstream inpf("input.txt");
-        input_from_file(inpf, a, n);
-        inpf.close();
-
-        time_2 = Merge_sort_running_time(a, n);
-    }
-    else if (algorithm_2 == "quick-sort")
-    {
-        Quick_sort_with_count_compare(a, 0, n - 1, num_of_comparisons_2);
-
-        ifstream inpf("input.txt");
-        input_from_file(inpf, a, n);
-        inpf.close();
-
-        time_2 = Quick_sort_running_time(a, n);
-    }
     else
     {
         cout << endl;
@@ -747,12 +681,12 @@ void command_5(int argc, char *argv[])
     cout << "Input size: " << n << endl;
     cout << "Input order: " << input_order << endl;
     cout << "-------------------------" << endl;
-    cout << "Running time: " << time_1 << " ms | " << time_2 << " ms" << endl;
+    cout << "Running time: " << time_1 << " | " << time_2 << endl;
     cout << "Comparisons: " << num_of_comparisons_1 << " | " << num_of_comparisons_2 << endl;
     cout << endl;
 
     delete[] a;
-}
+}//
 
 /////////////////////////////
 ///////support_func//////////
@@ -765,11 +699,7 @@ void final_output(char *argv[], long long num_of_comparisons[], double time[])
 
     // remove dashes
     char *space = strchr(algorithm, '-');
-    while (space != NULL)
-    {
-        space[0] = ' ';
-        space = strchr(algorithm, '-');
-    }
+    space[0] = ' ';
 
     cout << "Algorithm: " << algorithm << '\n';
     cout << "Input size: " << stoi(argv[3]) << '\n'
@@ -828,8 +758,9 @@ void copy_array(int a[], int b[], int n)
     }
 }
 
-double Time_Output_Parameter(const std::string Algorithm, int a[], int n)
+double Time_Output_Parameter(char *argv[], int a[], int n)
 {
+    std::string Algorithm = argv[2];
     double TimeOP = 0;
     if (Algorithm == "selection-sort")
     {
@@ -845,15 +776,15 @@ double Time_Output_Parameter(const std::string Algorithm, int a[], int n)
     }
     else if (Algorithm == "heap-sort")
     {
-        TimeOP = Heap_sort_running_time(a, n);
+        TimeOP = get_time_heap_sort(a, n);
     }
     else if (Algorithm == "merge-sort")
     {
-        TimeOP = Merge_sort_running_time(a, n);
+        TimeOP = get_time_merge_sort(a, n);
     }
     else if (Algorithm == "quick-sort")
     {
-        TimeOP = Quick_sort_running_time(a, n);
+        TimeOP = get_time_quick_sort(a, n);
     }
     else if (Algorithm == "radix-sort")
     {
@@ -875,11 +806,15 @@ double Time_Output_Parameter(const std::string Algorithm, int a[], int n)
     {
         get_time_flashSort(a, n, TimeOP);
     }
+    else {
+        std::cout<<"Invalid sort algorithm";
+    }
     return TimeOP;
 }
 
-long long Compare_Output_Parameter(const std::string Algorithm, int a[], int n)
+long long Compare_Output_Parameter(char *argv[], int a[], int n)
 {
+    std::string Algorithm = argv[2];
     long long count_compare = 0;
 
     if (Algorithm == "selection-sort")
@@ -896,15 +831,15 @@ long long Compare_Output_Parameter(const std::string Algorithm, int a[], int n)
     }
     else if (Algorithm == "heap-sort")
     {
-        Heap_sort_with_count_compare(a, n, count_compare);
+        heap_sort_count(a, n, count_compare);
     }
     else if (Algorithm == "merge-sort")
     {
-        Merge_sort_with_count_compare(a, 0, n - 1, count_compare);
+        // merge_sort_count(a,n, count_compare);
     }
     else if (Algorithm == "quick-sort")
     {
-        Quick_sort_with_count_compare(a, 0, n - 1, count_compare);
+        // Quick_sort_with_count_compare(a, n, count_compare);
     }
     else if (Algorithm == "radix-sort")
     {
@@ -925,6 +860,9 @@ long long Compare_Output_Parameter(const std::string Algorithm, int a[], int n)
     else if (Algorithm == "flash-sort")
     {
         flashSort_count(a, n, count_compare);
+    }
+    else {
+        std::cout<<"Invalid sort algorithm";
     }
     return count_compare;
 }
