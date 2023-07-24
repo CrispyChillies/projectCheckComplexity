@@ -216,39 +216,40 @@ void binary_insertion_sort_time(int* arr, int n, double &time)
 /////////Bubble-sort/////////
 /////////////////////////////
 
+// older versions
+// void bubble_sort_comparisons(int a[], int n, long long &comparisons)
+// {
+//     comparisons = 0;
+//     for (int i = 0; ++comparisons && i < n; i++)
+//     {
+//         for (int j = n - 1; ++comparisons && j > i; j--)
+//         {
+//             if (++comparisons && a[j] < a[j - 1])
+//             {
+//                 HoanVi(a[j], a[j - 1]);
+//             }
+//         }
+//     }
+// }
+
+// void bubble_sort_time(int a[], int n, double &time)
+// {
+//     auto start_time = std::chrono::high_resolution_clock::now();
+//     for (int i = 0; i < n; i++)
+//     {
+//         for (int j = n - 1; j > i; j--)
+//         {
+//             if (a[j] < a[j - 1])
+//             {
+//                 HoanVi(a[j], a[j - 1]);
+//             }
+//         }
+//     }
+//     auto end_time = std::chrono::high_resolution_clock::now();
+//     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
+// }
+
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
-{
-    comparisons = 0;
-    for (int i = 0; ++comparisons && i < n; i++)
-    {
-        for (int j = n - 1; ++comparisons && j > i; j--)
-        {
-            if (++comparisons && a[j] < a[j - 1])
-            {
-                HoanVi(a[j], a[j - 1]);
-            }
-        }
-    }
-}
-
-void bubble_sort_time(int a[], int n, double &time)
-{
-    auto start_time = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = n - 1; j > i; j--)
-        {
-            if (a[j] < a[j - 1])
-            {
-                HoanVi(a[j], a[j - 1]);
-            }
-        }
-    }
-    auto end_time = std::chrono::high_resolution_clock::now();
-    time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
-}
-
-void improved_bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
     bool sorted;
     comparisons = 0;
@@ -268,7 +269,7 @@ void improved_bubble_sort_comparisons(int a[], int n, long long &comparisons)
     }
 }
 
-void improved_bubble_sort_time(int a[], int n, double &time)
+void bubble_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
     bool sorted;
@@ -1129,28 +1130,6 @@ bool count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         in_reversed.close();
         bubble_sort_comparisons(a, n, num_of_comparisons[3]);
     }
-    else if (strcmp(argv[2], "improved-bubble-sort") == 0)
-    {
-        ifstream in_random("input1.txt");
-        input_from_file(in_random, a, n);
-        in_random.close();
-        improved_bubble_sort_comparisons(a, n, num_of_comparisons[0]);
-
-        ifstream in_nearlysorted("input2.txt");
-        input_from_file(in_nearlysorted, a, n);
-        in_nearlysorted.close();
-        improved_bubble_sort_comparisons(a, n, num_of_comparisons[1]);
-
-        ifstream in_sorted("input3.txt");
-        input_from_file(in_sorted, a, n);
-        in_sorted.close();
-        improved_bubble_sort_comparisons(a, n, num_of_comparisons[2]);
-
-        ifstream in_reversed("input4.txt");
-        input_from_file(in_reversed, a, n);
-        in_reversed.close();
-        improved_bubble_sort_comparisons(a, n, num_of_comparisons[3]);
-    }
     else if (strcmp(argv[2], "selection-sort") == 0)
     {
         ifstream in_random("input1.txt");
@@ -1476,28 +1455,6 @@ bool count_sort_time(char *argv[], double time[])
         input_from_file(in_reversed, a, n);
         in_reversed.close();
         bubble_sort_time(a, n, time[3]);
-    }
-    else if (strcmp(argv[2], "improved-bubble-sort") == 0)
-    {
-        ifstream in_random("input1.txt");
-        input_from_file(in_random, a, n);
-        in_random.close();
-        improved_bubble_sort_time(a, n, time[0]);
-
-        ifstream in_nearlysorted("input2.txt");
-        input_from_file(in_nearlysorted, a, n);
-        in_nearlysorted.close();
-        improved_bubble_sort_time(a, n, time[1]);
-
-        ifstream in_sorted("input3.txt");
-        input_from_file(in_sorted, a, n);
-        in_sorted.close();
-        improved_bubble_sort_time(a, n, time[2]);
-
-        ifstream in_reversed("input4.txt");
-        input_from_file(in_reversed, a, n);
-        in_reversed.close();
-        improved_bubble_sort_time(a, n, time[3]);
     }
     else if (strcmp(argv[2], "selection-sort") == 0)
     {

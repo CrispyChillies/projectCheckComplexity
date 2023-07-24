@@ -24,8 +24,8 @@ void get_time_shakerSort(int a[], int n, double& elaspedTime);
 
 void bubble_sort_comparisons(int a[], int n, long long& comparisons);
 void bubble_sort_time(int a[], int n, double& time);
-void improved_bubble_sort_comparisons(int a[], int n, long long& comparisons);
-void improved_bubble_sort_time(int a[], int n, double& time);
+// void improved_bubble_sort_comparisons(int a[], int n, long long& comparisons);
+// void improved_bubble_sort_time(int a[], int n, double& time);
 
 void selection_sort_comparisons(int a[], int n, long long& comparisons);
 void selection_sort_time(int a[], int n, double& time);
