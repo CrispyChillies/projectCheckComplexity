@@ -806,7 +806,7 @@ double Time_Output_Parameter(char *argv[], int a[], int n)
     {
         get_time_flashSort(a, n, TimeOP);
     }
-    else {
+     else {
         std::cout<<"Invalid sort algorithm";
     }
     return TimeOP;
@@ -861,7 +861,7 @@ long long Compare_Output_Parameter(char *argv[], int a[], int n)
     {
         flashSort_count(a, n, count_compare);
     }
-    else {
+     else {
         std::cout<<"Invalid sort algorithm";
     }
     return count_compare;
