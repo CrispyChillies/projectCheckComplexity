@@ -199,24 +199,24 @@ void command_2(int argc, char* argv[]) {
     std::cout << "-----------------------------------------------------------------" << std::endl;
     if (OutputParammeter == "-time") {
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-         if(TimeOP=-1){
+         if(TimeOP==-1){
             std::cout << "Invalid sort algorithm";
         } else std::cout << "Running time: " << TimeOP << std::endl;
     }
     else if (OutputParammeter == "-comp") {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-          if(count_compare=-1){
+          if(count_compare==-1){
             std::cout << "Invalid sort algorithm";
         } else std::cout << "Running time: " << TimeOP << std::endl;
     }
     else if (OutputParammeter == "-both") {
         long long count_compare = Compare_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        if(count_compare=-1){
+        if(count_compare==-1){
             std::cout << "Invalid sort algorithm";
         }
         else std::cout << "Comparisions: " << count_compare << std::endl;
         double TimeOP = Time_Output_Parameter(Algorithm, DataArray, SizeOfInput);
-        if(TimeOP=-1){
+        if(TimeOP==-1){
             std::cout << "Invalid sort algorithm";
         } 
         else std::cout << "Running time: " << TimeOP << std::endl;
