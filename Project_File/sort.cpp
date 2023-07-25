@@ -254,42 +254,53 @@ void insertion_sort_time(int* arr, int n, double &time)
 
 void bubble_sort_comparisons(int a[], int n, long long &comparisons)
 {
-    bool sorted;
     comparisons = 0;
-    for (int i = 0; ++comparisons && i < n; i++)
+    bool isUnsorted;
+    int lastUnsorted = n - 1;
+    do
     {
-        sorted = true;
-        for (int j = n - 1; ++comparisons && j > i; j--)
+        isUnsorted = false;
+        int newLastUnsorted = 0;
+        
+        for (int i = 0; ++comparisons && i < lastUnsorted; i++)
         {
-            if (++comparisons && a[j] < a[j - 1])
+            if (++comparisons && a[i] > a[i + 1])
             {
-                sorted = false;
-                HoanVi(a[j], a[j - 1]);
+                HoanVi(a[i], a[i + 1]);
+                isUnsorted = true;
+                newLastUnsorted = i;
             }
         }
-        if (++comparisons && sorted)
-            return;
-    }
+        
+        lastUnsorted = newLastUnsorted;
+
+    } while (++comparisons && isUnsorted);
 }
 
 void bubble_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
-    bool sorted;
-    for (int i = 0; i < n; i++)
+    bool isUnsorted;
+    int lastUnsorted = n - 1;
+    do
     {
-        sorted = true;
-        for (int j = n - 1; j > i; j--)
+        isUnsorted = false;
+        int newLastUnsorted = 0;
+        
+        for (int i = 0; i < lastUnsorted; i++)
         {
-            if (a[j] < a[j - 1])
+            if (a[i] > a[i + 1])
             {
-                sorted = false;
-                HoanVi(a[j], a[j - 1]);
+                HoanVi(a[i], a[i + 1]);
+                isUnsorted = true;
+                newLastUnsorted = i;
             }
         }
-        if (sorted)
-            break;
-    }
+        
+        lastUnsorted = newLastUnsorted;
+
+    } while (isUnsorted);
+    
     auto end_time = std::chrono::high_resolution_clock::now();
     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
