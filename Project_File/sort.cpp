@@ -712,29 +712,39 @@ void quickSort(int arr[], int low, int high)
 
 int Partition_with_count_compare(int arr[], int low, int high, long long &comparisons)
 {
-    int pivot = arr[high];
-    int i = (low - 1);
+    int pivot = arr[(low + high) / 2];
+    int i = low;
+    int j = high;
+    int tmp;
 
-    for (int j = low; ++comparisons && j <= high - 1; j++)
+    while (++comparisons && i <= j)
     {
-
-        if (++comparisons && arr[j] < pivot)
-        {
+        while (++comparisons && arr[i] < pivot)
             i++;
-            std::swap(arr[i], arr[j]);
+        while (++comparisons && arr[j] > pivot)
+            j--;
+        if (++comparisons && i <= j)
+        {
+            tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
         }
     }
-    std::swap(arr[i + 1], arr[high]);
-    return (i + 1);
+    return i;
 }
 
 void Quick_sort_with_count_compare(int arr[], int low, int high, long long &comparisons)
 {
-    if (++comparisons && low < high)
+    int index = Partition_with_count_compare(arr, low, high, comparisons);
+    if (++comparisons && low < index - 1)
     {
-        int pi = Partition_with_count_compare(arr, low, high, comparisons);
-        Quick_sort_with_count_compare(arr, low, pi - 1, comparisons);
-        Quick_sort_with_count_compare(arr, pi + 1, high, comparisons);
+        Quick_sort_with_count_compare(arr, low, index - 1, comparisons);
+    }
+    if (++comparisons && index < high)
+    {
+        Quick_sort_with_count_compare(arr, index, high, comparisons);
     }
 }
 
