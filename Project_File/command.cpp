@@ -213,7 +213,7 @@ void command_2(int argc, char *argv[])
     }
     int *DataArray = new int[SizeOfInput];
     GenerateData(DataArray, SizeOfInput, NumForGenerateData);
-    std::ofstream out("Command_2_input.txt");
+    std::ofstream out("input.txt");
     output_to_file(out, DataArray, SizeOfInput);
     out.close();
     std::cout << "Algorithm: " << Algorithm << std::endl;
