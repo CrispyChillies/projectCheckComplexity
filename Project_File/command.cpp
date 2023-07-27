@@ -274,7 +274,7 @@ void command_2(int argc, char *argv[])
     }
     std::cout << std::endl;
     std::cout << std::endl;
-    out.open("Command_2_output.txt");
+    out.open("output.txt");
     output_to_file(out, DataArray, SizeOfInput);
     out.close();
     delete[] DataArray;
