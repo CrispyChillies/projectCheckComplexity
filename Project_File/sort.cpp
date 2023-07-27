@@ -670,61 +670,61 @@ double Merge_sort_running_time(int a[], int n)
 ///////////////////////////////
 //////////Quick-sort///////////
 ///////////////////////////////
-int Partition_without_count_compare(int a[], int low, int high)
+int partition(int arr[], int low, int high)
 {
-    int p = a[(high + low) / 2];
-    int i = low - 1;
-    for (int j = low; j < high; j++)
-    {
-        if (a[j] <= p)
-        {
+    int pivot = arr[high];
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
             i++;
-            std::swap(a[i], a[j]);
+            swap(arr[i], arr[j]);
         }
     }
-    std::swap(a[i + 1], a[high]);
-    return i + 1;
+	
+    swap(arr[i + 1], arr[high]);
+    return (i + 1);
 }
-void Quick_sort_without_count_compare(int a[], int left, int right)
+
+
+void quickSort(int arr[], int low, int high)
 {
-    int s = 0;
-    if (left < right)
-    {
-        s = Partition_without_count_compare(a, left, right);
-        Quick_sort_without_count_compare(a, left, s - 1);
-        Quick_sort_without_count_compare(a, s + 1, right);
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
     }
 }
 
-int Partition_with_count_compare(int a[], int low, int high, long long &count_compare)
+int Partition_with_count_compare(int arr[], int low, int high, long long& comparisons)
 {
-    int p = a[(high + low) / 2];
-    int i = low - 1;
-    for (int j = low; ++count_compare && j < high; j++)
-    {
-        if (a[j] <= p)
-        {
+    int pivot = arr[high];
+    int i = (low - 1);
+
+    for (int j = low; ++comparisons && j <= high - 1; j++) {
+
+        if (++comparisons && arr[j] < pivot) {
             i++;
-            std::swap(a[i], a[j]);
+            std::swap(arr[i], arr[j]);
         }
     }
-    std::swap(a[i + 1], a[high]);
-    return i + 1;
+    std::swap(arr[i + 1], arr[high]);
+    return (i + 1);
 }
-void Quick_sort_with_count_compare(int a[], int left, int right, long long &count_compare)
+
+void Quick_sort_with_count_compare(int arr[], int low, int high, long long& comparisons)
 {
-    int s = 0;
-    if (left < right && ++count_compare)
-    {
-        s = Partition_with_count_compare(a, left, right, count_compare);
-        Quick_sort_with_count_compare(a, left, s - 1, count_compare);
-        Quick_sort_with_count_compare(a, s + 1, right, count_compare);
+    if (++comparisons && low < high) {
+        int pi = Partition_with_count_compare(arr, low, high, comparisons);
+        Quick_sort_with_count_compare(arr, low, pi - 1, comparisons);
+        Quick_sort_with_count_compare(arr, pi + 1, high, comparisons);
     }
 }
+
 double Quick_sort_running_time(int a[], int n)
 {
     auto start = std::chrono::high_resolution_clock::now();
-    Heap_sort_without_count_compare(a, n);
+    quickSort(a, 0, n - 1);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> runningTime = end - start;
     return runningTime.count();
