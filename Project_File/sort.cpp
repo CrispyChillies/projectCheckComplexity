@@ -49,61 +49,61 @@
 void selection_sort_comparisons(int a[], int n, long long &comparisons)
 {
     comparisons = 0;
-	int min_index = 0;
-	int max_index = 0;
-	for (int i = 0; ++comparisons && i < n / 2; i++)
-	{
-		min_index = i;
-		max_index = i;
-		int max = a[i];
-		for (int j = i; ++comparisons && j < n - i; j++)
-		{
-			if (++comparisons && a[j] < a[min_index])
-			{
-				min_index = j;
-			}
-			if (++comparisons && a[j] > a[max_index])
-			{
-				max_index = j;
-				max = a[j];
-			}
-		}
-		swap(a[i], a[min_index]);
-		if (++comparisons && a[min_index] == max)
-			swap(a[n - i - 1], a[min_index]);
-		else
-			swap(a[n - i - 1], a[max_index]);
-	}
+    int min_index = 0;
+    int max_index = 0;
+    for (int i = 0; ++comparisons && i < n / 2; i++)
+    {
+        min_index = i;
+        max_index = i;
+        int max = a[i];
+        for (int j = i; ++comparisons && j < n - i; j++)
+        {
+            if (++comparisons && a[j] < a[min_index])
+            {
+                min_index = j;
+            }
+            if (++comparisons && a[j] > a[max_index])
+            {
+                max_index = j;
+                max = a[j];
+            }
+        }
+        swap(a[i], a[min_index]);
+        if (++comparisons && a[min_index] == max)
+            swap(a[n - i - 1], a[min_index]);
+        else
+            swap(a[n - i - 1], a[max_index]);
+    }
 }
 
 void selection_sort_time(int a[], int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
-	int min_index = 0;
-	int max_index = 0;
-	for (int i = 0; i < n / 2; i++)
-	{
-		min_index = i;
-		max_index = i;
-		int max = a[i];
-		for (int j = i; j < n - i; j++)
-		{
-			if (a[j] < a[min_index])
-			{
-				min_index = j;
-			}
-			if (a[j] > a[max_index])
-			{
-				max_index = j;
-				max = a[j];
-			}
-		}
-		swap(a[i], a[min_index]);
-		if (a[min_index] == max)
-			swap(a[n - i - 1], a[min_index]);
-		else
-			swap(a[n - i - 1], a[max_index]);
-	}
+    int min_index = 0;
+    int max_index = 0;
+    for (int i = 0; i < n / 2; i++)
+    {
+        min_index = i;
+        max_index = i;
+        int max = a[i];
+        for (int j = i; j < n - i; j++)
+        {
+            if (a[j] < a[min_index])
+            {
+                min_index = j;
+            }
+            if (a[j] > a[max_index])
+            {
+                max_index = j;
+                max = a[j];
+            }
+        }
+        swap(a[i], a[min_index]);
+        if (a[min_index] == max)
+            swap(a[n - i - 1], a[min_index]);
+        else
+            swap(a[n - i - 1], a[max_index]);
+    }
     auto end_time = std::chrono::high_resolution_clock::now();
     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
@@ -163,54 +163,56 @@ void insertion_sort(int a[], int n)
     }
 }
 
-void insertion_sort_comparisons(int* arr, int n, long long &comparisons)
+void insertion_sort_comparisons(int *arr, int n, long long &comparisons)
 {
     comparisons = 0;
-	int j, v, left, right;
-	for (int i = 1; ++comparisons && i < n; i++)
-	{
-		v = arr[i];
-		left = 0, right = i - 1;
-		while (++comparisons && left <= right)
-		{
-			int m = (left + right) / 2;
-			if (++comparisons && arr[m] > v)
-				right = m - 1;
-			else left = m + 1;
-		}
-		j = i - 1;
-		while (++comparisons && j >= left)
-		{
-			arr[j + 1] = arr[j];
-			j--;
-		}
-		arr[left] = v;
-	}
+    int j, v, left, right;
+    for (int i = 1; ++comparisons && i < n; i++)
+    {
+        v = arr[i];
+        left = 0, right = i - 1;
+        while (++comparisons && left <= right)
+        {
+            int m = (left + right) / 2;
+            if (++comparisons && arr[m] > v)
+                right = m - 1;
+            else
+                left = m + 1;
+        }
+        j = i - 1;
+        while (++comparisons && j >= left)
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[left] = v;
+    }
 }
 
-void insertion_sort_time(int* arr, int n, double &time)
+void insertion_sort_time(int *arr, int n, double &time)
 {
     auto start_time = std::chrono::high_resolution_clock::now();
-	int j, v, left, right;
-	for (int i = 1; i < n; i++)
-	{
-		v = arr[i];
-		left = 0, right = i - 1;
-		while (left <= right)
-		{
-			int m = (left + right) / 2;
-			if (arr[m] > v)
-				right = m - 1;
-			else left = m + 1;
-		}
-		j = i - 1;
-		while (j >= left)
-		{
-			arr[j + 1] = arr[j];
-			j--;
-		}
-		arr[left] = v;
-	}
+    int j, v, left, right;
+    for (int i = 1; i < n; i++)
+    {
+        v = arr[i];
+        left = 0, right = i - 1;
+        while (left <= right)
+        {
+            int m = (left + right) / 2;
+            if (arr[m] > v)
+                right = m - 1;
+            else
+                left = m + 1;
+        }
+        j = i - 1;
+        while (j >= left)
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[left] = v;
+    }
     auto end_time = std::chrono::high_resolution_clock::now();
     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
@@ -261,7 +263,7 @@ void bubble_sort_comparisons(int a[], int n, long long &comparisons)
     {
         isUnsorted = false;
         int newLastUnsorted = 0;
-        
+
         for (int i = 0; ++comparisons && i < lastUnsorted; i++)
         {
             if (++comparisons && a[i] > a[i + 1])
@@ -271,7 +273,7 @@ void bubble_sort_comparisons(int a[], int n, long long &comparisons)
                 newLastUnsorted = i;
             }
         }
-        
+
         lastUnsorted = newLastUnsorted;
 
     } while (++comparisons && isUnsorted);
@@ -286,7 +288,7 @@ void bubble_sort_time(int a[], int n, double &time)
     {
         isUnsorted = false;
         int newLastUnsorted = 0;
-        
+
         for (int i = 0; i < lastUnsorted; i++)
         {
             if (a[i] > a[i + 1])
@@ -296,11 +298,11 @@ void bubble_sort_time(int a[], int n, double &time)
                 newLastUnsorted = i;
             }
         }
-        
+
         lastUnsorted = newLastUnsorted;
 
     } while (isUnsorted);
-    
+
     auto end_time = std::chrono::high_resolution_clock::now();
     time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
 }
@@ -672,38 +674,52 @@ double Merge_sort_running_time(int a[], int n)
 ///////////////////////////////
 int partition(int arr[], int low, int high)
 {
-    int pivot = arr[high];
-    int i = (low - 1);
+    int pivot = arr[(low + high) / 2];
+    int i = low;
+    int j = high;
+    int tmp;
 
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
+    while (i <= j)
+    {
+        while (arr[i] < pivot)
             i++;
-            swap(arr[i], arr[j]);
+        while (arr[j] > pivot)
+            j--;
+        if (i <= j)
+        {
+            tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
         }
     }
-	
-    swap(arr[i + 1], arr[high]);
-    return (i + 1);
+    return i;
 }
-
 
 void quickSort(int arr[], int low, int high)
 {
-    if (low < high) {
-        int pi = partition(arr, low, high);
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+    int index = partition(arr, low, high);
+    if (low < index - 1)
+    {
+        quickSort(arr, low, index - 1);
+    }
+    if (index < high)
+    {
+        quickSort(arr, index, high);
     }
 }
 
-int Partition_with_count_compare(int arr[], int low, int high, long long& comparisons)
+int Partition_with_count_compare(int arr[], int low, int high, long long &comparisons)
 {
     int pivot = arr[high];
     int i = (low - 1);
 
-    for (int j = low; ++comparisons && j <= high - 1; j++) {
+    for (int j = low; ++comparisons && j <= high - 1; j++)
+    {
 
-        if (++comparisons && arr[j] < pivot) {
+        if (++comparisons && arr[j] < pivot)
+        {
             i++;
             std::swap(arr[i], arr[j]);
         }
@@ -712,9 +728,10 @@ int Partition_with_count_compare(int arr[], int low, int high, long long& compar
     return (i + 1);
 }
 
-void Quick_sort_with_count_compare(int arr[], int low, int high, long long& comparisons)
+void Quick_sort_with_count_compare(int arr[], int low, int high, long long &comparisons)
 {
-    if (++comparisons && low < high) {
+    if (++comparisons && low < high)
+    {
         int pi = Partition_with_count_compare(arr, low, high, comparisons);
         Quick_sort_with_count_compare(arr, low, pi - 1, comparisons);
         Quick_sort_with_count_compare(arr, pi + 1, high, comparisons);
@@ -1396,7 +1413,8 @@ bool count_sort_comparisons(char *argv[], long long num_of_comparisons[])
         num_of_comparisons[3] = 0;
         Heap_sort_with_count_compare(a, n, num_of_comparisons[3]);
     }
-    else return false;
+    else
+        return false;
     return true;
 }
 
@@ -1646,6 +1664,7 @@ bool count_sort_time(char *argv[], double time[])
         in_reversed.close();
         time[3] = Heap_sort_running_time(a, n);
     }
-    else return false;
+    else
+        return false;
     return true;
 }
