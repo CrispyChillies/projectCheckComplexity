@@ -1,6 +1,6 @@
-#include "sort.hpp"
-#include "DataGenerator.hpp"
-#include "command.hpp"
+#include "sort.h"
+#include "DataGenerator.h"
+#include "command.h"
 
 using namespace std;
 

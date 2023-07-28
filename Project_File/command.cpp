@@ -1,6 +1,6 @@
-#include "sort.hpp"
-#include "command.hpp"
-#include "DataGenerator.hpp"
+#include "sort.h"
+#include "command.h"
+#include "DataGenerator.h"
 
 /////////////////////////////
 ///////command_func//////////

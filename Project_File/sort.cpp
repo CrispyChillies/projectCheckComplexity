@@ -1,5 +1,5 @@
-#include "sort.hpp"
-#include "DataGenerator.hpp"
+#include "sort.h"
+#include "DataGenerator.h"
 
 /////////////////////////////
 ///////Selection-sort////////
