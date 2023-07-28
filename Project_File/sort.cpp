@@ -458,85 +458,75 @@ void shell_sort_count(int arr[], int n, long long &compCount)
 //////////Heap-sort///////////
 //////////////////////////////
 
-void sift_with_count_compare(int a[], int left, int right, long long &count_compare)
-{
-    int i = left;
-    int j = i * 2;
+void sift_with_count_compare(int a[], int left, int right, long long& count_compare) {
+    int i = left, j = 2 * i + 1;
     int x = a[i];
     while (++count_compare && j <= right)
     {
         if (++count_compare && j < right)
-        {
             if (++count_compare && a[j] > a[j + 1])
-            {
                 j++;
-            }
-        }
         if (++count_compare && x <= a[j])
-        {
             break;
-        }
         a[i] = a[j];
-        i = j;
-        j = i * 2;
+        i = j; j = 2 * i + 1;
     }
     a[i] = x;
 }
-void Heap_sort_with_count_compare(int a[], int n, long long &count_compare)
+void Heap_sort_with_count_compare(int a[], int n,long long& count_compare)
 {
-    int left = n / 2;
+    int left = n / 2 + 1;
     int right = n - 1;
     while (++count_compare && left > 0)
     {
-        sift_with_count_compare(a, left, right, count_compare);
         left--;
+        sift_with_count_compare(a, left, right,count_compare);
     }
-    while (++count_compare && right > 1)
+    while (++count_compare && right > 0)
     {
-        std::swap(a[right], a[1]);
+        std::swap(a[right], a[0]);
         right--;
-        sift_with_count_compare(a, 1, right, count_compare);
+        sift_with_count_compare(a, 0, right,count_compare);
+    }
+    for (int i = 0; ++count_compare && i < n / 2; i++)
+    {
+        std::swap(a[i], a[n - i - 1]);
     }
 }
 
-void sift_without_count_compare(int a[], int left, int right)
-{
-    int i = left;
-    int j = i * 2;
+void sift_without_count_compare(int a[], int left, int right) {
+    int i = left, j = 2 * i + 1;
     int x = a[i];
     while (j <= right)
     {
         if (j < right)
-        {
             if (a[j] > a[j + 1])
-            {
                 j++;
-            }
-        }
         if (x <= a[j])
-        {
             break;
-        }
         a[i] = a[j];
-        i = j;
-        j = i * 2;
+        i = j; j = 2 * i + 1;
     }
     a[i] = x;
 }
 void Heap_sort_without_count_compare(int a[], int n)
 {
-    int left = n / 2;
+    int left = n / 2 + 1;
     int right = n - 1;
     while (left > 0)
     {
-        sift_without_count_compare(a, left, right);
         left--;
+        sift_without_count_compare(a, left, right);
     }
-    while (right > 1)
+    while (right > 0)
     {
-        std::swap(a[right], a[1]);
+        std::swap(a[right], a[0]);
         right--;
-        sift_without_count_compare(a, 1, right);
+        sift_without_count_compare(a, 0, right);
+    }
+    for (int i = 0; i < n / 2; i++)
+    {
+        std::swap(a[i], a[n - i - 1]);
     }
 }
 double Heap_sort_running_time(int a[], int n)
