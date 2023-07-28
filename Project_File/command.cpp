@@ -292,7 +292,12 @@ void command_3(char *argv[])
     {
         if (!count_sort_comparisons(argv, num_of_comparisons))
         {
-            cout << "Invalid sorting algorithm: " << argv[2] << " \n";
+            cout << "Error. Please restart the program with the correct input:\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Given input] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Input order] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Given input]\n";
+            cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Input size] [Input order]\n";
             exit(1);
         }
     }
@@ -300,7 +305,12 @@ void command_3(char *argv[])
     {
         if (!count_sort_time(argv, time))
         {
-            cout << "Invalid sorting algorithm: " << argv[2] << " \n";
+            cout << "Error. Please restart the program with the correct input:\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Given input] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Input order] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Given input]\n";
+            cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Input size] [Input order]\n";
             exit(1);
         }
     }
@@ -308,14 +318,24 @@ void command_3(char *argv[])
     {
         if (!count_sort_comparisons(argv, num_of_comparisons))
         {
-            cout << "Invalid sorting algorithm: " << argv[2] << " \n";
+            cout << "Error. Please restart the program with the correct input:\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Given input] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Input order] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Output parameter(s)]\n";
+            cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Given input]\n";
+            cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Input size] [Input order]\n";
             exit(1);
         }
         count_sort_time(argv, time);
     }
     else
     {
-        cout << "Invalid output parameter(s): " << argv[4] << " \n";
+        cout << "Error. Please restart the program with the correct input:\n";
+        cout << "Usage: " << argv[0] << " -a [Algorithm] [Given input] [Output parameter(s)]\n";
+        cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Input order] [Output parameter(s)]\n";
+        cout << "Usage: " << argv[0] << " -a [Algorithm] [Input size] [Output parameter(s)]\n";
+        cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Given input]\n";
+        cout << "Usage: " << argv[0] << " -c [Algorithm 1] [Algorithm 2] [Input size] [Input order]\n";
         exit(1);
     }
 
